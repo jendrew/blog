@@ -28,6 +28,10 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
+
     @Column
     private Date date = new Date();
 
@@ -35,10 +39,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String body, User author, Date date) {
+    public Post(String title, String body, User author, Category category, Date date) {
         this.title = title;
         this.body = body;
         this.author = author;
+        this.category = category;
         this.date = date;
     }
 
@@ -72,6 +77,14 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getDate() {
