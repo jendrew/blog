@@ -1,8 +1,13 @@
 package to.ogarne.ogarneblog.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import to.ogarne.ogarneblog.model.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
@@ -11,9 +16,20 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+
+    @Autowired
+    SessionFactory sessionFactory;
+
     @Override
     public List<User> findAll() {
-        return null;
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        criteria.from(User.class);
+        List<User> users = session.createQuery(criteria).getResultList();
+        session.close();
+
+        return users;
     }
 
     @Override
@@ -23,7 +39,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(user);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override

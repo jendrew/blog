@@ -30,11 +30,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String passwordHash, String fullName, Set<Post> posts) {
+    public User(String username, String passwordHash, String fullName) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.fullName = fullName;
-        this.posts = posts;
     }
 
     public Long getId() {

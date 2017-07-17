@@ -23,6 +23,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findLastXPosts(int numberOfPosts) {
+        return postDao.findLastXPosts(numberOfPosts);
+    }
+
+    @Override
     public Post findById(Long id) {
         return postDao.findById(id);
     }

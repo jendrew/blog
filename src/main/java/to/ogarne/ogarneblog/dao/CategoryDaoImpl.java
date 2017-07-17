@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import to.ogarne.ogarneblog.model.Category;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
@@ -18,15 +20,25 @@ public class CategoryDaoImpl implements CategoryDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    // Returns list of all categories
     @Override
     public List<Category> findAll() {
-        return null;
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
+        criteria.from(Category.class);
+        List<Category> categories = session.createQuery(criteria).getResultList();
+        session.close();
+
+        return categories;
     }
 
+    // Returns category by given id
     @Override
     public Category findById(Long id) {
         return null;
     }
+
 
     @Override
     public void save(Category category) {

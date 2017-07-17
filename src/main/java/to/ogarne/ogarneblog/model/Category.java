@@ -26,9 +26,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, Set<Post> posts) {
+    public Category(String name) {
         this.name = name;
-        this.posts = posts;
     }
 
     public Long getId() {
@@ -53,5 +52,14 @@ public class Category {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", posts=" + posts +
+                '}';
     }
 }

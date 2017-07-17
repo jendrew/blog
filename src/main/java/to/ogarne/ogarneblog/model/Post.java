@@ -18,18 +18,20 @@ public class Post {
 
     @Column
     @NotNull
-    @Size(max = 300)
+    @Size(min = 3, max = 300)
     private String title;
 
     @Column
     @NotNull
+    @Size(min = 3)
     private String body;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
     private User author;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @Column
@@ -93,5 +95,17 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", author=" + author +
+                ", category=" + category +
+                ", date=" + date +
+                '}';
     }
 }
