@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.web;
+package to.ogarne.ogarneblog.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class AdminController {
         postService.save(post);
 
 
-        return "redirect:/";
+        return "redirect:/posts";
     }
 
 }

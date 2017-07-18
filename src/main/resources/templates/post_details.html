@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('new post')"></head>
+
+
 <body>
-$END$
+<div class="container">
+    <h1>Post details</h1>
+    <div th:object="${post}">
+        <h2 th:text="*{title}"></h2>
+        <p th:utext="*{body}"></p>
+        <p th:text="*{author.username}"></p>
+        <p th:text="*{category.name}"></p>
+
+
+    </div>
+
+</div>
+
+
+<div th:replace="base :: scripts"></div>
 </body>
 </html>

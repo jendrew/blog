@@ -8,12 +8,8 @@
     <h1>Posts</h1>
     <small><a th:href="@{/admin/addPost}">Add new post</a></small>
     <div th:each="post : ${posts}">
-        <h2 th:text="${post.title}"></h2>
+        <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
         <p th:utext="${post.body}"></p>
-        <p th:text="${post.author.fullName}"></p>
-        <p th:text="${post.category.name}"></p>
-
-
     </div>
 
 </div>

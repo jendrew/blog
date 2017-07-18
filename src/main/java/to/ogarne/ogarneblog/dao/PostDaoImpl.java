@@ -54,7 +54,10 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public Post findById(Long id) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Post post = session.get(Post.class,id);
+        session.close();
+        return post;
     }
 
     @Override

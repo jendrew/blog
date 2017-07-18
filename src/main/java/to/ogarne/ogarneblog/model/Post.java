@@ -41,12 +41,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String body, User author, Category category, Date date) {
+    public Post(String title, String body, User author, Category category) {
         this.title = title;
         this.body = body;
         this.author = author;
         this.category = category;
-        this.date = date;
     }
 
     public Long getId() {

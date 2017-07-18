@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.service;
+package to.ogarne.ogarneblog.web;
 
 import to.ogarne.ogarneblog.model.Post;
 

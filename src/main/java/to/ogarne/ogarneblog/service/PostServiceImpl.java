@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import to.ogarne.ogarneblog.dao.PostDao;
 import to.ogarne.ogarneblog.model.Post;
+import to.ogarne.ogarneblog.web.MarkdownParser;
 
 import java.util.List;
 

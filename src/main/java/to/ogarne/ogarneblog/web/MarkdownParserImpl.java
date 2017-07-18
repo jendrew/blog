@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.service;
+package to.ogarne.ogarneblog.web;
 
 import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
