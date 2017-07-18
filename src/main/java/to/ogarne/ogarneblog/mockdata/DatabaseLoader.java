@@ -37,6 +37,9 @@ public class DatabaseLoader implements ApplicationRunner {
         Category programowanie = new Category("programowanie");
         categoryService.save(programowanie);
 
+        Category knigi = new Category("książki");
+        categoryService.save(knigi);
+
 
 
     }

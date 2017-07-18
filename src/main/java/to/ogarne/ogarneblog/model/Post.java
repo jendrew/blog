@@ -21,7 +21,7 @@ public class Post {
     @Size(min = 3, max = 300)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "text")
     @NotNull
     @Size(min = 3)
     private String body;

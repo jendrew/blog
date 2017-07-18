@@ -17,6 +17,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     PostDao postDao;
 
+    @Autowired
+    MarkdownParser markdownParser;
+
     @Override
     public List<Post> findAll() {
         return postDao.findAll();
@@ -34,6 +37,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void save(Post post) {
+
         postDao.save(post);
 
     }
