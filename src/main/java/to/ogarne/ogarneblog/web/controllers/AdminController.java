@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -11,6 +12,7 @@ import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.service.UserService;
+import to.ogarne.ogarneblog.web.FlashMessage;
 
 import javax.validation.Valid;
 
@@ -36,6 +38,7 @@ public class AdminController {
         if (!model.containsAttribute("post")) {
             model.addAttribute("post", new Post());
         }
+        model.addAttribute("action","/admin/addPost");
         model.addAttribute("users", userService.findAll());
         model.addAttribute("categories", categoryService.findAll());
 
@@ -52,6 +55,38 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("post",post);
 
             return "redirect:/admin/addPost";
+        }
+
+        postService.save(post);
+
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("Post successfully added", FlashMessage.Status.SUCCESS));
+        return "redirect:/posts";
+    }
+
+    // Edit post
+    @RequestMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable Long id, Model model){
+        if (!model.containsAttribute("post")) {
+            Post post = postService.findById(id);
+            model.addAttribute("post", post);
+        }
+        model.addAttribute("action","/posts/" + id + "/edit");
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("categories", categoryService.findAll());
+        return "/admin/add_post";
+    }
+
+    // Process data from editing post
+    @RequestMapping(value = "/posts/{id}/edit", method = RequestMethod.POST)
+    public String processEditPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes) {
+
+
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", result);
+            redirectAttributes.addFlashAttribute("post",post);
+
+            return "redirect:/posts/"+ post.getId() +"/edit";
         }
 
         postService.save(post);

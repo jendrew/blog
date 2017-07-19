@@ -42,7 +42,7 @@ public class PostDaoImpl implements PostDao {
         Root<Post> root =  criteria.from(Post.class);
 
         // order descending by date
-        criteria.orderBy(builder.desc(root.get("date")));
+        criteria.orderBy(builder.desc(root.get("dateCreated")));
         List<Post> posts = session.createQuery(criteria)
                 // limit number of returned posts to @param numberOfPosts
                 .setMaxResults(numberOfPosts)

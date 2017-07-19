@@ -34,8 +34,11 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    @Column
-    private Date date = new Date();
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+    private Date dateCreated;
+
+    private Date dateModified = new Date();
+
 
 
     public Post() {
@@ -46,6 +49,7 @@ public class Post {
         this.body = body;
         this.author = author;
         this.category = category;
+
     }
 
     public Long getId() {
@@ -88,12 +92,20 @@ public class Post {
         this.category = category;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(Date dateModified) {
+        this.dateModified = dateModified;
     }
 
     @Override
@@ -104,7 +116,7 @@ public class Post {
                 ", body='" + body + '\'' +
                 ", author=" + author +
                 ", category=" + category +
-                ", date=" + date +
+                ", date=" + dateCreated +
                 '}';
     }
 }

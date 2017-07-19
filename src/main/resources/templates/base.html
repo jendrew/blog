@@ -14,6 +14,30 @@
 
 
 <body>
+<!-- navbar -->
+<nav th:fragment="nav" class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <a class="navbar-brand" href="#">ogarne.to</a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">o mnie</a>
+                <a class="nav-item nav-link" href="#">blog</a>
+                <a class="nav-item nav-link" href="#">codeQuotes</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- /navbar -->
+
+<div th:fragment="flash" th:if="${flash != null}"
+     th:classappend="'alert-' + (${#strings.toLowerCase(flash.status) == 'success'} ? 'success' : 'danger')" class="alert" role="alert" th:text="${flash.message}"></div>
 
 <div th:fragment="scripts">
     <!-- jQuery first, then Tether, then Bootstrap JS. -->

@@ -4,13 +4,33 @@
 
 
 <body>
+<div th:replace="base :: nav"></div>
+
 <div class="container">
-    <h1>Posts</h1>
-    <small><a th:href="@{/admin/addPost}">Add new post</a></small>
-    <div th:each="post : ${posts}">
-        <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
-        <p th:utext="${post.body}"></p>
+
+    <div class="row">
+        <!-- Flash message  -->
+        <div class="col">
+            <div th:replace="base :: flash"></div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+            <h1>Posts</h1>
+            <small><a th:href="@{/admin/addPost}">Add new post</a></small>
+            <div th:each="post : ${posts}">
+                <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
+                <p th:utext="${post.body}"></p>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+
 
 </div>
 

@@ -11,7 +11,8 @@
 
     <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
     <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
-    <form th:action="@{/admin/addPost}" th:object="${post}" method="post">
+    <form th:action="@{${action}}" th:object="${post}" method="post">
+        <input type="hidden" th:field="*{id}"/>
         <div class="form-group">
             <label for="inputTitle">Title</label>
             <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
