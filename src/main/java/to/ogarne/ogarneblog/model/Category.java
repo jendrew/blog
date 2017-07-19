@@ -20,14 +20,26 @@ public class Category {
     private String name;
 
     @Column
+    @NotNull
+    @Size(max = 30)
+    private String displayName;
+
+    @Column(unique = true)
+    private Long positionInMenu;
+
+    @Column
     @OneToMany(mappedBy = "category")
     private Set<Post> posts;
+
+
 
     public Category() {
     }
 
-    public Category(String name) {
+
+    public Category(String name, String displayName) {
         this.name = name;
+        this.displayName = displayName;
     }
 
     public Long getId() {
@@ -44,6 +56,22 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Long getPositionInMenu() {
+        return positionInMenu;
+    }
+
+    public void setPositionInMenu(Long positionInMenu) {
+        this.positionInMenu = positionInMenu;
     }
 
     public Set<Post> getPosts() {

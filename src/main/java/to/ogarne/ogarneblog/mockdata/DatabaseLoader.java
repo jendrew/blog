@@ -39,10 +39,10 @@ public class DatabaseLoader implements ApplicationRunner {
         userService.save(aniela);
 
         // Add mock categories
-        Category programowanie = new Category("programowanie");
+        Category programowanie = new Category("programowanie", "Programowanie");
         categoryService.save(programowanie);
 
-        Category knigi = new Category("książki");
+        Category knigi = new Category("książki", "Książki");
         categoryService.save(knigi);
 
         Post post1 = new Post("Pierwszy post", "Lorem markdownum aetasque. Tellure mi umida iacentem ignibus *obstructaque*\n" +

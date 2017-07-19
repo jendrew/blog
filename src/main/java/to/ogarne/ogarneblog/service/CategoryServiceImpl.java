@@ -32,6 +32,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void saveInBulk(List<Category> categories) {
+        categoryDao.saveInBulk(categories);
+    }
+
+    @Override
     public void delete(Category category) {
         categoryDao.delete(category);
     }

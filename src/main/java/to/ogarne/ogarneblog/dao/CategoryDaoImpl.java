@@ -50,7 +50,23 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
+    public void saveInBulk(List<Category> categories) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (Category cat : categories) {
+            session.saveOrUpdate(cat);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
+    @Override
     public void delete(Category category) {
 
     }
+
+
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('new post')"></head>
+
+
+<body>
+<div class="container">
+    <div th:replace="base :: flash"></div>
+    <h1>Hello, world!</h1>
+
+    <!-- New post creation form -->
+
+    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
+    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
+    <form th:action="@{/admin/editmenu}" th:object="${wrapper}" method="post">
+        <div th:each="category, stat : *{categories}"  class="form-group">
+            <input type="hidden" th:field="*{categories[__${stat.index}__].id}"/>
+            <input type="hidden" th:field="*{categories[__${stat.index}__].name}"/>
+            <input type="hidden" th:field="*{categories[__${stat.index}__].displayName}"/>
+            <label for="inputTitle" th:text="${category.displayName}">disabled</label>
+            <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
+                   placeholder="disabled" th:field="*{categories[__${stat.index}__].positionInMenu}"  />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </form>
+
+</div>
+
+
+<div th:replace="base :: scripts"></div>
+</body>
+</html>

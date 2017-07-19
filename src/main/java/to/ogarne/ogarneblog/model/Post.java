@@ -18,7 +18,7 @@ public class Post {
 
     @Column
     @NotNull
-    @Size(min = 3, max = 300)
+    @Size(min = 3, max = 300, message = "The size should be between 3 and 300")
     private String title;
 
     @Column(columnDefinition = "text")
