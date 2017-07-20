@@ -4,6 +4,7 @@
 *#
 *~
 /build
+classes
 /code
 /data/*
 .classpath
@@ -37,3 +38,8 @@ overridedb.*
 .factorypath
 dump.rdb
 transaction-logs
+classes/
+data/
+out/
+src/main/resources/static/js/
+src/test/
