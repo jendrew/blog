@@ -1,6 +1,8 @@
 package to.ogarne.ogarneblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import to.ogarne.ogarneblog.dao.UserDao;
 import to.ogarne.ogarneblog.model.User;
@@ -35,5 +37,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(User user) {
         userDao.delete(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('admin panel')"></head>
+
+
+<body>
+<div th:replace="base :: nav"></div>
+
+<div class="container mt-5">
+
+    <div class="row mt-2">
+        <!-- Flash message  -->
+        <div class="col">
+            <div th:replace="base :: flash"></div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-8">
+            <h1>Posts</h1>
+            <ul>
+                <li th:each="post : ${posts}"></li>
+            </ul>
+            <div >
+                <a th:href="@{|/admin/${post.id}|}" th:text="${post.title}"><</a>
+                <p th:utext="${post.body}"></p>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+
+
+</div>
+
+
+<div th:replace="base :: scripts"></div>
+</body>
+</html>

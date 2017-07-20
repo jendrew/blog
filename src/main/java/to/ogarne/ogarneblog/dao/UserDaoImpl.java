@@ -8,6 +8,7 @@ import to.ogarne.ogarneblog.model.User;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -49,5 +50,18 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(User user) {
 
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+        Root<User> root = criteria.from(User.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("username"), username));
+        User user = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return user;
     }
 }

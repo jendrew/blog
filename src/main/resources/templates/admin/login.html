@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('new post')"></head>
+
+
+<body>
+<div class="container">
+    <h1>Please, log in</h1>
+
+    <div th:replace="base :: flash"></div>
+
+    <form th:action="@{${action}}" th:object="${user}" method="post">
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('username') ? 'has-danger' : ''}">
+            <input type="text" class="form-control" id="inputUsername" aria-describedby="usernameHelp"
+                   placeholder="Enter Username"
+                   th:field="*{username}"
+                   th:classappend="${#fields.hasErrors('username') ? 'form-control-warning' : ''}"/>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">An error
+                occured
+            </div>
+            <small id="usernameHelp" class="form-text text-muted">Enter username</small>
+        </div>
+
+        <input type="text" class="form-control" id="inputPassword" aria-describedby="passwordHelp"
+               placeholder="Enter Password"
+               th:field="*{password}"
+               th:classappend="${#fields.hasErrors('password') ? 'form-control-warning' : ''}"/>
+        <div class="form-control-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">An error
+            occured
+        </div>
+        <small id="passwordHelp" class="form-text text-muted">Enter username</small>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </form>
+
+</div>
+
+
+<div th:replace="base :: scripts"></div>
+</body>
+</html>
