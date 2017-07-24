@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.service.PostService;
+import to.ogarne.ogarneblog.web.ContentBuilder;
 import to.ogarne.ogarneblog.web.MarkdownParser;
+import to.ogarne.ogarneblog.web.PostContent;
 
 import java.util.List;
 
@@ -29,10 +31,20 @@ public class PostController {
     @Autowired
     MarkdownParser markdownParser;
 
+
+    /* This method takes  the List of posts form the service and iterates over it
+    * shortening content and parsing markdown. I'm not sure if it is a good practice
+    * to do it here rather than in some different class*/
+
     @RequestMapping("/posts")
     public String getPots(Model model) {
-        List<Post> posts = postService.findLastXPublishedPosts(3);
-        markdownParser.parseBulk(posts);
+        List<Post> posts = postService.findLastXPublishedPosts(10);
+
+        for (Post post : posts) {
+            PostContent content = new ContentBuilder(post.getBody()).limit(400).parse().build();
+            post.setBody(content.getContent());
+        }
+
         model.addAttribute("posts", posts);
 
         return "post_list";

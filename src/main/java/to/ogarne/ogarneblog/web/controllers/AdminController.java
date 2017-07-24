@@ -1,23 +1,25 @@
     package to.ogarne.ogarneblog.web.controllers;
 
     import org.hibernate.exception.ConstraintViolationException;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.ui.Model;
-    import org.springframework.validation.BindingResult;
-    import org.springframework.web.bind.annotation.*;
-    import org.springframework.web.servlet.ModelAndView;
-    import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-    import to.ogarne.ogarneblog.model.Post;
-    import to.ogarne.ogarneblog.model.User;
-    import to.ogarne.ogarneblog.service.CategoryService;
-    import to.ogarne.ogarneblog.service.PostService;
-    import to.ogarne.ogarneblog.service.UserService;
-    import to.ogarne.ogarneblog.web.CategoryWrapper;
-    import to.ogarne.ogarneblog.web.FlashMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import to.ogarne.ogarneblog.model.Post;
+import to.ogarne.ogarneblog.model.User;
+import to.ogarne.ogarneblog.service.CategoryService;
+import to.ogarne.ogarneblog.service.PostService;
+import to.ogarne.ogarneblog.service.UserService;
+import to.ogarne.ogarneblog.web.CategoryWrapper;
+import to.ogarne.ogarneblog.web.FlashMessage;
 
-    import javax.servlet.http.HttpServletRequest;
-    import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+    import java.util.Collections;
+    import java.util.List;
 
     /**
      * Created by jedrz on 17.07.2017.
@@ -53,9 +55,11 @@
 
 
         // Admin's control panel
-        @RequestMapping("/admin/panel")
+        @RequestMapping("/admin")
         public String getAdminPanel (Model model){
-            model.addAttribute("posts", postService.findAll());
+            List<Post> posts = postService.findAll();
+            Collections.reverse(posts);
+            model.addAttribute("posts", posts);
             return "/admin/panel";
         }
 
@@ -89,7 +93,7 @@
             postService.save(post);
             redirectAttributes.addFlashAttribute("flash",
                     new FlashMessage("Post successfully added", FlashMessage.Status.SUCCESS));
-            return "redirect:/posts";
+            return "redirect:" + request.getServletPath();
         }
 
         // Edit post
@@ -107,7 +111,7 @@
 
         // Process data from editing post
         @RequestMapping(value = "/admin/posts/{id}/edit", method = RequestMethod.POST)
-        public String processEditPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes) {
+        public String processEditPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 
             if (result.hasErrors()) {
@@ -119,8 +123,9 @@
 
             postService.save(post);
 
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Post został wyedytowany", FlashMessage.Status.SUCCESS));
 
-            return "redirect:/posts/" + post.getId();
+            return "redirect:" + request.getServletPath();
         }
 
         // Edit menu

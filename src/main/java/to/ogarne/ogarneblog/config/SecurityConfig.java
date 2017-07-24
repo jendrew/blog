@@ -17,7 +17,7 @@ import to.ogarne.ogarneblog.web.FlashMessage;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
      private AuthenticationSuccessHandler loginSuccessHandler() {
 
-        return ((request, response, authentication) -> response.sendRedirect("/admin/panel"));
+        return ((request, response, authentication) -> response.sendRedirect("/admin"));
     }
 
     private AuthenticationFailureHandler loginFailureHandler() {

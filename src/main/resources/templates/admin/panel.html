@@ -7,23 +7,39 @@
 <div th:replace="base :: nav"></div>
 
 <div class="container mt-5">
-
+    <div th:replace="base :: flash"></div>
     <div class="row mt-2">
-        <!-- Flash message  -->
         <div class="col">
-            <div th:replace="base :: flash"></div>
-        </div>
-    </div>
+            <div th:replace="base :: adminnav('posts')"></div>
+            <table class="table table-hover">
+                <thead class="thead-default">
+                <tr>
+                    <th>ID</th>
+                    <th>Author</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Created at</th>
+                    <th>Modified at</th>
+                    <th>Published?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.author.username}"></td>
+                    <td><a th:href="@{|/admin/posts/${post.id}/edit|}" th:text="${post.title}">Tytuł postu</a></td>
+                    <td th:text="${post.category.displayName}"></td>
+                    <td th:text="${#dates.format(post.dateCreated, 'dd MMMM yyyy HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(post.dateModified, 'dd MMMM yyyy HH:mm:ss')}"></td>
+                    <td th:text="${post.published} ? 'YES ' : ''"></td>
+                </tr>
 
-    <div class="row mt-2">
-        <div class="col-md-8">
-            <h1>Posts</h1>
-            <ul>
-                <li th:each="post : ${posts}"><a th:href="@{|/admin/posts/${post.id}/edit|}" th:text="${post.title}">Tytuł postu</a></li>
-            </ul>
+                </tbody>
+
+            </table>
 
         </div>
-        <div class="col-md-2"></div>
+
 
     </div>
 
