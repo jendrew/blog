@@ -51,6 +51,15 @@
             return "admin/login";
         }
 
+
+        // Admin's control panel
+        @RequestMapping("/admin/panel")
+        public String getAdminPanel (Model model){
+            model.addAttribute("posts", postService.findAll());
+            return "/admin/panel";
+        }
+
+
         // Display form for creating new post
         @RequestMapping("/admin/addPost")
         public String newPostForm(Model model) {
@@ -84,20 +93,20 @@
         }
 
         // Edit post
-        @RequestMapping("/posts/{id}/edit")
+        @RequestMapping("/admin/posts/{id}/edit")
         public String editPostForm(@PathVariable Long id, Model model){
             if (!model.containsAttribute("post")) {
                 Post post = postService.findById(id);
                 model.addAttribute("post", post);
             }
-            model.addAttribute("action","/posts/" + id + "/edit");
+            model.addAttribute("action","/admin/posts/" + id + "/edit");
             model.addAttribute("users", userService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             return "/admin/add_post";
         }
 
         // Process data from editing post
-        @RequestMapping(value = "/posts/{id}/edit", method = RequestMethod.POST)
+        @RequestMapping(value = "/admin/posts/{id}/edit", method = RequestMethod.POST)
         public String processEditPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes) {
 
 
@@ -105,7 +114,7 @@
                 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", result);
                 redirectAttributes.addFlashAttribute("post",post);
 
-                return "redirect:/posts/"+ post.getId() +"/edit";
+                return "redirect:/admin/posts/"+ post.getId() +"/edit";
             }
 
             postService.save(post);

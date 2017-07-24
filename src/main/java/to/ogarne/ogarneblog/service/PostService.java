@@ -10,7 +10,7 @@ import java.util.List;
 public interface PostService {
 
     List<Post> findAll();
-    List<Post> findLastXPosts(int numberOfPosts);
+    List<Post> findLastXPublishedPosts(int numberOfPosts);
     Post findById(Long id);
     void save (Post post);
     void delete(Post post);

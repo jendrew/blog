@@ -31,7 +31,7 @@ public class PostController {
 
     @RequestMapping("/posts")
     public String getPots(Model model) {
-        List<Post> posts = postService.findLastXPosts(3);
+        List<Post> posts = postService.findLastXPublishedPosts(3);
         markdownParser.parseBulk(posts);
         model.addAttribute("posts", posts);
 

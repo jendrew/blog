@@ -19,12 +19,9 @@
         <div class="col-md-8">
             <h1>Posts</h1>
             <ul>
-                <li th:each="post : ${posts}"></li>
+                <li th:each="post : ${posts}"><a th:href="@{|/admin/posts/${post.id}/edit|}" th:text="${post.title}">Tytuł postu</a></li>
             </ul>
-            <div >
-                <a th:href="@{|/admin/${post.id}|}" th:text="${post.title}"><</a>
-                <p th:utext="${post.body}"></p>
-            </div>
+
         </div>
         <div class="col-md-2"></div>
 

@@ -34,7 +34,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> findLastXPosts(int numberOfPosts) {
+    public List<Post> findLastXPublishedPosts(int numberOfPosts) {
 
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -42,7 +42,9 @@ public class PostDaoImpl implements PostDao {
         Root<Post> root =  criteria.from(Post.class);
 
         // order descending by date
+        criteria.where(builder.equal(root.get("published"), true));
         criteria.orderBy(builder.desc(root.get("dateCreated")));
+
         List<Post> posts = session.createQuery(criteria)
                 // limit number of returned posts to @param numberOfPosts
                 .setMaxResults(numberOfPosts)

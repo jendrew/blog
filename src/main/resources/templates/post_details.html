@@ -8,7 +8,7 @@
     <h1>Post details</h1>
     <div th:object="${post}">
         <h2 th:text="*{title}"></h2>
-        <small><a th:href="@{|/posts/${post.id}/edit|}">Edit</a> this post</small>
+        <small><a th:href="@{|/admin/posts/${post.id}/edit|}">Edit</a> this post</small>
         <p th:text="*{dateCreated}"></p>
         <p th:utext="*{body}"></p>
         <p th:text="*{author.username}"></p>

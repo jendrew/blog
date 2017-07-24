@@ -46,6 +46,14 @@
 
             </select>
         </div>
+        <div class="form-group">
+            <label for="togglePublish">Published?</label>
+            <select class="form-control" id="togglePublish" th:field="*{published}">
+                <option  th:value="true">Yes</option>
+                <option  th:value="false">No</option>
+
+            </select>
+        </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
 

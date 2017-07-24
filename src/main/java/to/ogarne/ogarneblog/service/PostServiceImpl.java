@@ -26,9 +26,11 @@ public class PostServiceImpl implements PostService {
         return postDao.findAll();
     }
 
+
+
     @Override
-    public List<Post> findLastXPosts(int numberOfPosts) {
-        return postDao.findLastXPosts(numberOfPosts);
+    public List<Post> findLastXPublishedPosts(int numberOfPosts) {
+        return postDao.findLastXPublishedPosts(numberOfPosts);
     }
 
     @Override
@@ -47,4 +49,5 @@ public class PostServiceImpl implements PostService {
     public void delete(Post post) {
         postDao.delete(post);
     }
+
 }

@@ -37,8 +37,11 @@ public class Post {
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
     private Date dateCreated;
 
+    @Column
     private Date dateModified = new Date();
 
+    @Column
+    private boolean published;
 
 
     public Post() {
@@ -108,15 +111,24 @@ public class Post {
         this.dateModified = dateModified;
     }
 
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
-                ", author=" + author +
-                ", category=" + category +
-                ", date=" + dateCreated +
+                ", title = '" + title + '\'' +
+                ", author = " + author.getFullName() +
+                ", category = " + category.getDisplayName() +
+                ", dateCreated = " + dateCreated +
+                ", dateModified = " + dateModified +
+                ", published = " + published +
                 '}';
     }
 }
