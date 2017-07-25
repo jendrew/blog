@@ -26,7 +26,7 @@ import javax.validation.Valid;
      */
 
     @Controller
-    public class AdminController {
+    public class AdminController extends  RootController {
 
         @Autowired
         PostService postService;

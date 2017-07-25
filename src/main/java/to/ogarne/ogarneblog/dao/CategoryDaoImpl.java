@@ -8,6 +8,7 @@ import to.ogarne.ogarneblog.model.Category;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class CategoryDaoImpl implements CategoryDao {
         session.close();
     }
 
-    @Override
+
     public void saveInBulk(List<Category> categories) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -60,6 +61,21 @@ public class CategoryDaoImpl implements CategoryDao {
 
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public List<Category> getCategoriesForMenu() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
+        Root root = criteria.from(Category.class);
+        criteria.where(builder.isNotNull(root.get("positionInMenu")));
+        criteria.orderBy(builder.asc(root.get("positionInMenu")));
+        List<Category> categories = session.createQuery(criteria).getResultList();
+        session.close();
+
+        return categories;
+
     }
 
 

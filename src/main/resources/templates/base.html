@@ -29,9 +29,10 @@
             <a class="navbar-brand" href="#">ogarne.to</a>
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">home <span class="sr-only">(current)</span></a>
+                <a th:each="item : ${menu}" th:text="${item.displayName}" class="nav-item nav-link" href="#">o mnie</a>
                 <a class="nav-item nav-link" href="#">o mnie</a>
-                <a class="nav-item nav-link" href="#">blog</a>
-                <a class="nav-item nav-link" href="#">codeQuotes</a>
+                <a class="nav-item nav-link" href="#">kontakt</a>
+
             </div>
         </div>
     </div>

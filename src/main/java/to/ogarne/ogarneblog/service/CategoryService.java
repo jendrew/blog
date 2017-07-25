@@ -12,8 +12,11 @@ import java.util.List;
 public interface CategoryService {
 
     List<Category> findAll();
+    List<Category> getCategoriesForMenu();
     Category findById(Long id);
     void save (Category category);
     void saveInBulk(List<Category> categories);
     void delete(Category category);
+
+
 }

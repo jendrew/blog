@@ -20,7 +20,7 @@ import java.util.List;
  */
 @PropertySource("app.properties")
 @Controller
-public class PostController {
+public class PostController extends  RootController{
 
     @Autowired
     Environment env;

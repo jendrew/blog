@@ -7,7 +7,7 @@ import to.ogarne.ogarneblog.model.User;
 import to.ogarne.ogarneblog.service.UserService;
 
 @Controller
-public class IndexController {
+public class IndexController extends  RootController{
 
     @Autowired
     UserService userService;

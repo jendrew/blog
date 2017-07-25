@@ -7,11 +7,8 @@ import java.util.List;
 /**
  * Created by jedrz on 17.07.2017.
  */
-public interface CategoryDao {
-    List<Category> findAll();
-    Category findById(Long id);
-    void save (Category category);
+public interface CategoryDao extends GenericDao<Category, Long> {
     void saveInBulk(List<Category> categories);
-    void delete(Category category);
+    List<Category> getCategoriesForMenu();
 
 }

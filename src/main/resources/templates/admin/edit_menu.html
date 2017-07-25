@@ -4,28 +4,76 @@
 
 
 <body>
-<div class="container">
+<div th:replace="base :: nav"></div>
+
+<div class="container mt-5">
     <div th:replace="base :: flash"></div>
-    <h1>Hello, world!</h1>
 
-    <!-- New post creation form -->
 
-    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
-    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
-    <form th:action="@{/admin/editmenu}" th:object="${wrapper}" method="post">
-        <div th:each="category, stat : *{categories}"  class="form-group">
-            <input type="hidden" th:field="*{categories[__${stat.index}__].id}"/>
-            <input type="hidden" th:field="*{categories[__${stat.index}__].name}"/>
-            <input type="hidden" th:field="*{categories[__${stat.index}__].displayName}"/>
-            <label for="inputTitle" th:text="${category.displayName}">disabled</label>
-            <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
-                   placeholder="disabled" th:field="*{categories[__${stat.index}__].positionInMenu}"  />
+
+    <div class="row mt-2">
+        <div class="col">
+            <div th:replace="base :: adminnav('menu')"></div>
+
+
+            <!-- New post creation form -->
+
+            <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
+            <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
+            <form th:action="@{/admin/editmenu}" th:object="${wrapper}" method="post">
+                <div th:each="category, stat : *{categories}"  class="form-group">
+                    <input type="hidden" th:field="*{categories[__${stat.index}__].id}"/>
+                    <input type="hidden" th:field="*{categories[__${stat.index}__].name}"/>
+                    <input type="text" th:field="*{categories[__${stat.index}__].displayName}"/>
+                    <label for="inputTitle" th:text="${category.displayName}">disabled</label>
+                    <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
+                           placeholder="disabled" th:field="*{categories[__${stat.index}__].positionInMenu}"  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+
+            </form>
+
+
+
+
+
+            <!--<table class="table table-hover">-->
+                <!--<thead class="thead-default">-->
+                <!--<tr>-->
+                    <!--<th>ID</th>-->
+                    <!--<th>Author</th>-->
+                    <!--<th>Title</th>-->
+                    <!--<th>Category</th>-->
+                    <!--<th>Created at</th>-->
+                    <!--<th>Modified at</th>-->
+                    <!--<th>Published?</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr th:each="post : ${posts}">-->
+                    <!--<td th:text="${post.id}"></td>-->
+                    <!--<td th:text="${post.author.username}"></td>-->
+                    <!--<td><a th:href="@{|/admin/posts/${post.id}/edit|}" th:text="${post.title}">Tytuł postu</a></td>-->
+                    <!--<td th:text="${post.category.displayName}"></td>-->
+                    <!--<td th:text="${#dates.format(post.dateCreated, 'dd MMMM yyyy HH:mm:ss')}"></td>-->
+                    <!--<td th:text="${#dates.format(post.dateModified, 'dd MMMM yyyy HH:mm:ss')}"></td>-->
+                    <!--<td th:text="${post.published} ? 'YES ' : ''"></td>-->
+                <!--</tr>-->
+
+                <!--</tbody>-->
+
+            <!--</table>-->
+
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </div>
 
 
-    </form>
+
+
 
 </div>
 

@@ -22,6 +22,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getCategoriesForMenu() {
+        return categoryDao.getCategoriesForMenu();
+    }
+
+    @Override
     public Category findById(Long id) {
         return categoryDao.findById(id);
     }
