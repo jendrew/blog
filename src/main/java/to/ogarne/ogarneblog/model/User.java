@@ -39,6 +39,9 @@ public class User  implements UserDetails{
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<Post>();
 
+    @OneToMany(mappedBy = "author")
+    private Set<File> files = new HashSet<>();
+
     public User() {
     }
 

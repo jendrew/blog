@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head('admin panel')"></head>
+
+
+<body>
+<div th:replace="base :: nav"></div>
+
+<div class="container mt-5">
+    <div th:replace="base :: flash"></div>
+    <div class="row mt-2">
+        <div class="col">
+            <div th:replace="base :: adminnav('add')"></div>
+            <form th:fragment="uploadform" th:action="@{/admin/addFile}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="fileInput">File input</label>
+                    <input name="file" type="file" class="form-control-file" id="fileInput" aria-describedby="fileHelp" />
+                    <small id="fileHelp" class="form-text text-muted">Proszę, wybierz plik, który chcesz przesłać
+                    </small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div th:replace="base :: scripts"></div>
+</body>
+</html>
