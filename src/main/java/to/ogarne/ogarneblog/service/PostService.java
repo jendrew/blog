@@ -13,5 +13,6 @@ public interface PostService {
     List<Post> findLastXPublishedPosts(int numberOfPosts);
     Post findById(Long id);
     void save (Post post);
+    Long saveWithId(Post post);
     void delete(Post post);
 }

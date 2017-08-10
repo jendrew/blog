@@ -26,7 +26,7 @@ class BufferedImageThumbnailerImpl implements BufferedImageThumbnailer{
 
 
     @Override
-    public void convertToThumbnail (File file, int maxLongSide) {
+    public void convertToThumbnail(File file, int maxLongSide) {
         try {
 
 

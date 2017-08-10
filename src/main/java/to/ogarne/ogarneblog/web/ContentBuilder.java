@@ -4,6 +4,8 @@ import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 
+//TODO: zrobić tu porządek
+
 public class ContentBuilder {
 
     String content = "";

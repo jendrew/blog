@@ -45,6 +45,10 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    public Long saveWithId(Post post) {
+        return postDao.saveWithId(post);
+    }
+
     @Override
     public void delete(Post post) {
         postDao.delete(post);

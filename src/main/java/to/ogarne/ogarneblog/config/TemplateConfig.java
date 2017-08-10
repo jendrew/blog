@@ -1,11 +1,14 @@
 package to.ogarne.ogarneblog.config;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
+@Configuration
 public class TemplateConfig {
 
     @Bean
@@ -18,10 +21,12 @@ public class TemplateConfig {
     }
 
     @Bean
+
     public SpringTemplateEngine templateEngine() {
         final SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.addTemplateResolver(templateResolver());
         springTemplateEngine.addDialect(new SpringSecurityDialect());
+        springTemplateEngine.addDialect(new LayoutDialect());
         return springTemplateEngine;
     }
 

@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by jedrz on 16.07.2017.
  */
+
 @ComponentScan
 @EnableAutoConfiguration
 public class Application {
@@ -33,3 +34,7 @@ public class Application {
     }
 
 }
+
+//TODO: Implement SSL
+//TODO: Implement post deletition
+//TODO: Determine if RootController is still needed

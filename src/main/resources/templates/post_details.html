@@ -1,25 +1,41 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head('new post')"></head>
+<html lang="pl" layout:decorator="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<!--TODO: add 'edit post' button next to the title-->
 
 
 <body>
-<div class="container">
-    <h1>Post details</h1>
+<section layout:fragment="content">
+
     <div th:object="${post}">
-        <h2 th:text="*{title}"></h2>
-        <small><a th:href="@{|/admin/posts/${post.id}/edit|}">Edit</a> this post</small>
-        <p th:text="*{dateCreated}"></p>
+        <h2 th:text="*{#strings.toUpperCase(title)}" class="my-3">
+        </h2>
+
+
+        <p class="border-bottom-1 ob-post-header ob-color-darkgrey pb-3">
+
+            <span class="fa fa-calendar-o" aria-hidden="true"></span>
+            <span th:text="*{#dates.format(dateCreated, 'dd MMMM yyyy HH:mm')}" class="pr-4"></span>
+            <span class="fa fa-user-o" aria-hidden="true"></span>
+            <span th:text="*{author.username}" class="pr-4"></span>
+            <span class="fa fa-tag" aria-hidden="true"></span>
+            <span th:text="*{category.name}"></span>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/admin/posts/*{id}/edit|}" class="pl-4">
+                <span  class="fa fa-pencil ob-color-darkgrey"></span>
+            </a>
+        </p>
         <p th:utext="*{body}"></p>
-        <p th:text="*{author.username}"></p>
-        <p th:text="*{category.name}"></p>
+
+
 
 
     </div>
 
-</div>
+</section>
 
 
-<div th:replace="base :: scripts"></div>
 </body>
 </html>

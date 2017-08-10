@@ -51,7 +51,7 @@ public class FileController {
         fileService.save(file);
 
         redirectAttributes.addFlashAttribute("flash",
-                new FlashMessage("You successfully uploaded " + file.getOriginalFilename() + "!",
+                new FlashMessage("You successfully uploaded " + file.getFilename() + "!",
                         FlashMessage.Status.SUCCESS));
 
         return "redirect:" + request.getServletPath();
@@ -67,12 +67,30 @@ public class FileController {
     //             "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     // }
 
-    @RequestMapping("/files/{id}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable Long id) {
 
-        Resource file = fileService.loadAsResource(id);
+    //TODO: Simplify this so there is less calls to db. Probably by passing filename in thymeleaf form.
+
+    @RequestMapping("/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        Resource resource = fileService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + filename + "\"").body(resource);
     }
+
+    @RequestMapping("/thumbs/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveThumbnail(@PathVariable String filename) {
+
+        String fn = "thumb_" + filename;
+        Resource resource = fileService.loadAsResource(fn);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + fn + "\"").body(resource);
+    }
+
+
+
+
+
+
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.FileSystemUtils;
 import to.ogarne.ogarneblog.model.File;
 
 import java.io.ByteArrayInputStream;
@@ -14,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.stream.Stream;
 
 @Repository
 public class StorageDaoImpl implements StorageDao {
@@ -56,18 +54,18 @@ public class StorageDaoImpl implements StorageDao {
 
     }
 
-    @Override
-    public Stream<Path> loadAll() {
-        try {
-            return Files.walk(this.rootLocation, 1)
-                    .filter(path -> !path.equals(this.rootLocation))
-                    .map(path -> this.rootLocation.relativize(path));
-        }
-        catch (IOException e) {
-            throw new StorageException("Failed to read stored files", e);
-        }
-
-    }
+    // @Override
+    // public Stream<Path> loadAll() {
+    //     try {
+    //         return Files.walk(this.rootLocation, 1)
+    //                 .filter(path -> !path.equals(this.rootLocation))
+    //                 .map(path -> this.rootLocation.relativize(path));
+    //     }
+    //     catch (IOException e) {
+    //         throw new StorageException("Failed to read stored files", e);
+    //     }
+    //
+    // }
 
     @Override
     public Path load(String filename) {
@@ -94,8 +92,12 @@ public class StorageDaoImpl implements StorageDao {
     }
 
     @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    public void delete(String filename) throws IOException {
+        try {
+            Files.delete(load(filename));
+        } catch (IOException e) {
+            throw new IOException("Could not read file: " + filename, e);
+        }
     }
 
     @Override

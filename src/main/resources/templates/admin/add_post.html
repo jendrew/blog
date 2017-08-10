@@ -1,74 +1,82 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head('new post')"></head>
+<html lang="pl" layout:decorator="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 
+<!-- TODO: add 'preview' link to the bottom of this page-->
+<!-- TODO: add simple way to add images/files to the page-->
 
 <body>
+<section layout:fragment="content">
 
-<div th:replace="base :: nav"></div>
+    <!-- New post creation form -->
 
-<div class="container mt-5">
-    <div th:replace="base :: flash"></div>
-    <div class="row mt-2">
-        <div class="col">
-            <div th:replace="base :: adminnav('add')"></div>
-            <!-- New post creation form -->
-
-            <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
-            <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
-            <form th:action="@{${action}}" th:object="${post}" method="post">
-                <input type="hidden" th:field="*{id}"/>
-                <div class="form-group" th:classappend="${#fields.hasErrors('title') ? 'has-danger' : ''}">
-                    <label for="inputTitle">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
-                           placeholder="Enter title"
-                           th:field="*{title}"
-                           th:classappend="${#fields.hasErrors('title') ? 'form-control-warning' : ''}"/>
-                    <div class="form-control-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">An
-                        error
-                        occured
-                    </div>
-                    <small id="emailHelp" class="form-text text-muted">Enter the tile of your new blog post.</small>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="inputBody">Body</label>
-                    <textarea class="form-control" id="inputBody" rows="10" th:field="*{body}"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="selectAuthor">Author</label>
-                    <select class="form-control" id="selectAuthor" th:field="*{author.id}">
-                        <option th:each="user : ${users}" th:text="${user.fullName}" th:value="${user.id}"></option>
-
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="selectCategory">Category</label>
-                    <select class="form-control" id="selectCategory" th:field="*{category.id}">
-                        <option th:each="category : ${categories}" th:text="${category.name}"
-                                th:value="${category.id}"></option>
-
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="togglePublish">Published?</label>
-                    <select class="form-control" id="togglePublish" th:field="*{published}">
-                        <option th:value="true">Yes</option>
-                        <option th:value="false">No</option>
-
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-
-            </form>
+    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
+    <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
+    <form th:action="@{${action}}" th:object="${post}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('title') ? 'has-danger' : ''}">
+            <label for="inputTitle">Title</label>
+            <input type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"
+                   placeholder="Enter title"
+                   th:field="*{title}"
+                   th:classappend="${#fields.hasErrors('title') ? 'form-control-warning' : ''}"/>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">An
+                error
+                occured
+            </div>
+            <small id="emailHelp" class="form-text text-muted">Enter the tile of your new blog post.</small>
         </div>
-    </div>
-</div>
 
 
-<div th:replace="base :: scripts"></div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('body') ? 'has-danger' : ''}">
+            <label for="inputBody">Body</label>
+            <textarea class="form-control" id="inputBody" rows="10" th:field="*{body}"></textarea>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('body')}" th:errors="*{title}">An
+                error
+                occured
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="selectAuthor">Author</label>
+            <select class="form-control" id="selectAuthor" th:field="*{author.id}">
+                <option th:each="user : ${users}" th:text="${user.fullName}" th:value="${user.id}"></option>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="selectCategory">Category</label>
+            <select class="form-control" id="selectCategory" th:field="*{category.id}">
+                <option th:each="category : ${categories}" th:text="${category.name}"
+                        th:value="${category.id}"></option>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="togglePublish">Published?</label>
+            <select class="form-control" id="togglePublish" th:field="*{published}">
+                <option th:value="true">Yes</option>
+                <option th:value="false">No</option>
+
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{'/posts/' + *{id}}" role="button">Show</a>
+
+    </form>
+
+
+
+</section>
+
+
 </body>
 </html>
+
+
+
+
+
+

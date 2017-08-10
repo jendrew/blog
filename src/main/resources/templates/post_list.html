@@ -1,37 +1,22 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head('new post')"></head>
-
+<html lang="pl" layout:decorator="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <body>
-<div th:replace="base :: nav"></div>
+<section layout:fragment="content">
 
-<div class="container mt-5">
-
-    <div class="row mt-2">
-        <!-- Flash message  -->
-        <div class="col">
-            <div th:replace="base :: flash"></div>
-        </div>
-    </div>
-
-    <div class="row mt-2">
-        <div class="col-md-8">
-            <h1>Posts</h1>
-            <small><a th:href="@{/admin/addPost}">Add new post</a></small>
-            <div th:each="post : ${posts}">
-                <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
-                <p th:utext="${post.body}"></p>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
-
+    <h1>Posts</h1>
+    <small sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addPost}">Add new post</a></small>
+    <div th:each="post : ${posts}">
+        <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
+        <p th:utext="${post.body}"></p>
     </div>
 
 
-</div>
+</section>
 
 
-<div th:replace="base :: scripts"></div>
 </body>
 </html>

@@ -11,6 +11,7 @@ import to.ogarne.ogarneblog.service.tools.BufferedImageThumbnailer;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -26,14 +27,22 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public File findById(Long id) {
-        File myFile = fileDao.findById(id);
+        return fileDao.findById(id);
+    }
+
+    @Override
+    public List<File> findAllImages() {
+        return fileDao.findAllImages();
+    }
+
+    @Override
+    public Resource getThumbnail(Long id) {
         return null;
     }
 
     @Override
-    public Resource loadAsResource(Long id) {
-        File file = fileDao.findById(id);
-        return storageDao.loadAsResource(file.getFilename());
+    public Resource loadAsResource(String name) {
+        return storageDao.loadAsResource(name);
     }
 
 
@@ -42,22 +51,21 @@ public class FileServiceImpl implements FileService {
 
         try {
             // Create filename
-            String filename = String.valueOf(new Date().getTime()) + "_" + StringUtils.cleanPath(file.getOriginalFilename());
+            String filename = String.valueOf(new Date().getTime()) + "_" + StringUtils.cleanPath(file.getFilename());
 
 
             file.setFilename(filename);
             storageDao.store(file);
+            fileDao.save(file);
+
 
             if (file.getContentType().contains("image")) {
                 thumbnailer.convertToThumbnail(file, 250);
-                String thumbFilename = ("thumb_" + filename);
-                file.setFilename(thumbFilename);
+                String name = ("thumb_" + file.getFilename());
+                file.setFilename(name);
                 storageDao.store(file);
             }
 
-
-            file.setFilename(filename);
-            fileDao.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,6 +75,14 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void delete(File file) {
+        try {
+            storageDao.delete(file.getFilename());
+            storageDao.delete("thumb_" + file.getFilename());
+            fileDao.delete(file);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

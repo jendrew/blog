@@ -1,7 +1,92 @@
+
+
 pre {
-    background-color: lightgrey;
+    padding:1rem;
+    background-color: #313131;
 }
 
-.header-image {
-    max-height: 400px;
+pre code {
+
+    color: white;
+    font-family: "Ubuntu Mono", Consolas, Monaco, "Andale Mono", monospace;
+    font-size: 16px;
 }
+
+
+body, nav {
+    font-size:18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", "Siyam Rupali", sans-serif;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+a:link {
+
+}
+
+a:hover {
+    text-decoration: none;
+}
+a:visited {
+
+}
+
+p a {
+    color: #FFCD00;
+}
+
+a > h2 {
+    color: #FFCD00;
+}
+
+a.nav-link {
+    color: #676767;
+}
+
+textarea {
+    font-family: "Ubuntu Mono", Consolas, Monaco, "Andale Mono", monospace;
+
+}
+
+
+
+
+.ob-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFCD00 !important;
+}
+
+
+.ob-table-posts {
+    font-size: 0.9rem;
+}
+
+.ob-table-posts a {
+    color: #676767;
+}
+
+
+.ob-color-darkgrey {
+    color: #676767;
+}
+
+.ob-post-header {
+    font-style: italic;
+    display: inline-block;
+    border-bottom: solid 2px #FFCD00;
+}
+
+#navbarNavAltMarkup > div > a.nav-item.nav-link {
+    color: rgb(117, 117, 117);
+
+}
+
+
+
+a.nav-item.nav-link.active {
+    font-weight: 700;
+}
+

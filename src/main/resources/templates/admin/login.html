@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: head('new post')"></head>
-
+<html lang="pl" layout:decorator="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div class="container">
+<section layout:fragment="content">
+
+
 
     <div class="row align-items-center">
-        <div class="col-md-4 push-md-4">
+        <div class="col-md-6 push-md-2">
             <h1>Please, log in</h1>
-
-            <div th:replace="base :: flash"></div>
 
             <form th:action="@{${action}}" th:object="${user}" method="post">
 
@@ -47,9 +47,9 @@
     </div>
 
 
-</div>
+</section>
 
 
-<div th:replace="base :: scripts"></div>
 </body>
 </html>
+

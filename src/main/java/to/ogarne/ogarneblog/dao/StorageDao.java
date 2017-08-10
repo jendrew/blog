@@ -5,7 +5,6 @@ import to.ogarne.ogarneblog.model.File;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.stream.Stream;
 
 public interface StorageDao {
 
@@ -14,13 +13,13 @@ public interface StorageDao {
 
     void store(File file) throws IOException;
 
-    Stream<Path> loadAll();
+    // Stream<Path> loadAll();
 
     Path load(String filename);
 
     Resource loadAsResource(String filename);
 
-    void deleteAll();
+    void delete(String filename) throws IOException;
 
 
 }

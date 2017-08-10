@@ -8,6 +8,7 @@ import to.ogarne.ogarneblog.model.File;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -22,10 +23,10 @@ public class FileDaoImpl implements FileDao {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<File> criteria = builder.createQuery(File.class);
         criteria.from(File.class);
-        List<File> categories = session.createQuery(criteria).getResultList();
+        List<File> files = session.createQuery(criteria).getResultList();
         session.close();
 
-        return categories;
+        return files;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class FileDaoImpl implements FileDao {
     public void save(File file) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.saveOrUpdate(file);
+        session.save(file);
         session.getTransaction().commit();
         session.close();
 
@@ -53,5 +54,19 @@ public class FileDaoImpl implements FileDao {
         session.delete(file);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public List<File> findAllImages() {
+
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<File> criteria = builder.createQuery(File.class);
+        Root root = criteria.from(File.class);
+        criteria.where(builder.like(root.get("contentType"), "%image%"));
+        List<File> files = session.createQuery(criteria).getResultList();
+        session.close();
+
+        return files;
     }
 }
