@@ -13,6 +13,7 @@ import java.util.Date;
 public class Post {
 
     @Id
+    @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -118,6 +119,7 @@ public class Post {
     public void setPublished(boolean published) {
         this.published = published;
     }
+
 
     @Override
     public String toString() {

@@ -54,6 +54,9 @@ public class MarkdownParserImpl implements MarkdownParser {
             if (node instanceof Image) {
                 // Put info in custom attribute instead
                 attributes.addValue("class","img-fluid");
+                attributes.addValue("class", "ob-cover");
+                attributes.addValue("class", "mx-auto");
+                attributes.addValue("class", "d-block");
             } else if (node instanceof Link) {
                 attributes.addValue("target", "_blank");
             } else if (node instanceof BlockQuote) {

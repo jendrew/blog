@@ -84,6 +84,10 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void delete(Post post) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(post);
+        session.getTransaction().commit();
+        session.close();
     }
 }

@@ -45,6 +45,7 @@ public class PostController extends RootController {
     MarkdownParser markdownParser;
 
 
+
     /* This method takes  the List of posts form the service and iterates over it
     * shortening content and parsing markdown. I'm not sure if it is a good practice
     * to do it here rather than in some different class*/
@@ -88,15 +89,18 @@ public class PostController extends RootController {
     // Process data from creating new post
     @RequestMapping(value = "/admin/addPost", method = RequestMethod.POST)
 
-    public String processNewPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String processNewPostData(@Valid Post post, BindingResult result,
+                                     RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", result);
             redirectAttributes.addFlashAttribute("post", post);
 
+
             return "redirect:/admin/addPost";
         }
+
 
         postService.save(post);
         redirectAttributes.addFlashAttribute("post", post);
@@ -121,7 +125,8 @@ public class PostController extends RootController {
 
     // Process data from editing post
     @RequestMapping(value = "/admin/posts/{id}/edit", method = RequestMethod.POST)
-    public String processEditPostData(@Valid Post post, BindingResult result, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String processEditPostData(@Valid Post post, BindingResult result,
+                                      RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 
         if (result.hasErrors()) {
@@ -135,8 +140,50 @@ public class PostController extends RootController {
 
         postService.save(post);
 
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Post został wyedytowany", FlashMessage.Status.SUCCESS));
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("Post został wyedytowany", FlashMessage.Status.SUCCESS));
 
         return "redirect:" + request.getServletPath();
+    }
+
+    // Process data from editing post
+    @RequestMapping(value = "/admin/posts/{id}/delete", method = RequestMethod.POST)
+    public String processDeletePost(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        if (!request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/logout";
+        }
+
+        Post post = postService.findById(id);
+        request.getSession().setAttribute("postToUndelete", post);
+        postService.delete(post);
+
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("Post został usunięty. Chcesz cofnąć?", FlashMessage.Status.UNDELETE));
+
+        return "redirect:/admin/";
+    }
+
+    @RequestMapping(value = "/admin/posts/undelete", method = RequestMethod.POST)
+    public String processUndeletePost(RedirectAttributes redirectAttributes, HttpServletRequest request) {
+
+        if (!request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/logout";
+        }
+
+        Post post = (Post) request.getSession().getAttribute("postToUndelete");
+        post.setId(null);
+
+        if (post != null) {
+            postService.save(post);
+            redirectAttributes.addFlashAttribute("flash",
+                    new FlashMessage("Cofnęliśmy usunięcie posta", FlashMessage.Status.SUCCESS));
+
+        } else {
+            redirectAttributes.addFlashAttribute("flash",
+                    new FlashMessage("Nie udało się przywrócić posta", FlashMessage.Status.FAILURE));
+
+        }
+
+        return "redirect:/admin";
     }
 }

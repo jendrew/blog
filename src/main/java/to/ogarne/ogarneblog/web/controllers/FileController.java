@@ -58,18 +58,6 @@ public class FileController {
     }
 
 
-    // @RequestMapping("/files/{filename:.+}")
-    // @ResponseBody
-    // public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-    //
-    //     Resource file = fileService.loadAsResource(filename);
-    //     return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-    //             "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    // }
-
-
-    //TODO: Simplify this so there is less calls to db. Probably by passing filename in thymeleaf form.
-
     @RequestMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {

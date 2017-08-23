@@ -2,16 +2,29 @@
 <html lang="pl" layout:decorator="layout/base"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 
 <body>
 <section layout:fragment="content">
 
-    <h1>Posts</h1>
-    <small sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addPost}">Add new post</a></small>
-    <div th:each="post : ${posts}">
-        <a th:href="@{|/posts/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
-        <p th:utext="${post.body}"></p>
+    <h2 class="ob-border pb-3 mb-3">Najnowsze posty</h2>
+    <div th:each="post : ${posts}" class="pb-2 mb-4">
+        <div class="d-flex justify-content-start mb-2">
+            <a th:href="@{|/posts/${post.id}|}"><h3 class="ob-orange" th:text="${post.title}"></h3></a>
+            <div class="d-flex flex-wrap ml-auto align-content-start ob-smaller">
+                <span class="ob-nowrap">
+                    <span class="fa fa-calendar-o mt-1" aria-hidden="true"></span>
+                <span class="ml-2 mr-2 ob-nowrap" th:text="${#dates.format(post.dateCreated, 'dd-MM-yy')}"></span>
+                </span>
+                <span class="ob-nowrap">
+                    <span class="fa fa-folder-open-o mt-1" aria-hidden="true"></span>
+                <span class="ml-2 ob-nowrap"  th:text="${post.category.name}"></span>
+                </span>
+
+            </div>
+
+        </div>
+        <div  th:utext="${post.body}"></div>
     </div>
 
 

@@ -15,6 +15,9 @@
     <link rel="stylesheet" th:href="@{/css/custom.css}"/>
     <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}" />
 
+    <!-- Lightbox CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" />
+
     <title layout:title-pattern="$DECORATOR_TITLE | $CONTENT_TITLE">ogarne.to</title>
 </head>
 
@@ -27,7 +30,7 @@
         <div class="col-md-8 push-md-2">
 
             <!-- NAVIGATION BAR -->
-            <nav th:fragment="nav" class="navbar navbar-toggleable-md navbar-light bg-white pl-0">
+            <nav th:fragment="nav" class="navbar navbar-toggleable-md navbar-light bg-white pl-0 ob-navbar mb-3 pb-0">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -35,7 +38,9 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <a class="navbar-brand ob-brand" th:href="@{/}">ogarne.to</a>
+                    <a class="navbar-brand ob-brand" th:href="@{/}">
+                        <img th:src="@{/image/logo.png}" class="mb-1" width="160" />
+                    </a>
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" th:href="@{/posts}">BLOG</a>
                         <a class="nav-item nav-link" href="#">O MNIE</a>
@@ -50,7 +55,12 @@
 
             <div th:fragment="flash" th:if="${flash != null}"
                  th:classappend="'alert-' + (${#strings.toLowerCase(flash.status) == 'success'} ? 'success' : 'danger')"
-                 class="alert" role="alert" th:text="${flash.message}"></div>
+                 class="alert" role="alert">
+                <span th:text="${flash.message}"></span>
+                <form th:if="${#strings.toLowerCase(flash.status) == 'undelete'}" th:action="@{/admin/posts/undelete}" method="post">
+                    <button type="submit" class="btn btn-outline-danger btn-sm pull-right">Cofnij</button>
+                </form>
+            </div>
 
             <!--  /FLASH MESSAGE -->
 
@@ -104,6 +114,19 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-8 push-md-2 ">
+            <footer class="ob-footer py-2">
+                <p class="my-1">
+                    <span class="fa fa-facebook-official mr-2"></span>
+                    <span class="fa fa-github mr-2"></span>
+                    <span class="fa fa-instagram mr-2"></span>
+                    <span class="fa fa-arrow-up mr-2 pull-right"></span>
+                </p>
+
+                <p class="ob-smaller"><em>© Ogarne.to 2017. Projekt strony mocno zainspirowany motywem <a href="https://themes.gohugo.io/theme/minimo/">Minimo</a> udostępnianym na licencji MIT, Copyright ©  2017 Munif Tanjim </em></p></footer>
+        </div>
+    </div>
 </div>
 
 
@@ -118,6 +141,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
+
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
+
+
+    <script>
+
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+    </script>
 
 </div>
 

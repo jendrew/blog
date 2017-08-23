@@ -23,6 +23,6 @@ public class FlashMessage {
     }
 
     public enum Status {
-        SUCCESS, FAILURE
+        SUCCESS, FAILURE, UNDELETE
     }
 }

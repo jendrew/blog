@@ -17,6 +17,7 @@
                     <th>Created</th>
                     <th>Modified</th>
                     <th>Pub</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,7 +28,14 @@
                     <td th:text="${post.category.displayName}"></td>
                     <td th:text="${#dates.format(post.dateCreated, 'yy/MM/dd HH:mm')}"></td>
                     <td th:text="${#dates.format(post.dateModified, 'yy/MM/dd HH:mm')}"></td>
-                    <td> <span th:classappend="${post.published} ? 'fa fa-check' : ''"></span></td>
+                    <td><span th:classappend="${post.published} ? 'fa fa-check' : ''"></span></td>
+                    <td>
+                        <form th:action="@{|/admin/posts/${post.id}/delete|}" method="post">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
 
                 </tbody>
