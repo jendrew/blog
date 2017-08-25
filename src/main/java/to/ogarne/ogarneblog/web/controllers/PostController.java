@@ -3,6 +3,8 @@ package to.ogarne.ogarneblog.web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 /**
  * Created by jedrz on 18.07.2017.
@@ -51,8 +54,8 @@ public class PostController extends RootController {
     * to do it here rather than in some different class*/
 
     @RequestMapping("/posts")
-    public String getPots(Model model) {
-        List<Post> posts = postService.findLastXPublishedPosts(10)
+    public String getPots(Model model, @PageableDefault(value=10, page = 0) Pageable pageable) {
+        List<Post> posts = postService.findLastXPublishedPosts(pageable)
                 .stream()
                 .map(markdownParser::limit)
                 .map(markdownParser::parse)

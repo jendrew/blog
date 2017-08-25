@@ -1,6 +1,7 @@
 package to.ogarne.ogarneblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import to.ogarne.ogarneblog.dao.PostDao;
 import to.ogarne.ogarneblog.model.Post;
@@ -31,6 +32,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findLastXPublishedPosts(int numberOfPosts) {
         return postDao.findLastXPublishedPosts(numberOfPosts);
+    }
+
+
+    public List<Post> findLastXPublishedPosts(Pageable pageable) {
+        return postDao.findLastXPublishedPosts(pageable);
     }
 
     @Override

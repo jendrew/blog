@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog.dao;
 
+import org.springframework.data.domain.Pageable;
 import to.ogarne.ogarneblog.model.Post;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
  */
 public interface PostDao extends GenericDao<Post,Long> {
     List<Post> findLastXPublishedPosts(int numberOfPosts);
+    List<Post> findLastXPublishedPosts(Pageable pageable);
+
     Long saveWithId(Post post);
 
 }

@@ -16,6 +16,7 @@ import java.util.Properties;
  */
 
 @Configuration
+
 @PropertySource("app.properties")
 public class DataConfig {
 

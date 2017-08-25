@@ -3,6 +3,7 @@ package to.ogarne.ogarneblog.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import to.ogarne.ogarneblog.model.Post;
 
@@ -48,6 +49,27 @@ public class PostDaoImpl implements PostDao {
         List<Post> posts = session.createQuery(criteria)
                 // limit number of returned posts to @param numberOfPosts
                 .setMaxResults(numberOfPosts)
+                .getResultList();
+        session.close();
+
+        return posts;
+    }
+
+    public List<Post> findLastXPublishedPosts(Pageable pageable) {
+
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
+        Root<Post> root =  criteria.from(Post.class);
+
+        // order descending by date
+        criteria.where(builder.equal(root.get("published"), true));
+        criteria.orderBy(builder.desc(root.get("dateCreated")));
+
+        List<Post> posts = session.createQuery(criteria)
+                // limit number of returned posts to @param numberOfPosts
+                .setFirstResult(pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
                 .getResultList();
         session.close();
 
