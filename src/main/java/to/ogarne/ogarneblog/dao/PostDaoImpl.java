@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,15 @@ public class PostDaoImpl implements PostDao {
 
         return posts;
     }
+
+    @Override
+    public int getCount() {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder= session.getCriteriaBuilder();
+        CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
+        session.createQuery(criteria).getfe
+    }
+
 
     @Override
     public Post findById(Long id) {
