@@ -18,7 +18,7 @@
     </blockquote>
 
     <h3 class="mb-3">RECENT POSTS</h3>
-    <a th:each="post : ${recentPosts}" th:href="@{|/posts/${post.id}|}">
+    <a th:each="post : ${recentPosts}" th:href="@{|/posts/${post.id}-${post.slug}|}">
         <p class="" th:text="${#dates.format(post.dateCreated, 'YYYY,MMM dd')} + ' ' + ${post.title}"></p>
     </a>
 

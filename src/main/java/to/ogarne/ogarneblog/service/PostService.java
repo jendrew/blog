@@ -13,6 +13,7 @@ public interface PostService {
     List<Post> findAll();
     List<Post> findLastXPublishedPosts(int numberOfPosts);
     List<Post> findLastXPublishedPosts(Pageable pageable);
+    Long getCount(boolean published);
     Post findById(Long id);
     void save (Post post);
     Long saveWithId(Post post);

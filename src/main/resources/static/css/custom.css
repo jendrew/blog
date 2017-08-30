@@ -52,7 +52,10 @@ textarea {
 
 }
 
-
+a.page-link {
+    color: #FFCD00;
+    border : none;
+}
 
 
 

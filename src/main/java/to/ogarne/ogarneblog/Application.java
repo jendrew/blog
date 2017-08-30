@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog;
 
+import com.github.slugify.Slugify;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -34,6 +35,11 @@ public class Application {
         return (args) -> {
             storageDao.init();
         };
+    }
+
+    @Bean
+    public Slugify slugify() {
+        return new Slugify();
     }
 
 }

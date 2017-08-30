@@ -1,6 +1,5 @@
 package to.ogarne.ogarneblog.dao;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +57,8 @@ public class PostDaoImpl implements PostDao {
 
     public List<Post> findLastXPublishedPosts(Pageable pageable) {
 
+        //pageable.previousOrFirst().getp
+
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
@@ -78,11 +79,21 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public int getCount() {
+    public Long getCount(boolean published) {
+
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder= session.getCriteriaBuilder();
-        CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
-        session.createQuery(criteria).getfe
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Post> root = criteria.from(Post.class);
+        criteria.select(builder.count(root));
+        if (published) {
+            criteria.where(builder.isTrue(root.get("published")));
+        }
+
+        long count = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return count;
+
     }
 
 

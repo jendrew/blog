@@ -40,6 +40,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Long getCount(boolean published) {
+
+        return postDao.getCount(published);
+    }
+
+    @Override
     public Post findById(Long id) {
         return postDao.findById(id);
     }

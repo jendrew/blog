@@ -2,6 +2,7 @@ package to.ogarne.ogarneblog.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -22,6 +23,11 @@ public class Post {
     @Size(min = 3, max = 300, message = "The size should be between 3 and 300")
     private String title;
 
+    @Column
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
+    private String slug;
+
     @Column(columnDefinition = "text")
     @NotNull
     @Size(min = 3)
@@ -30,7 +36,6 @@ public class Post {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
@@ -70,6 +75,14 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String getBody() {

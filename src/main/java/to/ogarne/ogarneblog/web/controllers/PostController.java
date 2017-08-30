@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog.web.controllers;
 
+import com.github.slugify.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -18,6 +19,7 @@ import to.ogarne.ogarneblog.service.UserService;
 import to.ogarne.ogarneblog.web.ContentUtils;
 import to.ogarne.ogarneblog.web.FlashMessage;
 import to.ogarne.ogarneblog.web.MarkdownParser;
+import to.ogarne.ogarneblog.web.Pagination;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -47,6 +49,9 @@ public class PostController extends RootController {
     @Autowired
     MarkdownParser markdownParser;
 
+    @Autowired
+    Slugify slugify;
+
 
 
     /* This method takes  the List of posts form the service and iterates over it
@@ -54,19 +59,23 @@ public class PostController extends RootController {
     * to do it here rather than in some different class*/
 
     @RequestMapping("/posts")
-    public String getPots(Model model, @PageableDefault(value=10, page = 0) Pageable pageable) {
+    public String getPosts(Model model, @PageableDefault(value=1, page = 0) Pageable pageable) {
+
         List<Post> posts = postService.findLastXPublishedPosts(pageable)
                 .stream()
                 .map(markdownParser::limit)
                 .map(markdownParser::parse)
                 .collect(Collectors.toList());
 
+
+
+        model.addAttribute("pagination", new Pagination(pageable, postService.getCount(true)));
         model.addAttribute("posts", posts);
 
         return "post_list";
     }
 
-    @RequestMapping("/posts/{id}")
+    @RequestMapping("/posts/{id:\\d+}-{slug}")
     public String getPostDetails(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
         markdownParser.cutHiddenChars(post);
@@ -104,6 +113,11 @@ public class PostController extends RootController {
             return "redirect:/admin/addPost";
         }
 
+        if (post.getSlug() == null) {
+            post.setSlug(slugify.slugify(post.getTitle()));
+        }
+
+        contentUtils.decodeFileIds(post);
 
         postService.save(post);
         redirectAttributes.addFlashAttribute("post", post);
@@ -137,6 +151,10 @@ public class PostController extends RootController {
             redirectAttributes.addFlashAttribute("post", post);
 
             return "redirect:/admin/posts/" + post.getId() + "/edit";
+        }
+
+        if (post.getSlug().length() < 1) {
+            post.setSlug(slugify.slugify(post.getTitle()));
         }
 
         contentUtils.decodeFileIds(post);

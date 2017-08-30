@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" layout:decorator="layout/base"
+<html lang="pl" layout:decorator="layout/adminbase"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 
@@ -26,6 +26,19 @@
                 occured
             </div>
             <small id="emailHelp" class="form-text text-muted">Enter the tile of your new blog post.</small>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('slug') ? 'has-danger' : ''}">
+            <label for="inputTitle">Slug</label>
+            <input type="text" class="form-control" id="inputSlug" aria-describedby="emailHelp"
+                   placeholder="Enter slug"
+                   th:field="*{slug}"
+                   th:classappend="${#fields.hasErrors('slug') ? 'form-control-warning' : ''}"/>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}">An
+                error
+                occured
+            </div>
+            <small id="emailHelp" class="form-text text-muted">Enter the slug of your post. If left empty - it will be created automatically</small>
         </div>
 
 
@@ -63,7 +76,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{'/posts/' + *{id}}" role="button">Show</a>
+        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{|/posts/*{id}-*{slug}|}" role="button">Show</a>
 
     </form>
 
