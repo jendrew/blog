@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jedrz on 16.07.2017.
@@ -32,6 +33,11 @@ public class Post {
     @NotNull
     @Size(min = 3)
     private String body;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="ImagePaths", joinColumns=@JoinColumn(name="path_id"))
+    @Column(name="images")
+    private List<String> imagePaths;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -133,6 +139,16 @@ public class Post {
         this.published = published;
     }
 
+
+
+
+    public List<String> getImagePaths() {
+        return imagePaths;
+    }
+
+    public void setImagePaths(List<String> imagePaths) {
+        this.imagePaths = imagePaths;
+    }
 
     @Override
     public String toString() {

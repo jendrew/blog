@@ -5,6 +5,7 @@ import com.vladsch.flexmark.ast.BlockQuote;
 import com.vladsch.flexmark.ast.Image;
 import com.vladsch.flexmark.ast.Link;
 import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.ast.util.TextCollectingVisitor;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.html.AttributeProvider;
 import com.vladsch.flexmark.html.AttributeProviderFactory;
@@ -85,9 +86,12 @@ public class MarkdownParserImpl implements MarkdownParser {
         Parser parser = Parser.builder(options).build();
         Node document = parser.parse(post.getBody());
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+
         post.setBody(renderer.render(document));
         return post;
     }
+
+
 
     @Override
     public Post cutHiddenChars(Post post) {
@@ -95,6 +99,14 @@ public class MarkdownParserImpl implements MarkdownParser {
 
         post.setBody(StringUtils.delete(body, "@@@"));
         return post;
+    }
+
+    @Override
+    public String getPlainText(Post post, int limit) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(post.getBody());
+        TextCollectingVisitor visitor  = new TextCollectingVisitor();
+        return visitor.collectAndGetText(document).substring(0, limit);
     }
 
     @Override

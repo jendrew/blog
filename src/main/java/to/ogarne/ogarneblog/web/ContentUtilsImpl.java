@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.service.FileService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +24,6 @@ public class ContentUtilsImpl implements ContentUtils{
 
         String[] words = post.getBody().split("(?=[\\(\\)])");
 
-
         String body = Stream.of(words)
                 .map(word -> {
                     if (word.matches("\\(\\/files\\/\\d*")) {
@@ -33,6 +36,21 @@ public class ContentUtilsImpl implements ContentUtils{
         post.setBody(body);
 
         return post;
+    }
+
+    @Override
+    public List<String> getImagePaths(Post post) {
+        List<String> paths = new ArrayList<>();
+        String body = post.getBody();
+        Pattern pattern = Pattern.compile("(/files\\/[a-zA-Z0-9//_.]*)");
+
+        Matcher matcher = pattern.matcher(body);
+
+        while (matcher.find()) {
+            paths.add(matcher.group(0));
+        }
+
+        return paths;
     }
 
     private String getFileName(String path) {

@@ -79,6 +79,8 @@ public class PostController extends RootController {
     public String getPostDetails(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
         markdownParser.cutHiddenChars(post);
+        String description = markdownParser.getPlainText(post, 300);
+        model.addAttribute("description", description);
         markdownParser.parse(post);
         model.addAttribute("post", post);
 
@@ -119,6 +121,10 @@ public class PostController extends RootController {
 
         contentUtils.decodeFileIds(post);
 
+        List<String> imagePaths = contentUtils.getImagePaths(post);
+        if (imagePaths.size() > 0) {
+            post.setImagePaths(imagePaths);
+        }
         postService.save(post);
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("flash",
@@ -159,6 +165,11 @@ public class PostController extends RootController {
 
         contentUtils.decodeFileIds(post);
 
+        List<String> imagePaths = contentUtils.getImagePaths(post);
+        if (imagePaths != null && imagePaths.size() > 0) {
+            post.setImagePaths(imagePaths);
+        }
+
         postService.save(post);
 
         redirectAttributes.addFlashAttribute("flash",
@@ -186,7 +197,6 @@ public class PostController extends RootController {
 
     @RequestMapping(value = "/admin/posts/undelete", method = RequestMethod.POST)
     public String processUndeletePost(RedirectAttributes redirectAttributes, HttpServletRequest request) {
-
         if (!request.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/logout";
         }

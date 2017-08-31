@@ -6,6 +6,19 @@
 
 <!--TODO: add 'edit post' button next to the title-->
 
+<head>
+    <!-- FACEBOOK OPEN GRAPH MARKERS -->
+    <meta property="og:url"                th:content="@{${#httpServletRequest.requestURL}}"  />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              th:content="${post.title}" />
+    <meta property="og:description"        th:content="${description}" />
+    <meta th:if="${post.imagePaths != null}"
+          th:each="path : ${post.imagePaths}"
+          property="og:image"
+          th:content="@{|${#httpServletRequest.getScheme()}://${#httpServletRequest.getServerName()}:${#httpServletRequest.getServerPort()}${path}|}" />
+    <!-- /FACEBOOK OPEN GRAPH MARKERS -->
+</head>
+
 
 <body>
 <section layout:fragment="content">

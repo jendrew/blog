@@ -9,5 +9,6 @@ public interface MarkdownParser {
 
     public Post parse(Post post);
     public Post cutHiddenChars(Post post);
+    public String getPlainText(Post post, int limit);
     public Post limit(Post post);
 }
