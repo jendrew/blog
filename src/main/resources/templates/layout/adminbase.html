@@ -30,24 +30,7 @@
         <div class="col-md-8 push-md-2">
 
             <!-- NAVIGATION BAR -->
-            <nav th:fragment="nav" class="navbar navbar-toggleable-md navbar-light bg-white pl-0 ob-navbar mb-3 pb-0">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <a class="navbar-brand ob-brand" th:href="@{/}">
-                        <img th:src="@{/image/logo.png}" class="mb-1" width="160" />
-                    </a>
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link" th:href="@{/posts}">BLOG</a>
-                        <a class="nav-item nav-link" href="#">O MNIE</a>
-                        <a class="nav-item nav-link" href="#">KONTAKT</a>
-
-                    </div>
-                </div>
+            <nav th:replace="layout/base::nav">
             </nav>
             <!-- /NAVIGATION BAR -->
 
