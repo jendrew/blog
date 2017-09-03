@@ -22,9 +22,6 @@ class BufferedImageThumbnailerImpl implements BufferedImageThumbnailer{
 
     private static final ImageObserver DUMMY_OBSERVER = (img, infoflags, x, y, width, height) -> true;
 
-
-
-
     @Override
     public void convertToThumbnail(File file, int maxLongSide) {
         try {

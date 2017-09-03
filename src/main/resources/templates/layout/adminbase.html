@@ -80,6 +80,10 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" th:classappend="${active == 'pages'} ? 'active' : ''" th:href="@{/admin/pages}">Pages</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" th:classappend="${active == 'images'} ? 'active' : ''"
                            th:href="@{/admin/images}">Images</a>
                     </li>
@@ -99,6 +103,7 @@
                         <div class="dropdown-menu  ">
                             <a class="dropdown-item" th:href="@{/admin/addPost}">Post</a>
                             <a class="dropdown-item" th:href="@{/admin/addFile}">Image</a>
+                            <a class="dropdown-item" th:href="@{/admin/addPage}">Page</a>
 
                         </div>
                     </li>

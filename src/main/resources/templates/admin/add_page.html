@@ -13,7 +13,7 @@
 
     <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.Post"*/-->
     <!--/*@thymesVar id="post" type="to.ogarne.ogarneblog.model.User"*/-->
-    <form th:action="@{${action}}" th:object="${post}" method="post">
+    <form th:action="@{${action}}" th:object="${page}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div class="form-group" th:classappend="${#fields.hasErrors('title') ? 'has-danger' : ''}">
             <label for="inputTitle">Title</label>
@@ -38,6 +38,9 @@
                 error
                 occured
             </div>
+            <small id="emailHelp" class="form-text text-muted">Enter the slug of your post. If left empty - it will be
+                created automatically
+            </small>
         </div>
 
 
@@ -50,35 +53,36 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="selectAuthor">Author</label>
-            <select class="form-control" id="selectAuthor" th:field="*{author.id}">
-                <option th:each="user : ${users}" th:text="${user.fullName}" th:value="${user.id}"></option>
 
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="selectCategory">Category</label>
-            <select class="form-control" id="selectCategory" th:field="*{category.id}">
-                <option th:each="category : ${pages}" th:text="${category.name}"
-                        th:value="${category.id}"></option>
+        <div class="form-group" th:classappend="${#fields.hasErrors('${page}') ? 'has-danger' : ''}">
 
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="togglePublish">Published?</label>
-            <select class="form-control" id="togglePublish" th:field="*{published}">
-                <option th:value="true">Yes</option>
-                <option th:value="false">No</option>
+            <div class="form-group">
+                <label for="selectParent">Parent</label>
+                <select class="form-control" id="selectParent" th:field="*{parent.id}"
+                        th:classappend="${#fields.hasErrors('${page}') ? 'form-control-warning' : ''}">
+                    <option th:value="0" th:text="'Select Parent'"></option>
+                    <option th:each="page : ${pages}" th:text="${page.title}" th:value="${page.id}"></option>
 
-            </select>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="selectParent">Menu position</label>
+                <input type="text" class="form-control" id="menuPosition" aria-describedby="emailHelp"
+                       placeholder="Enter position in menu"
+                       th:field="*{menuPosition}"
+                       th:classappend="${#fields.hasErrors('${page}') ? 'form-control-warning' : ''}"/>
+                <div class="form-control-feedback" th:if="${#fields.hasErrors('${page}')}">You can't set the parent and the position in the menu at the same time
+                </div>
+            </div>
         </div>
+
 
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{|/posts/*{id}-*{slug}|}" role="button">Show</a>
+        <a class="btn btn-primary pull-right" th:classappend="${page.id != null} ? '' : 'disabled'"
+           th:href="@{|/page/*{id}-*{slug}|}" role="button">Show</a>
 
     </form>
-
 
 
 </section>

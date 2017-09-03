@@ -43,6 +43,10 @@
                     </a>
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" th:href="@{/posts}">BLOG</a>
+                        <a class="nav-item nav-link"
+                           th:each="page : ${menuItems}"
+                           th:text="${#strings.toUpperCase(page.title)}"
+                           th:href="@{|/pages/${page.id}-${page.slug}|}">BLOG</a>
                         <a class="nav-item nav-link" href="#">O MNIE</a>
                         <a class="nav-item nav-link" href="#">KONTAKT</a>
 

@@ -2,7 +2,6 @@ package to.ogarne.ogarneblog.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.service.FileService;
 
 import java.util.ArrayList;
@@ -20,9 +19,9 @@ public class ContentUtilsImpl implements ContentUtils{
 
 
     @Override
-    public Post decodeFileIds(Post post) {
+    public Parseable decodeFileIds(Parseable parseable) {
 
-        String[] words = post.getBody().split("(?=[\\(\\)])");
+        String[] words = parseable.getBody().split("(?=[\\(\\)])");
 
         String body = Stream.of(words)
                 .map(word -> {
@@ -33,15 +32,15 @@ public class ContentUtilsImpl implements ContentUtils{
                     }
                 }).collect(Collectors.joining());
 
-        post.setBody(body);
+        parseable.setBody(body);
 
-        return post;
+        return parseable;
     }
 
     @Override
-    public List<String> getImagePaths(Post post) {
+    public List<String> getImagePaths(Parseable parseable) {
         List<String> paths = new ArrayList<>();
-        String body = post.getBody();
+        String body = parseable.getBody();
         Pattern pattern = Pattern.compile("(/files\\/[a-zA-Z0-9//_.]*)");
 
         Matcher matcher = pattern.matcher(body);

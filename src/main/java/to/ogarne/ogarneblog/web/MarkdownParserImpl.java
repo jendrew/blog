@@ -19,7 +19,6 @@ import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import to.ogarne.ogarneblog.model.Post;
 
 import java.util.Arrays;
 
@@ -77,45 +76,49 @@ public class MarkdownParserImpl implements MarkdownParser {
     }
 
     @Override
-    public Post parse(Post post) {
+    public Parseable parse(Parseable parseable) {
 
         MutableDataHolder options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, Arrays.asList(new Extension[] { AutolinkExtension.create(), BootstrapExtension.create() }));
 
 
         Parser parser = Parser.builder(options).build();
-        Node document = parser.parse(post.getBody());
+        Node document = parser.parse(parseable.getBody());
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 
-        post.setBody(renderer.render(document));
-        return post;
+        parseable.setBody(renderer.render(document));
+        return parseable;
     }
 
 
 
     @Override
-    public Post cutHiddenChars(Post post) {
-        String body = post.getBody();
+    public Parseable cutHiddenChars(Parseable parseable) {
+        String body = parseable.getBody();
 
-        post.setBody(StringUtils.delete(body, "@@@"));
-        return post;
+        parseable.setBody(StringUtils.delete(body, "@@@"));
+        return parseable;
     }
 
     @Override
-    public String getPlainText(Post post, int limit) {
+    public String getPlainText(Parseable parseable, int limit) {
         Parser parser = Parser.builder().build();
-        Node document = parser.parse(post.getBody());
+        Node document = parser.parse(parseable.getBody());
         TextCollectingVisitor visitor  = new TextCollectingVisitor();
-        return visitor.collectAndGetText(document).substring(0, limit);
+        String result = visitor.collectAndGetText(document);
+        if (result.length() > limit) {
+            result = result.substring(0, limit);
+        }
+        return result;
     }
 
     @Override
-    public Post limit(Post post) {
+    public Parseable limit(Parseable parseable) {
 
-        String body = post.getBody();
+        String body = parseable.getBody();
 
-        post.setBody(body.split("@@@")[0]);
-        return post;
+        parseable.setBody(body.split("@@@")[0]);
+        return parseable;
     }
 
 

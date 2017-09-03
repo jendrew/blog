@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import to.ogarne.ogarneblog.model.Post;
+import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.service.UserService;
-import to.ogarne.ogarneblog.web.ContentUtils;
-import to.ogarne.ogarneblog.web.FlashMessage;
-import to.ogarne.ogarneblog.web.MarkdownParser;
-import to.ogarne.ogarneblog.web.Pagination;
+import to.ogarne.ogarneblog.web.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -52,6 +50,9 @@ public class PostController extends RootController {
     @Autowired
     Slugify slugify;
 
+    @Autowired
+    CategoryService categoryService;
+
 
 
     /* This method takes  the List of posts form the service and iterates over it
@@ -61,7 +62,7 @@ public class PostController extends RootController {
     @RequestMapping("/posts")
     public String getPosts(Model model, @PageableDefault(value=1, page = 0) Pageable pageable) {
 
-        List<Post> posts = postService.findLastXPublishedPosts(pageable)
+        List<Parseable> posts = postService.findLastXPublishedPosts(pageable)
                 .stream()
                 .map(markdownParser::limit)
                 .map(markdownParser::parse)
@@ -115,7 +116,7 @@ public class PostController extends RootController {
             return "redirect:/admin/addPost";
         }
 
-        if (post.getSlug() == null) {
+        if (post.getSlug().length() < 1) {
             post.setSlug(slugify.slugify(post.getTitle()));
         }
 

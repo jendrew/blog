@@ -1,5 +1,7 @@
 package to.ogarne.ogarneblog.model;
 
+import to.ogarne.ogarneblog.web.Parseable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-public class Post {
+public class Post implements Parseable {
 
     @Id
     @Column(name = "post_id")

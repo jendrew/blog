@@ -9,12 +9,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
+public abstract class ExperimentDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
     private Class<T> clazz;
 
     @Autowired
     SessionFactory sessionFactory;
+
 
     @Override
     public List<T> findAll() {
@@ -52,5 +53,9 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
         session.delete(object);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public void setClazz(Class<T> clazz) {
+        this.clazz = clazz;
     }
 }
