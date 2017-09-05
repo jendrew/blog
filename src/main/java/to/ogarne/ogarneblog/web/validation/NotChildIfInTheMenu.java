@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.web.customvalidator;
+package to.ogarne.ogarneblog.web.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

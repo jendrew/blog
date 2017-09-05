@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.web.customvalidator;
+package to.ogarne.ogarneblog.web.validation;
 
 import to.ogarne.ogarneblog.model.Page;
 

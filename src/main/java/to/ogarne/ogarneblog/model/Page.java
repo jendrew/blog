@@ -1,7 +1,7 @@
 package to.ogarne.ogarneblog.model;
 
 import to.ogarne.ogarneblog.web.Parseable;
-import to.ogarne.ogarneblog.web.customvalidator.NotChildIfInTheMenu;
+import to.ogarne.ogarneblog.web.validation.NotChildIfInTheMenu;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ public class Page implements Parseable {
     @Size(min = 3, max = 300, message = "The size should be between 3 and 300")
     private String title;
 
-    @Column
+    @Column (unique = true)
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;

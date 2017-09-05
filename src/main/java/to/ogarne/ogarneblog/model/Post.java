@@ -26,10 +26,17 @@ public class Post implements Parseable {
     @Size(min = 3, max = 300, message = "The size should be between 3 and 300")
     private String title;
 
-    @Column
+    @Column(unique = true)
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;
+
+
+
+    @Column
+    @NotNull
+    @Size(min = 3, max = 300)
+    private String description;
 
     @Column(columnDefinition = "text")
     @NotNull
@@ -37,18 +44,19 @@ public class Post implements Parseable {
     private String body;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="ImagePaths", joinColumns=@JoinColumn(name="path_id"))
-    @Column(name="images")
+    @CollectionTable(name = "ImagePaths", joinColumns = @JoinColumn(name = "path_id"))
+    @Column(name = "images")
     private List<String> imagePaths;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date dateCreated;
 
     @Column
@@ -142,14 +150,20 @@ public class Post implements Parseable {
     }
 
 
-
-
     public List<String> getImagePaths() {
         return imagePaths;
     }
 
     public void setImagePaths(List<String> imagePaths) {
         this.imagePaths = imagePaths;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

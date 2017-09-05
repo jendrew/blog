@@ -40,11 +40,20 @@
             </div>
         </div>
 
+        <div class="form-group" th:classappend="${#fields.hasErrors('description') ? 'has-danger' : ''}">
+            <label for="inputDesc">Body</label>
+            <textarea class="form-control" id="inputDesc" rows="4" th:field="*{description}"></textarea>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">An
+                error
+                occured
+            </div>
+        </div>
+
 
         <div class="form-group" th:classappend="${#fields.hasErrors('body') ? 'has-danger' : ''}">
             <label for="inputBody">Body</label>
-            <textarea class="form-control" id="inputBody" rows="10" th:field="*{body}"></textarea>
-            <div class="form-control-feedback" th:if="${#fields.hasErrors('body')}" th:errors="*{title}">An
+            <textarea class="form-control" id="inputBody" rows="15" th:field="*{body}"></textarea>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">An
                 error
                 occured
             </div>
@@ -60,7 +69,7 @@
         <div class="form-group">
             <label for="selectCategory">Category</label>
             <select class="form-control" id="selectCategory" th:field="*{category.id}">
-                <option th:each="category : ${pages}" th:text="${category.name}"
+                <option th:each="category : ${categories}" th:text="${category.name}"
                         th:value="${category.id}"></option>
 
             </select>
@@ -75,7 +84,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{|/posts/*{id}-*{slug}|}" role="button">Show</a>
+        <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{|/posts/*{slug}|}" role="button">Show</a>
 
     </form>
 

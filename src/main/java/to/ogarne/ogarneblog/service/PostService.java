@@ -15,6 +15,7 @@ public interface PostService {
     List<Post> findLastXPublishedPosts(Pageable pageable);
     Long getCount(boolean published);
     Post findById(Long id);
+    Post findBySlug(String slug);
     void save (Post post);
     Long saveWithId(Post post);
     void delete(Post post);

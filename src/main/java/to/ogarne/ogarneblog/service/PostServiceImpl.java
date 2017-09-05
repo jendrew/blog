@@ -51,6 +51,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Post findBySlug(String slug) {
+        return postDao.findBySlug(slug);
+    }
+
+    @Override
     public void save(Post post) {
 
         postDao.save(post);

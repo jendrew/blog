@@ -79,6 +79,19 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+    public Post findBySlug(String slug) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
+        Root<Post> root = criteria.from(Post.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("slug"), slug));
+        Post post = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return post;
+    }
+
+    @Override
     public Long getCount(boolean published) {
 
         Session session = sessionFactory.openSession();

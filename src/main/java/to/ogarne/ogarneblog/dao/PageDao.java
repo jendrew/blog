@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PageDao extends ExperimentDao<Page, Long> {
     List<Page> getPagesForMenu();
+    Page findBySlug(String slug);
 }

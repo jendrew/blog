@@ -11,8 +11,8 @@
     <div th:each="post : ${posts}" class="pb-2 mb-4">
         <div class="d-flex justify-content-start mb-2">
             
-            <a th:href="@{|/posts/${post.id}-${post.slug}|}"><h3 class="ob-orange" th:text="${post.title}"></h3></a>
-            <div class="d-flex flex-wrap ml-auto align-content-start ob-smaller">
+            <a th:href="@{|/posts/${post.slug}|}"><h3 class="ob-orange pr-3 mb-4" th:text="${post.title}"></h3></a>
+            <div class="d-flex ml-auto align-content-start ob-smaller">
                 <span class="ob-nowrap">
                     <span class="fa fa-calendar-o mt-1" aria-hidden="true"></span>
                 <span class="ml-2 mr-2 ob-nowrap" th:text="${#dates.format(post.dateCreated, 'dd-MM-yy')}"></span>

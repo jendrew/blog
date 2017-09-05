@@ -60,7 +60,7 @@ public class PostController extends RootController {
     * to do it here rather than in some different class*/
 
     @RequestMapping("/posts")
-    public String getPosts(Model model, @PageableDefault(value=1, page = 0) Pageable pageable) {
+    public String getPosts(Model model, @PageableDefault(value=10, page = 0) Pageable pageable) {
 
         List<Parseable> posts = postService.findLastXPublishedPosts(pageable)
                 .stream()
@@ -76,9 +76,9 @@ public class PostController extends RootController {
         return "post_list";
     }
 
-    @RequestMapping("/posts/{id:\\d+}-{slug}")
-    public String getPostDetails(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id);
+    @RequestMapping("/posts/{slug}")
+    public String getPostDetails(@PathVariable String slug, Model model) {
+        Post post = postService.findBySlug(slug);
         markdownParser.cutHiddenChars(post);
         String description = markdownParser.getPlainText(post, 300);
         model.addAttribute("description", description);

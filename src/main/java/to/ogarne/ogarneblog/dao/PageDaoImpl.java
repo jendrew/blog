@@ -30,4 +30,17 @@ public class PageDaoImpl extends ExperimentDaoImpl<Page, Long> implements PageDa
 
         return pages;
     }
+
+    @Override
+    public Page findBySlug(String slug) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Page> criteria = builder.createQuery(Page.class);
+        Root<Page> root = criteria.from(Page.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("slug"), slug));
+        Page page = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return page;
+    }
 }
