@@ -43,7 +43,7 @@ public class PageController extends RootController{
     public String getAdminPanel (Model model){
         List<Page> pages = pageService.findAll();
         model.addAttribute("pages", pages);
-        return "/admin/pages";
+        return "admin/pages";
     }
 
 
@@ -138,7 +138,7 @@ public class PageController extends RootController{
 
 
         model.addAttribute("action", "/admin/page/" + id + "/edit");
-        return "/admin/add_page";
+        return "admin/add_page";
     }
 
 

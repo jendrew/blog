@@ -61,7 +61,7 @@ import java.util.List;
             List<Post> posts = postService.findAll();
             Collections.reverse(posts);
             model.addAttribute("posts", posts);
-            return "/admin/panel";
+            return "admin/panel";
         }
 
 
@@ -75,7 +75,7 @@ import java.util.List;
             CategoryWrapper categories = new CategoryWrapper();
             categories.setCategories(categoryService.findAll());
             model.addAttribute("wrapper", categories);
-            return "/admin/edit_menu";
+            return "admin/edit_menu";
         }
 
 

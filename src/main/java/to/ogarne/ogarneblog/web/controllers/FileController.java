@@ -28,7 +28,7 @@ public class FileController {
     @RequestMapping("/admin/addFile")
     public String fileUploadForm(Model model) {
         model.addAttribute("file", new File());
-        return "/admin/file_upload";
+        return "admin/file_upload";
     }
 
 
