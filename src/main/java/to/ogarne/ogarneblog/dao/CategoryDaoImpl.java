@@ -78,6 +78,19 @@ public class CategoryDaoImpl implements CategoryDao {
 
     }
 
+    @Override
+    public Category findByName(String name) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
+        Root<Category> root = criteria.from(Category.class);
+        criteria.select(root);
+        criteria.where(builder.equal(root.get("name"), name));
+        Category category = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return category;
+    }
+
 
     @Override
     public void delete(Category category) {

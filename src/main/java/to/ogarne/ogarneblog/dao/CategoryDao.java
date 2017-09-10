@@ -10,5 +10,6 @@ import java.util.List;
 public interface CategoryDao extends GenericDao<Category, Long> {
     void saveInBulk(List<Category> categories);
     List<Category> getCategoriesForMenu();
+    Category findByName(String name);
 
 }

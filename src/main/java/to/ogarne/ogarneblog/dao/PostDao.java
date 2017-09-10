@@ -11,8 +11,9 @@ import java.util.List;
 public interface PostDao extends GenericDao<Post,Long> {
     List<Post> findLastXPublishedPosts(int numberOfPosts);
     List<Post> findLastXPublishedPosts(Pageable pageable);
+    List<Post> findPostsFromCategory(Pageable pageable, Long categoryId );
     Post findBySlug(String slug);
-    Long getCount(boolean published);
+    Long getCount(boolean published, Long categoryId);
     Long saveWithId(Post post);
 
 }

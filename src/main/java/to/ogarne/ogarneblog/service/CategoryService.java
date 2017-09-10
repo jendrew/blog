@@ -14,6 +14,7 @@ public interface CategoryService {
     List<Category> findAll();
     List<Category> getCategoriesForMenu();
     Category findById(Long id);
+    Category findByName(String name);
     void save (Category category);
     void saveInBulk(List<Category> categories);
     void delete(Category category);

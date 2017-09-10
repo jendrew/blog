@@ -57,7 +57,6 @@ public class PostDaoImpl implements PostDao {
 
     public List<Post> findLastXPublishedPosts(Pageable pageable) {
 
-        //pageable.previousOrFirst().getp
 
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -79,6 +78,29 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+    public List<Post> findPostsFromCategory(Pageable pageable, Long categoryId) {
+
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Post> criteria = builder.createQuery(Post.class);
+        Root<Post> root =  criteria.from(Post.class);
+
+        // order descending by date
+        criteria.where(builder.equal(root.get("category_id"), categoryId));
+        criteria.orderBy(builder.desc(root.get("dateCreated")));
+
+        List<Post> posts = session.createQuery(criteria)
+                // limit number of returned posts to @param numberOfPosts
+                .setFirstResult(pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        session.close();
+
+        return posts;
+    }
+
+
+    @Override
     public Post findBySlug(String slug) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -92,7 +114,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public Long getCount(boolean published) {
+    public Long getCount(boolean published, Long categoryId) {
 
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder= session.getCriteriaBuilder();
@@ -101,6 +123,10 @@ public class PostDaoImpl implements PostDao {
         criteria.select(builder.count(root));
         if (published) {
             criteria.where(builder.isTrue(root.get("published")));
+        }
+
+        if (categoryId != null) {
+            criteria.where(builder.equal(root.get("category_id"), categoryId));
         }
 
         long count = session.createQuery(criteria).getSingleResult();

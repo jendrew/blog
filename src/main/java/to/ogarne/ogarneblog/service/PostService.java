@@ -13,7 +13,8 @@ public interface PostService {
     List<Post> findAll();
     List<Post> findLastXPublishedPosts(int numberOfPosts);
     List<Post> findLastXPublishedPosts(Pageable pageable);
-    Long getCount(boolean published);
+    List<Post> findPostsInCategory(Pageable pageable, Long categoryId);
+    Long getCount(boolean published, Long categoryId);
     Post findById(Long id);
     Post findBySlug(String slug);
     void save (Post post);

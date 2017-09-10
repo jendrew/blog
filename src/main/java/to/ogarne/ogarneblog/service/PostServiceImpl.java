@@ -40,9 +40,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Long getCount(boolean published) {
+    public List<Post> findPostsInCategory(Pageable pageable, Long categoryId) {
+        return postDao.findPostsFromCategory(pageable, categoryId);
+    }
 
-        return postDao.getCount(published);
+    @Override
+    public Long getCount(boolean published, Long categoryId) {
+
+        return postDao.getCount(published, categoryId);
     }
 
     @Override
