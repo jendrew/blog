@@ -144,7 +144,7 @@ public class PostController extends RootController {
         model.addAttribute("action", "/admin/posts/" + id + "/edit");
         model.addAttribute("users", userService.findAll());
         model.addAttribute("categories", categoryService.findAll());
-        return "/admin/add_post";
+        return "admin/add_post";
     }
 
     // Process data from editing post
