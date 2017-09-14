@@ -9,6 +9,7 @@ public interface PageService {
     List<Page> findAll();
     List<Page> getPagesForMenu();
     Page findById(Long id);
+    Page findBySlug(String slug);
     void save (Page page);
     void delete(Page page);
 }

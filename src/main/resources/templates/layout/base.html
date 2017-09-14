@@ -47,7 +47,7 @@
                         <a class="nav-item nav-link"
                            th:each="page : ${menuItems}"
                            th:text="${#strings.toUpperCase(page.title)}"
-                           th:href="@{|/pages/${page.id}-${page.slug}|}">BLOG</a>
+                           th:href="@{|/pages/${page.slug}|}">BLOG</a>
 
                     </div>
                 </div>

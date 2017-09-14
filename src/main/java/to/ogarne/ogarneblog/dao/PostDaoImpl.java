@@ -86,7 +86,12 @@ public class PostDaoImpl implements PostDao {
         Root<Post> root =  criteria.from(Post.class);
 
         // order descending by date
-        criteria.where(builder.equal(root.get("category_id"), categoryId));
+        criteria.where(
+                builder.and(
+                        builder.equal(root.get("category"), categoryId),
+                        builder.isTrue(root.get("published"))
+                )
+        );
         criteria.orderBy(builder.desc(root.get("dateCreated")));
 
         List<Post> posts = session.createQuery(criteria)
@@ -126,7 +131,7 @@ public class PostDaoImpl implements PostDao {
         }
 
         if (categoryId != null) {
-            criteria.where(builder.equal(root.get("category_id"), categoryId));
+            criteria.where(builder.equal(root.get("category"), categoryId));
         }
 
         long count = session.createQuery(criteria).getSingleResult();

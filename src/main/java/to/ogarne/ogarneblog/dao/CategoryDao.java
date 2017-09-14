@@ -12,4 +12,5 @@ public interface CategoryDao extends GenericDao<Category, Long> {
     List<Category> getCategoriesForMenu();
     Category findByName(String name);
 
+
 }

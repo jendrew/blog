@@ -1,6 +1,6 @@
 package to.ogarne.ogarneblog.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Repository;
@@ -11,20 +11,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Repository
 public class StorageDaoImpl implements StorageDao {
 
 
-
-    private final Path rootLocation;
-
-    @Autowired
-    public StorageDaoImpl() {
-        this.rootLocation = Paths.get("upload");
-    }
+    @Value("${storage.upload.root}")
+    private Path rootLocation;
 
 
     @Override

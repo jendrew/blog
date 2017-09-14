@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +39,9 @@ public class Page implements Parseable {
 
     @Column(unique = true)
     private Long menuPosition;
+
+    @Column
+    private Date dateModified = new Date();
 
     @ManyToOne
     private Page parent;
@@ -112,5 +116,21 @@ public class Page implements Parseable {
 
     public void setImagePaths(List<String> imagePaths) {
         this.imagePaths = imagePaths;
+    }
+
+    public Date getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(Date dateModified) {
+        this.dateModified = dateModified;
+    }
+
+    public Page() {}
+
+    public Page(String title, String slug, String body) {
+        this.title = title;
+        this.slug = slug;
+        this.body = body;
     }
 }

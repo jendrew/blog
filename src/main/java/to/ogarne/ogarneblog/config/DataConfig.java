@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import to.ogarne.ogarneblog.mockdata.DatabaseLoader;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,6 +23,11 @@ public class DataConfig {
 
     @Autowired
     Environment env;
+
+    @Bean
+    public DatabaseLoader databaseLoader() {
+        return new DatabaseLoader();
+    }
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {

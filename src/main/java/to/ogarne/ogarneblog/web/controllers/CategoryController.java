@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import to.ogarne.ogarneblog.model.Category;
-import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.web.MarkdownParser;
@@ -46,7 +45,7 @@ public class CategoryController {
         model.addAttribute("posts", posts);
 
 
-
+        return "post_list";
 
 
     }

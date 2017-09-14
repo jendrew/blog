@@ -28,14 +28,14 @@
         </h2>
 
 
-        <p class="border-bottom-1 ob-post-header ob-color-darkgrey pb-3 ">
+        <p class="ob-post-header ob-color-darkgrey pb-3 ">
 
             <span class="fa fa-calendar-o" aria-hidden="true"></span>
             <span th:text="*{#dates.format(dateCreated, 'dd MMMM yyyy HH:mm')}" class="pr-4"></span>
             <span class="fa fa-user-o" aria-hidden="true"></span>
             <span th:text="*{author.username}" class="pr-4"></span>
             <span class="fa fa-folder-open-o" aria-hidden="true"></span>
-            <span th:text="*{category.name}"></span>
+            <a th:href="@{|/categories/*{category.name}|}" ><span th:text="*{category.name}"></span></a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/admin/posts/*{id}/edit|}" class="pl-4">
                 <span  class="fa fa-pencil ob-color-darkgrey"></span>
             </a>

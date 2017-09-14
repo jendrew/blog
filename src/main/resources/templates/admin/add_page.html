@@ -5,7 +5,9 @@
 
 <!-- TODO: add 'preview' link to the bottom of this page-->
 <!-- TODO: add simple way to add images/files to the page-->
-
+<head>
+    <meta name="robots" content="noindex" />
+</head>
 <body>
 <section layout:fragment="content">
 
@@ -80,7 +82,7 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary pull-right" th:classappend="${page.id != null} ? '' : 'disabled'"
-           th:href="@{|/page/*{id}-*{slug}|}" role="button">Show</a>
+           th:href="@{|/page/*{slug}|}" role="button">Show</a>
 
     </form>
 

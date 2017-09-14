@@ -178,4 +178,15 @@ public class Post implements Parseable {
                 ", published = " + published +
                 '}';
     }
+
+    public Post(String title, String slug, String description, String body, User author, Category category, Date dateCreated, boolean published) {
+        this.title = title;
+        this.slug = slug;
+        this.description = description;
+        this.body = body;
+        this.author = author;
+        this.category = category;
+        this.dateCreated = dateCreated;
+        this.published = published;
+    }
 }

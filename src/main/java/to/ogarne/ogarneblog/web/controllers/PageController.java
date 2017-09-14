@@ -58,9 +58,9 @@ public class PageController extends RootController{
 
 
     // Displays content of given page
-    @RequestMapping("/pages/{id:\\d+}-{slug}")
-    public String getPage(@PathVariable Long id, Model model) {
-        Page page = pageService.findById(id);
+    @RequestMapping("/pages/{slug}")
+    public String getPage(@PathVariable String slug, Model model) {
+        Page page = pageService.findBySlug(slug);
         markdownParser.cutHiddenChars(page);
         String description = markdownParser.getPlainText(page, 300);
         model.addAttribute("description", description);

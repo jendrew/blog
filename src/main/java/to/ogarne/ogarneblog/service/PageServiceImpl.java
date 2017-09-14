@@ -35,6 +35,11 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
+    public Page findBySlug(String slug) {
+        return pageDao.findBySlug(slug);
+    }
+
+    @Override
     public void save(Page page) {
         pageDao.save(page);
     }

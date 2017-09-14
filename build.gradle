@@ -50,4 +50,7 @@ dependencies {
     // Markdown parser
     compile 'com.vladsch.flexmark:flexmark-all:0.22.4'
 
+    //Sitemap generator
+    compile group: 'com.google.code', name: 'sitemapgen4j', version: '1.0.1'
+
 }
