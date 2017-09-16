@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import to.ogarne.ogarneblog.service.CategoryNotEmptyException;
 import to.ogarne.ogarneblog.service.CategoryService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,8 @@ public class GlobalExceptionHandler {
 
         return null;
     }
+
+
 
     //TODO: Obsłużyć wyjątek, kiedy wysłany plik jest pusty
 }

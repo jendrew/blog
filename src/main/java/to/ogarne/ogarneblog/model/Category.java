@@ -2,6 +2,7 @@ package to.ogarne.ogarneblog.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -16,12 +17,12 @@ public class Category {
 
     @Column
     @NotNull
-    @Size(max = 30)
+    @Size(min = 2, max = 30)
     private String name;
 
-    @Column
+    @Column(unique = true)
     @NotNull
-    @Size(max = 30)
+    @Size(min = 2, max = 30)
     private String displayName;
 
     @Column(unique = true)

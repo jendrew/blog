@@ -48,6 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Category category) {
+
+        if (category.getPosts().size() > 0) {
+            throw new CategoryNotEmptyException();
+        }
         categoryDao.delete(category);
     }
 }

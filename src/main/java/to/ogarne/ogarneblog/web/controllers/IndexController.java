@@ -26,7 +26,7 @@ public class IndexController extends  RootController{
     public String loadMockData(Model model) {
         model.addAttribute("recentPosts", postService.findLastXPublishedPosts(5));
         databaseLoader.run();
-        return "index";
+        return "redirect:/admin/login";
     }
 
 }

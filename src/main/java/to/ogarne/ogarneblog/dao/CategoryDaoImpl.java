@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog.dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,7 @@ public class CategoryDaoImpl implements CategoryDao {
         criteria.select(root);
         criteria.where(builder.equal(root.get("name"), name));
         Category category = session.createQuery(criteria).getSingleResult();
+        Hibernate.initialize(category.getPosts());
         session.close();
         return category;
     }
@@ -95,7 +97,14 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void delete(Category category) {
 
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(category);
+        session.getTransaction().commit();
+        session.close();
     }
+
+
 
 
 }
