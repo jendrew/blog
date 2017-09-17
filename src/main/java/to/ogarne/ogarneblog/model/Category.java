@@ -17,6 +17,7 @@ public class Category {
 
     @Column
     @NotNull
+    @Pattern(regexp = "^[A-Za-z0-9\\-]*$", message = "W ścieżce użyto niewłaściwych znaków. Dozwolone tylko a-z oraz myślnik")
     @Size(min = 2, max = 30)
     private String name;
 

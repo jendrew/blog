@@ -32,6 +32,11 @@ public class Page implements Parseable {
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;
 
+    @Column
+    @NotNull
+    @Size(min = 3, max = 300)
+    private String description;
+
     @Column(columnDefinition = "text")
     @NotNull
     @Size(min = 3)
@@ -53,6 +58,9 @@ public class Page implements Parseable {
 
     @OneToMany(mappedBy = "parent")
     private Set<Page> childern = new HashSet<>();
+
+    @Transient
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -126,11 +134,29 @@ public class Page implements Parseable {
         this.dateModified = dateModified;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Page() {}
 
-    public Page(String title, String slug, String body) {
+
+    public Page(String title, String slug, String description, String body) {
         this.title = title;
         this.slug = slug;
+        this.description = description;
         this.body = body;
     }
 }

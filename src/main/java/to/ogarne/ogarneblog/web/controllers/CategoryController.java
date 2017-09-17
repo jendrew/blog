@@ -51,6 +51,7 @@ public class CategoryController extends  RootController {
 
         model.addAttribute("pagination", new Pagination(pageable, postService.getCount(true, category.getId())));
         model.addAttribute("posts", posts);
+        model.addAttribute("category", category);
 
 
         return "post_list";
@@ -109,7 +110,7 @@ public class CategoryController extends  RootController {
         Category category = categoryService.findByName(name);
         categoryService.delete(category);
 
-        return "redirect:/admin/addCategory";
+        return "redirect:/admin/categories";
 
 
     }

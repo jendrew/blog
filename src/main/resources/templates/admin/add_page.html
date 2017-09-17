@@ -45,6 +45,15 @@
             </small>
         </div>
 
+        <div class="form-group" th:classappend="${#fields.hasErrors('description') ? 'has-danger' : ''}">
+            <label for="inputDesc">Body</label>
+            <textarea class="form-control" id="inputDesc" rows="4" th:field="*{description}"></textarea>
+            <div class="form-control-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">An
+                error
+                occured
+            </div>
+        </div>
+
 
         <div class="form-group" th:classappend="${#fields.hasErrors('body') ? 'has-danger' : ''}">
             <label for="inputBody">Body</label>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
+import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.model.sitemap.ChangeFrequency;
 import to.ogarne.ogarneblog.model.sitemap.Sitemap;
 import to.ogarne.ogarneblog.model.sitemap.SitemapURL;
@@ -26,7 +27,7 @@ public class SitemapController {
     String baseUrl;
 
     @Value("${sitemap.change.frequency}")
-    String changeFrequency;
+    ChangeFrequency changeFrequency;
 
     @Value("${sitemap.priority}")
     Float priority;
@@ -46,10 +47,11 @@ public class SitemapController {
 
 
         List<SitemapURL> postUrls = postService.findAll().stream()
+                .filter(Post::isPublished)
                 .map(post -> {
                     SitemapURL url = new SitemapURL();
                     url.setLocation(baseUrl + "/posts/" + post.getSlug());
-                    url.setChangeFrequency(ChangeFrequency.hourly);
+                    url.setChangeFrequency(changeFrequency);
                     url.setLastModified(post.getDateModified());
                     url.setPriority(priority);
                     return url;
@@ -60,7 +62,7 @@ public class SitemapController {
                 .map(page -> {
                     SitemapURL url = new SitemapURL();
                     url.setLocation(baseUrl + "/pages/" + page.getSlug());
-                    url.setChangeFrequency(ChangeFrequency.hourly);
+                    url.setChangeFrequency(changeFrequency);
                     url.setLastModified(page.getDateModified());
                     url.setPriority(priority);
                     return url;

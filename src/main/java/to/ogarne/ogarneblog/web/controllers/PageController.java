@@ -20,6 +20,7 @@ import to.ogarne.ogarneblog.web.MarkdownParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PageController extends RootController{
@@ -66,6 +67,15 @@ public class PageController extends RootController{
         model.addAttribute("description", description);
         markdownParser.parse(page);
         model.addAttribute("page", page);
+
+        //Stream menuItems from RootController and locate the item currenty tied to page variable
+        //and set it active
+
+        model.addAttribute("menuItems",
+                getMenu().stream().map(item -> {
+                    item.setActive((item.getSlug().equals(slug)));
+                    return item;
+                }).collect(Collectors.toList()));
 
         return "page";
     }

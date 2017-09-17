@@ -27,11 +27,12 @@
 
 
 <div class="container" id="top">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-8 push-md-2">
 
             <!-- NAVIGATION BAR -->
             <nav th:fragment="nav" class="navbar navbar-expand-md navbar-light bg-white pl-0 ob-navbar mb-3 pb-0">
+                <a class="navbar-brand display-4" th:href="@{/}">OGARNE.TO</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -39,15 +40,14 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <a class="navbar-brand ob-brand" th:href="@{/}">
-                        <img th:src="@{/image/logo.png}" class="mb-1" width="160" />
-                    </a>
+
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" th:href="@{/posts}">BLOG</a>
                         <a class="nav-item nav-link"
-                           th:each="page : ${menuItems}"
-                           th:text="${#strings.toUpperCase(page.title)}"
-                           th:href="@{|/pages/${page.slug}|}">BLOG</a>
+                           th:each="item : ${menuItems}"
+                           th:text="${#strings.toUpperCase(item.title)}"
+                           th:href="@{|/pages/${item.slug}|}"
+                           th:classappend="${item.isActive()} ? 'active' : ''"></a>
 
                     </div>
                 </div>
@@ -74,8 +74,9 @@
 
         </div>
 
-        <!--  This part is seen only if logged user is ADMIN -->
+
         <div class="col-md-2 push-md-2" sec:authorize="hasRole('ROLE_ADMIN')">
+            <!--  This part is seen only if logged user is ADMIN -->
             <div th:fragment="adminnav(active)">
                 <ul class="nav flex-column my-4 justify-content-end">
                     <li class="nav-item">
@@ -129,7 +130,7 @@
     </div>
 
     <!-- FOOTER -->
-    <div class="row" sec:authorize="!hasRole('ROLE_ADMIN')">
+    <div class="row justify-content-center" sec:authorize="!hasRole('ROLE_ADMIN')">
         <div class="col-md-8 push-md-2 ">
             <footer class="ob-footer py-2">
                 <p class="my-1">
