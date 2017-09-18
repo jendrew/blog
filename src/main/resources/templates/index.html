@@ -3,24 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Strona główna</title>
+    <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')}" />
 </head>
 <body>
 <section layout:fragment="content">
-    <img class="img-fluid" th:src="@{/images/zrzut.jpg}" />
-    <p class="lead mt-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur at cupiditate deleniti, doloremque dolores
-        doloribus esse expedita explicabo, molestias necessitatibus odit optio quasi quia quo quod ratione recusandae
-        sunt
-        tenetur.
-    </p>
-    <blockquote class="blockquote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad consectetur dolor dolore dolorum eaque enim
-        illo iusto laborum maxime modi molestiae natus pariatur, perspiciatis quidem quo sint sunt, tempora vitae?
-    </blockquote>
-
-    <h3 class="mb-3">RECENT POSTS</h3>
-    <a th:each="post : ${recentPosts}" th:href="@{|/posts/${post.slug}|}">
-        <p class="" th:text="${#dates.format(post.dateCreated, 'YYYY,MMM dd')} + ' ' + ${post.title}"></p>
-    </a>
+    <div th:utext="${homePage.body}"></div>
 
 </section>
 

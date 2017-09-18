@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org">
-<head th:fragment="head(page_title)">
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -19,7 +19,7 @@
     <!-- Lightbox CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" />
 
-    <title layout:title-pattern="$DECORATOR_TITLE | $CONTENT_TITLE">ogarne.to</title>
+    <title layout:title-pattern="$CONTENT_TITLE | $DECORATOR_TITLE">ogarne.to</title>
 </head>
 
 
@@ -42,12 +42,12 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" th:href="@{/posts}">BLOG</a>
                         <a class="nav-item nav-link"
                            th:each="item : ${menuItems}"
-                           th:text="${#strings.toUpperCase(item.title)}"
-                           th:href="@{|/pages/${item.slug}|}"
+                           th:text="${#strings.toLowerCase(item.title)}"
+                           th:href="${item.slug == 'home'} ? @{/} : @{|/pages/${item.slug}|}"
                            th:classappend="${item.isActive()} ? 'active' : ''"></a>
+                        <a class="nav-item nav-link" th:href="@{/posts}">blog</a>
 
                     </div>
                 </div>

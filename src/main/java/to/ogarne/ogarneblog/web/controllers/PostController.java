@@ -80,8 +80,6 @@ public class PostController extends RootController {
     public String getPostDetails(@PathVariable String slug, Model model) {
         Post post = postService.findBySlug(slug);
         markdownParser.cutHiddenChars(post);
-        String description = markdownParser.getPlainText(post, 300);
-        model.addAttribute("description", description);
         markdownParser.parse(post);
         model.addAttribute("post", post);
 

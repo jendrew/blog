@@ -5,7 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import to.ogarne.ogarneblog.mockdata.DatabaseLoader;
+import to.ogarne.ogarneblog.model.Page;
+import to.ogarne.ogarneblog.service.PageService;
 import to.ogarne.ogarneblog.service.PostService;
+import to.ogarne.ogarneblog.web.MarkdownParser;
+
+import java.util.List;
 
 @Controller
 public class IndexController extends  RootController{
@@ -14,11 +19,23 @@ public class IndexController extends  RootController{
     PostService postService;
 
     @Autowired
+    PageService pageService;
+
+    @Autowired
     DatabaseLoader databaseLoader;
+
+    @Autowired
+    MarkdownParser markdownParser;
 
     @RequestMapping("/")
     public String getIndex(Model model) {
-        model.addAttribute("recentPosts", postService.findLastXPublishedPosts(5));
+        Page homePage = pageService.findBySlug("home");
+        markdownParser.parse(homePage);
+        model.addAttribute("homePage", homePage);
+        List<Page> menuItems = getMenu();
+        menuItems.get(0).setActive(true);
+        model.addAttribute("menuItems", menuItems);
+
         return "index";
     }
 

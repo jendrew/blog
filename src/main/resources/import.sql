@@ -10,3 +10,7 @@ insert into category (name, displayName) values ('diy', 'diy');
 insert into category (name, displayName) values ('bezpieczenstwo', 'bezpieczenstwo');
 insert into category (name, displayName) values ('film', 'film');
 
+insert into page (slug, title, description, body, menuPosition) values ('home', 'home', 'This is homepage', 'This is your homepage', 0);
+
+
+

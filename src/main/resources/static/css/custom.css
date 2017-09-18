@@ -13,15 +13,39 @@ a:visited {
 
 a:hover {
     color: #999999;
-    text-decoration: none;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #676767;
+    text-decoration: underline;
+    font-weight: normal;
 }
 
 a > h2 {
     color: #FFCD00;
 }
 
-a.nav-link {
+
+a.nav-link:link {
     color: #676767;
+}
+
+a.nav-link:visited {
+    color: #676767;
+}
+
+a.nav-link:hover {
+    color: #676767;
+}
+
+a.nav-link:active {
+    color: #676767;
+}
+
+a.nav-link.active {
+    text-decoration: underline;
+
 }
 
 
@@ -105,9 +129,6 @@ textarea {
 }
 
 
-a.nav-item.nav-link.active {
-    font-weight: 700;
-}
 
 .ob-cover {
     object-fit: cover
