@@ -9,7 +9,7 @@
 <head>
     <title th:text="${post.title}"></title>
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}" />
-    <!-- FACEBOOK OPEN GRAPH MARKERS -->
+     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
     <meta property="og:url"                th:content="@{${#httpServletRequest.requestURL}}"  />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              th:content="${post.title}" />
@@ -18,7 +18,7 @@
           th:each="path : ${post.imagePaths}"
           property="og:image"
           th:content="${#httpServletRequest.getHeader('host')} + ${path}" />
-    <!-- /FACEBOOK OPEN GRAPH MARKERS -->
+     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
 </head>
 
 

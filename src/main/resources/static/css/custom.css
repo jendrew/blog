@@ -2,58 +2,65 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Anton|Oswald:500');
 
+
+/*
+Kolory:
+
+kolor tekstu: #212529
+akcent:
+
+
+
+*/
+
+
 a:link {
-    color: #676767;
+    text-decoration: none;
+    color: #212529;
 
 }
 
 a:visited {
-    color: #676767;
+    color: #212529;
 }
 
 a:hover {
-    color: #999999;
-    text-decoration: underline;
+    text-decoration: none;
+    color: #212529;
 }
 
 a:active {
-    color: #676767;
-    text-decoration: underline;
-    font-weight: normal;
+    color: #212529;
 }
 
-a > h2 {
-    color: #FFCD00;
-}
+
 
 
 a.nav-link:link {
-    color: #676767;
 }
 
 a.nav-link:visited {
-    color: #676767;
+    text-decoration: underline;
 }
 
 a.nav-link:hover {
-    color: #676767;
-}
+    text-decoration: dotted;
 
-a.nav-link:active {
-    color: #676767;
 }
-
 a.nav-link.active {
     text-decoration: underline;
-
 }
 
 
-
-a.page-link {
-    color: #FFCD00;
-    border : none;
+p > a:link {
+    text-decoration: underline;
 }
+
+p > a:hover {
+    text-decoration: none;
+}
+
+
 
 body, nav  {
     font-size:18px;
@@ -78,13 +85,6 @@ pre code {
     font-size: 16px;
 }
 
-
-p a {
-    color: #FFCD00;
-}
-
-
-
 textarea {
     font-family: "Ubuntu Mono", Consolas, Monaco, "Andale Mono", monospace;
 
@@ -92,6 +92,7 @@ textarea {
 
 .navbar-brand {
     font-family: 'Oswald','Roboto Slab', Georgia, "Times New Roman", Times, serif !important;
+    font-size: 2rem;
     font-weight: 700;
     color: #313131;
 }
