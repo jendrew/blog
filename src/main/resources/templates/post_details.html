@@ -8,17 +8,17 @@
 
 <head>
     <title th:text="${post.title}"></title>
-    <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}" />
-     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="og:url"                th:content="@{${#httpServletRequest.requestURL}}"  />
-    <meta property="og:type"               content="article" />
-    <meta property="og:title"              th:content="${post.title}" />
-    <meta property="og:description"        th:content="${post.description}" />
+    <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}"/>
+    <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
+    <meta property="og:url" th:content="@{${#httpServletRequest.requestURL}}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" th:content="${post.title}"/>
+    <meta property="og:description" th:content="${post.description}"/>
     <meta th:if="${post.imagePaths != null}"
           th:each="path : ${post.imagePaths}"
           property="og:image"
-          th:content="${#httpServletRequest.getHeader('host')} + ${path}" />
-     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
+          th:content="${#httpServletRequest.getHeader('host')} + ${path}"/>
+    <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
 </head>
 
 
@@ -27,7 +27,9 @@
 
     <div th:object="${post}">
         <h2 class="mt-3">
-            <a th:href="${#httpServletRequest.getHeader('referer')}"><small class="fa fa-chevron-left" aria-hidden="true"></small></a>
+            <a th:href="${#httpServletRequest.getHeader('referer')}">
+                <small class="fa fa-chevron-left" aria-hidden="true"></small>
+            </a>
             <span th:text="*{#strings.toUpperCase(title)}"></span>
         </h2>
 
@@ -39,14 +41,12 @@
             <span class="fa fa-user-o" aria-hidden="true"></span>
             <span th:text="*{author.username}" class="pr-4"></span>
             <span class="fa fa-folder-open-o" aria-hidden="true"></span>
-            <a th:href="@{|/categories/*{category.name}|}" ><span th:text="*{category.name}"></span></a>
+            <a th:href="@{|/categories/*{category.name}|}"><span th:text="*{category.name}"></span></a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/admin/posts/*{id}/edit|}" class="pl-4">
-                <span  class="fa fa-pencil ob-color-darkgrey"></span>
+                <span class="fa fa-pencil ob-color-darkgrey"></span>
             </a>
         </p>
         <p th:utext="*{body}"></p>
-
-
 
 
     </div>

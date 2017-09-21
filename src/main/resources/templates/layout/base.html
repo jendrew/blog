@@ -47,7 +47,7 @@
                            th:text="${#strings.toLowerCase(item.title)}"
                            th:href="${item.slug == 'home'} ? @{/} : @{|/pages/${item.slug}|}"
                            th:classappend="${item.isActive()} ? 'active' : ''"></a>
-                        <a class="nav-item nav-link" th:href="@{/posts}">blog</a>
+                        <a class="nav-item nav-link" th:href="@{/posts}" th:classappend="${posts != null || post != null} ? 'active' : ''">blog</a>
 
                     </div>
                 </div>
