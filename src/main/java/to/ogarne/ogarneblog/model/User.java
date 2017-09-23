@@ -39,6 +39,9 @@ public class User  implements UserDetails{
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<Post>();
 
+    @Column
+    private Long fbId;
+
     public User() {
     }
 
@@ -116,5 +119,13 @@ public class User  implements UserDetails{
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public Long getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(Long fbId) {
+        this.fbId = fbId;
     }
 }

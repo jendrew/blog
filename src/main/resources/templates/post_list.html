@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<section layout:fragment="content" th:fragment="content">
+<section layout:fragment="content">
 
 
     <!--/* Tytuł kategorii + link do tyłu */-->
@@ -32,7 +32,6 @@
 
     <hr class="ob-border mb-3"/>
 
-
     <div th:each="post : ${posts}" class="pb-2 mb-4">
         <a th:href="@{|/posts/${post.slug}|}">
             <h3 th:text="${post.title}"></h3>
@@ -44,7 +43,7 @@
             <span th:if="${categories != null}">
                 <span class="fa fa-folder-open-o mt-1" aria-hidden="true"></span>
                 <a class="ml-1"
-                   th:text="${post.category.name}"
+                   th:text="${post.category.displayName}"
                    th:href="@{|/categories/${post.category.name}|}"></a>
             </span>
 
@@ -59,14 +58,14 @@
             <!--/* Paginacja w lewo */-->
             <li class="page-item " th:classappend="${pagination.getPageable().hasPrevious()} ? '' : 'disabled'">
                 <a class="page-link"
-                   th:href="@{|/posts/?page=${pagination.getPageable().previousOrFirst().getPageNumber()}|}"
+                   th:href="@{|/${paginationPath}/?page=${pagination.getPageable().previousOrFirst().getPageNumber()}|}"
                    tabindex="-1"><span class="fa fa-chevron-left"></span></a>
             </li>
 
             <!--/* Paginacja w prawo */-->
             <li class="page-item" th:classappend="${pagination.isLast()} ? 'disabled' : ''">
                 <a class="page-link"
-                   th:href="@{|/posts/?page=${pagination.getPageable().next().getPageNumber()}|}"><span
+                   th:href="@{|/${paginationPath}/?page=${pagination.getPageable().next().getPageNumber()}|}"><span
                         class="fa fa-chevron-right"></span></a>
             </li>
         </ul>

@@ -72,6 +72,7 @@ public class PostController extends RootController {
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("pagination", new Pagination(pageable, postService.getCount(true, null)));
         model.addAttribute("posts", posts);
+        model.addAttribute("paginationPath", "posts");
 
         return "post_list";
     }

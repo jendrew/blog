@@ -43,7 +43,7 @@ public class CategoryController extends  RootController {
                                        @PageableDefault(value=10, page = 0) Pageable pageable) {
         Category category = categoryService.findByName(categoryName);
 
-        List<Parseable> posts = category.getPosts().stream()
+        List<Parseable> posts = postService.findPostsInCategory(pageable, category.getId()).stream()
                 .map(markdownParser::limit)
                 .map(markdownParser::parse)
                 .collect(Collectors.toList());
@@ -52,6 +52,7 @@ public class CategoryController extends  RootController {
         model.addAttribute("pagination", new Pagination(pageable, postService.getCount(true, category.getId())));
         model.addAttribute("posts", posts);
         model.addAttribute("category", category);
+        model.addAttribute("paginationPath", "categories/" + category.getName());
 
 
         return "post_list";

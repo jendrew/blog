@@ -108,7 +108,6 @@ textarea {
 
 .ob-post-header {
     display: inline-block;
-    border-bottom: solid 2px #FFCD00;
     font-size:0.9rem;
 }
 
@@ -131,6 +130,15 @@ textarea {
 
 
 
+ob.chevron {
+    font-size:1em;
+}
+
+.ob-header-element {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .ob-cover {
     object-fit: cover
 }
@@ -147,4 +155,12 @@ textarea {
     color: #676767 !important;
 }
 
+/*Prevents scorllbar from moving longer pages few pixels to the left*/
 
+html {
+    overflow-y: scroll;
+}
+
+.pagination .page-item .page-link {
+    border: none;
+}
