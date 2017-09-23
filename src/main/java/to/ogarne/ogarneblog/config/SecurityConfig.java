@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         web.ignoring().antMatchers("/images/**");
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/js/**");
+        web.ignoring().antMatchers("/**/favicon.ico");
+        web.ignoring().antMatchers("/**/robots.txt");
 
     }
 
