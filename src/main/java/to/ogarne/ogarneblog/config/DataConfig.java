@@ -16,8 +16,7 @@ import java.util.Properties;
  */
 
 @Configuration
-
-@PropertySource("app.properties")
+@PropertySource("application.properties")
 public class DataConfig {
 
     @Autowired

@@ -52,7 +52,7 @@ public class Page implements Parseable {
     private Page parent;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="ImagePaths", joinColumns=@JoinColumn(name="path_id"))
+    @CollectionTable(name="PageImagePaths", joinColumns=@JoinColumn(name="path_id"))
     @Column(name="images")
     private List<String> imagePaths;
 

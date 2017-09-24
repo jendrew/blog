@@ -1,6 +1,7 @@
 package to.ogarne.ogarneblog.mockdata;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import to.ogarne.ogarneblog.model.Page;
 import to.ogarne.ogarneblog.model.Post;
@@ -9,13 +10,12 @@ import to.ogarne.ogarneblog.service.PageService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.service.UserService;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by jedrz on 17.07.2017.
  */
+@Profile("dev")
 @Component
 public class DatabaseLoader {
 
@@ -32,7 +32,7 @@ public class DatabaseLoader {
     PageService pageService;
 
 
-    String[] cats = {"przyklad", "tech", "diy", "bezpieczenstwo", "film"};
+    String[] cats = {"przyklad"};
 
 
     public void run() {
@@ -82,7 +82,7 @@ public class DatabaseLoader {
                             "gratantibus velo. Quod domui *certans* semper et bene quae et Aoniis ille saxa\n" +
                             "amans, paratus.",
                     userService.findByUsername("jedrzej"),
-                    categoryService.findByName(cats[(int) Math.round(Math.random() * 4)]),
+                    categoryService.findByName("przyklad"),
                     new Date(),
                     true));
 
@@ -132,7 +132,7 @@ public class DatabaseLoader {
                             "faciem, quaeris **de**, sub simulat esse patiar cantus praeter. Dum quove deus\n" +
                             "novandi totusque, dextra, antra redolentia, crimen, Sabinis! Vela *mundi*.",
                     userService.findByUsername("jedrzej"),
-                    categoryService.findByName(cats[(int) Math.round(Math.random() * 4)]),
+                    categoryService.findByName("przyklad"),
                     new Date(),
                     true));
 
@@ -192,7 +192,7 @@ public class DatabaseLoader {
                             "carissime. Tellure Marte dieque heros qua sed est aurum pius utque in exuritque\n" +
                             "superabat sceptri coniectum Oeten exemplum.",
                     userService.findByUsername("jedrzej"),
-                    categoryService.findByName(cats[(int) Math.round(Math.random() * 4)]),
+                    categoryService.findByName("przyklad"),
                     new Date(),
                     true));
         }

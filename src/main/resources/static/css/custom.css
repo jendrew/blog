@@ -13,6 +13,9 @@ akcent:
 
 */
 
+body, nav {
+    background-color: #f8f8f8;
+}
 
 a:link {
     text-decoration: none;

@@ -2,7 +2,6 @@ package to.ogarne.ogarneblog.web.controllers;
 
 import com.github.slugify.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 /**
  * Created by jedrz on 18.07.2017.
  */
-@PropertySource("app.properties")
 @Controller
 public class PostController extends RootController {
 
