@@ -46,6 +46,7 @@ public class SitemapController {
         final UriComponentsBuilder uriBuilder = ServletUriComponentsBuilder.fromRequest(request).replacePath(null);
 
 
+
         List<SitemapURL> postUrls = postService.findAll().stream()
                 .filter(Post::isPublished)
                 .map(post -> {
@@ -58,16 +59,24 @@ public class SitemapController {
                 })
                 .collect(Collectors.toList());
 
+
         List<SitemapURL> pageUrls = pageService.findAll().stream()
                 .map(page -> {
                     SitemapURL url = new SitemapURL();
-                    url.setLocation(baseUrl + "/pages/" + page.getSlug());
+                    if (page.getSlug().equals("home")) {
+                        url.setLocation(baseUrl);
+                    } else {
+                        url.setLocation(baseUrl + "/pages/" + page.getSlug());
+                    }
                     url.setChangeFrequency(changeFrequency);
                     url.setLastModified(page.getDateModified());
                     url.setPriority(priority);
                     return url;
                 })
                 .collect(Collectors.toList());
+
+
+
 
         postUrls.addAll(pageUrls);
         return new Sitemap(postUrls);

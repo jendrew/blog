@@ -40,8 +40,13 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.2.10.Final'
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.springframework.data:spring-data-commons:1.13.6.RELEASE'
-    compile 'com.h2database:h2:1.4.196'
+
+
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
+
+
+    // Database connector
+    compile 'com.h2database:h2:1.4.196'
 
     // Slug generator
     compile 'com.github.slugify:slugify:2.1.9'

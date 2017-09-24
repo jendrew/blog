@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import to.ogarne.ogarneblog.mockdata.DatabaseLoader;
 import to.ogarne.ogarneblog.model.Page;
 import to.ogarne.ogarneblog.service.PageService;
 import to.ogarne.ogarneblog.service.PostService;
@@ -21,8 +20,6 @@ public class IndexController extends  RootController{
     @Autowired
     PageService pageService;
 
-    @Autowired
-    DatabaseLoader databaseLoader;
 
     @Autowired
     MarkdownParser markdownParser;
@@ -39,11 +36,5 @@ public class IndexController extends  RootController{
         return "index";
     }
 
-    @RequestMapping("/mockdata")
-    public String loadMockData(Model model) {
-        model.addAttribute("recentPosts", postService.findLastXPublishedPosts(5));
-        databaseLoader.run();
-        return "redirect:/admin/login";
-    }
 
 }
