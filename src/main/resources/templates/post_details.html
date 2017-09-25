@@ -9,10 +9,12 @@
 <head prefix=" og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <title th:text="${post.title}"></title>
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}"/>
+
     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="og:url" th:content="@{${#httpServletRequest.requestURL}}"/>
+    <meta property="og:app_id" th:content="${@environment.getProperty('facebook.app.id')}" />
+    <meta property="og:url" th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/posts/' + ${post.slug}"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" th:content="${post.title}"/>
+    <meta property="og:title" th:content="${post.title} + ' | ogarne.to'"/>
     <meta property="og:description" th:content="${post.description}"/>
     <meta th:if="${post.author.fbId != null}"
           property="article.author"
@@ -21,13 +23,13 @@
     <meta th:if="${post.imagePaths != null}"
           th:each="path : ${post.imagePaths}"
           property="og:image"
-          th:content="${#httpServletRequest.getHeader('host')} + ${path}"/>
+          th:content="${'https://' + #httpServletRequest.getHeader('host')} + ${path}"/>
     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
 </head>
 
 
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" class="ob-content">
 
     <div th:object="${post}">
 

@@ -6,23 +6,30 @@
 
 <!--TODO: add 'edit post' button next to the title-->
 
-<head>
-    <title th:title="${page.title}"></title>
-    <!-- FACEBOOK OPEN GRAPH MARKERS -->
+<head prefix=" og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <title th:text="${page.title}"></title>
+    <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/pages/' + ${page.slug}"/>
+
+    <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
     <meta property="og:app_id"             th:content="${@environment.getProperty('facebook.app.id')}" />
-    <meta property="og:url"                th:content="@{${#httpServletRequest.requestURL}}"  />
-    <meta property="og:type"               content="website" />
-    <meta property="og:title"              th:content="${page.title}" />
+    <meta property="og:url"                th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/pages/' + ${page.slug}"  />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              th:content="${page.title} + ' | ogarne.to'" />
     <meta property="og:description"        th:content="${page.description}" />
+    <meta property="article.author"        th:content="${@environment.getProperty('facebook.defaultauthor')}" />
+    <meta property="article.publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
+
     <meta th:if="${page.imagePaths != null}"
           th:each="path : ${page.imagePaths}"
-          property="og:image"              th:content="${'https://' + #httpServletRequest.getHeader('host')} + ${path}" />
-    <!-- /FACEBOOK OPEN GRAPH MARKERS -->
+          property="og:image"
+          th:content="${'https://' + #httpServletRequest.getHeader('host')} + ${path}" />
+    <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
+
 </head>
 
 
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" class="ob-content">
 
     <div th:object="${page}">
         <p th:utext="*{body}"></p>

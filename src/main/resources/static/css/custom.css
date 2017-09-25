@@ -18,7 +18,7 @@ body, nav {
 }
 
 a:link {
-    text-decoration: underline;
+    text-decoration: none;
     color: #212529;
 
 }
@@ -36,24 +36,35 @@ a:active {
     color: #212529;
 }
 
+.nav-item.nav-link.active {
+    text-decoration: underline;
+}
 
 
+.ob-footer a:link,
+.ob-content a:link {
+    text-decoration: underline;
+    color: #212529;
 
-a.nav-link:link, nav a:link {
+}
+
+.ob-footer a:visited,
+.ob-content a:visited {
+    color: #212529;
+}
+
+.ob-footer a:hover,
+.ob-content a:hover {
     text-decoration: none;
+    color: #212529;
 }
 
-a.nav-link:visited, nav a:visited {
-    text-decoration: underline;
+.ob-footer a:active,
+.ob-content a:active {
+    color: #212529;
 }
 
-a.nav-link:hover, nav a:hover {
-    text-decoration: dotted;
 
-}
-a.nav-link.active, nav a:active {
-    text-decoration: underline;
-}
 
 
 
