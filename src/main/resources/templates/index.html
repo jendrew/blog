@@ -6,7 +6,7 @@
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')}" />
 
     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="og:app_id"             th:content="${@environment.getProperty('facebook.app.id')}" />
+    <meta property="fb:app_id"             th:content="${@environment.getProperty('facebook.app.id')}" />
     <meta property="og:url"                th:content="${@environment.getProperty('sitemap.base.url')}"  />
     <meta property="og:type"               content="website" />
     <meta property="og:title"              content="ogarne.to" />
@@ -20,7 +20,7 @@
 </head>
 <body>
 <section layout:fragment="content" class="ob-content">
-    <div th:utext="${homePage.body}"></div>
+    <div th:utext="${homePage.body}" class="ob-content"></div>
 
 </section>
 

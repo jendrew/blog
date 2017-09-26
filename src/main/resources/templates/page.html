@@ -11,13 +11,13 @@
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/pages/' + ${page.slug}"/>
 
     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="og:app_id"             th:content="${@environment.getProperty('facebook.app.id')}" />
+    <meta property="fb:app_id"             th:content="${@environment.getProperty('facebook.app.id')}" />
     <meta property="og:url"                th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/pages/' + ${page.slug}"  />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              th:content="${page.title} + ' | ogarne.to'" />
     <meta property="og:description"        th:content="${page.description}" />
-    <meta property="article.author"        th:content="${@environment.getProperty('facebook.defaultauthor')}" />
-    <meta property="article.publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
+    <meta property="article:author"        th:content="${@environment.getProperty('facebook.defaultauthor')}" />
+    <meta property="article:publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
 
     <meta th:if="${page.imagePaths != null}"
           th:each="path : ${page.imagePaths}"
@@ -29,10 +29,10 @@
 
 
 <body>
-<section layout:fragment="content" class="ob-content">
+<section layout:fragment="content">
 
     <div th:object="${page}">
-        <p th:utext="*{body}"></p>
+        <div th:utext="*{body}" class="ob-content"></div>
 
     </div>
 

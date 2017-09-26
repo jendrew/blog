@@ -11,15 +11,15 @@
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}"/>
 
     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="og:app_id" th:content="${@environment.getProperty('facebook.app.id')}" />
+    <meta property="fb:app_id" th:content="${@environment.getProperty('facebook.app.id')}" />
     <meta property="og:url" th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/posts/' + ${post.slug}"/>
     <meta property="og:type" content="article"/>
     <meta property="og:title" th:content="${post.title} + ' | ogarne.to'"/>
     <meta property="og:description" th:content="${post.description}"/>
     <meta th:if="${post.author.fbId != null}"
-          property="article.author"
+          property="article:author"
           th:content="${post.author.fbId}"/>
-    <meta property="article.publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
+    <meta property="article:publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
     <meta th:if="${post.imagePaths != null}"
           th:each="path : ${post.imagePaths}"
           property="og:image"
@@ -29,7 +29,7 @@
 
 
 <body>
-<section layout:fragment="content" class="ob-content">
+<section layout:fragment="content" >
 
     <div th:object="${post}">
 
@@ -58,7 +58,7 @@
             </a>
         </div>
         <hr class="pb-3"/>
-        <p th:utext="*{body}"></p>
+        <div th:utext="*{body}" class="ob-content"></div>
 
 
     </div>
