@@ -14,7 +14,7 @@
     <!--/* Tytuł kategorii + link do tyłu */-->
 
     <p th:if="${categories == null}">
-        <a th:href="@{/posts}"><span class="fa fa-angle-double-left mr-2"></span></a>
+        <a th:href="${#httpServletRequest.getHeader('referer')}"><span class="fa fa-angle-double-left mr-2"></span></a>
         <span class="fa fa-folder-open-o"></span>
         <span th:text="${category.displayName}"></span>
     </p>

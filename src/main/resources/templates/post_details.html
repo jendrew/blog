@@ -25,11 +25,13 @@
           property="og:image"
           th:content="${'https://' + #httpServletRequest.getHeader('host')} + ${path}"/>
     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
+
 </head>
 
 
 <body>
 <section layout:fragment="content" >
+    <div id="fb-root"></div>
 
     <div th:object="${post}">
 
@@ -44,7 +46,7 @@
 
 
 
-        <div class="ob-post-header ob-color-darkgrey mb-0 aligh">
+        <div class="ob-post-header ob-color-darkgrey mb-0">
 
             <span class="fa fa-calendar-o" aria-hidden="true"></span>
             <span th:text="*{#dates.format(dateCreated, 'dd MMMM yyyy HH:mm')}" class="pr-4"></span>
@@ -53,6 +55,13 @@
              <span th:text="*{author.username}" class="pr-4"></span> */-->
             <span class="fa fa-folder-open-o" aria-hidden="true"></span>
             <a th:href="@{|/categories/*{category.name}|}"><span th:text="*{category.displayName}"></span></a>
+
+            <span id="shareBtn" class=" ml-3">
+                <span class="fa fa-facebook-f"></span>
+                <span>szer</span>
+            </span>
+
+
             <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/admin/posts/*{id}/edit|}" class="pl-4">
                 <span class="fa fa-pencil ob-color-darkgrey"></span>
             </a>
@@ -66,16 +75,44 @@
 
 
 
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : [[${@environment.getProperty('facebook.app.id')}]],
+                autoLogAppEvents : true,
+                xfbml            : true,
+                version          : 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        document.getElementById('shareBtn').onclick = function() {
+            var url = 'https://' + [[${#httpServletRequest.getHeader('host')}]] + '/posts/' + [[${post.slug}]];
+
+            FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: url,
+            }, function(response){});
+        }
+        /*]]>*/
+    </script>
+
 </section>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
 </body>
