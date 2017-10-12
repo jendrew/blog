@@ -179,3 +179,9 @@ html {
     cursor: pointer;
 }
 
+blockquote {
+    padding-left: 1rem;
+    border-left: solid 6px #ccc;
+    padding-right: 1rem;
+}
+

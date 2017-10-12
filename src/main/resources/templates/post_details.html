@@ -18,13 +18,15 @@
     <meta property="og:description" th:content="${post.description}"/>
     <meta th:if="${post.author.fbId != null}"
           property="article:author"
-          th:content="${post.author.fbId}"/>
-    <meta property="article:publisher" th:content="${@environment.getProperty('facebook.publisher')}"/>
+          th:content="'https://www.facebook.com/' + ${post.author.fbId}"/>
+    <meta property="article:publisher" th:content="'https://www.facebook.com/' + ${@environment.getProperty('facebook.publisher')}"/>
     <meta th:if="${post.imagePaths != null}"
           th:each="path : ${post.imagePaths}"
           property="og:image"
           th:content="${'https://' + #httpServletRequest.getHeader('host')} + ${path}"/>
     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
+
+
 
 </head>
 
@@ -35,13 +37,14 @@
 
     <div th:object="${post}">
 
-        <div class="mb-2">
-            <a th:href="${#httpServletRequest.getHeader('referer')}">
+        <div class="row mb-2">
+            <div class="col"><a th:href="${#httpServletRequest.getHeader('referer')}">
                 <span class="fa fa-chevron-left ob-header-element mr-2" aria-hidden="true"></span>
-            </a>
-            <h2 th:text="*{#strings.toUpperCase(title)}" class="my-0 ob-header-element">
+            </a></div>
+            <div class="col"><h2 th:text="*{#strings.toUpperCase(title)}" class="my-0 ob-header-element"></h2></div>
 
-            </h2>
+
+
         </div>
 
 
