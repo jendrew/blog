@@ -11,15 +11,17 @@
     <link rel="canonical" th:href="${@environment.getProperty('sitemap.base.url')} + '/posts/' + ${post.slug}"/>
 
     <!--/* FACEBOOK OPEN GRAPH MARKERS */-->
-    <meta property="fb:app_id" th:content="${@environment.getProperty('facebook.app.id')}" />
-    <meta property="og:url" th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/posts/' + ${post.slug}"/>
+    <meta property="fb:app_id" th:content="${@environment.getProperty('facebook.app.id')}"/>
+    <meta property="og:url"
+          th:content="'https://' + ${#httpServletRequest.getHeader('host')} + '/posts/' + ${post.slug}"/>
     <meta property="og:type" content="article"/>
     <meta property="og:title" th:content="${post.title} + ' | ogarne.to'"/>
     <meta property="og:description" th:content="${post.description}"/>
     <meta th:if="${post.author.fbId != null}"
           property="article:author"
           th:content="'https://www.facebook.com/' + ${post.author.fbId}"/>
-    <meta property="article:publisher" th:content="'https://www.facebook.com/' + ${@environment.getProperty('facebook.publisher')}"/>
+    <meta property="article:publisher"
+          th:content="'https://www.facebook.com/' + ${@environment.getProperty('facebook.publisher')}"/>
     <meta th:if="${post.imagePaths != null}"
           th:each="path : ${post.imagePaths}"
           property="og:image"
@@ -27,26 +29,23 @@
     <!--/* /FACEBOOK OPEN GRAPH MARKERS  */-->
 
 
-
 </head>
 
 
 <body>
-<section layout:fragment="content" >
+<section layout:fragment="content">
     <div id="fb-root"></div>
 
     <div th:object="${post}">
 
-        <div class="row mb-2">
-            <div class="col"><a th:href="${#httpServletRequest.getHeader('referer')}">
+        <div class="w-100 mb-2">
+            <div class="float-left d-inline mt-1"><a th:href="${#httpServletRequest.getHeader('referer')}">
                 <span class="fa fa-chevron-left ob-header-element mr-2" aria-hidden="true"></span>
             </a></div>
-            <div class="col"><h2 th:text="*{#strings.toUpperCase(title)}" class="my-0 ob-header-element"></h2></div>
-
+            <h2 th:text="*{#strings.toUpperCase(title)}" class="my-0 ob-header-element d-inline"></h2>
 
 
         </div>
-
 
 
         <div class="ob-post-header ob-color-darkgrey mb-0">
@@ -75,47 +74,45 @@
 
     </div>
 
-
-
-
-
-
     <script th:inline="javascript">
         /*<![CDATA[*/
 
 
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
             FB.init({
-                appId            : [[${@environment.getProperty('facebook.app.id')}]],
-                autoLogAppEvents : true,
-                xfbml            : true,
-                version          : 'v2.10'
+                appId: [[${@environment.getProperty('facebook.app.id')}]],
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.10'
             });
             FB.AppEvents.logPageView();
         };
 
-        (function(d, s, id){
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        document.getElementById('shareBtn').onclick = function() {
+        document.getElementById('shareBtn').onclick = function () {
             var url = 'https://' + [[${#httpServletRequest.getHeader('host')}]] + '/posts/' + [[${post.slug}]];
 
             FB.ui({
                 method: 'share',
                 display: 'popup',
                 href: url,
-            }, function(response){});
+            }, function (response) {
+            });
         }
         /*]]>*/
     </script>
 
 </section>
-
 
 
 </body>
