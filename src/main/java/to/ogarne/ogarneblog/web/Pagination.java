@@ -16,7 +16,7 @@ public class Pagination {
 
 
     public boolean isLast() {
-        return !(pageable.getPageNumber() < pagesTotal - 1);
+        return !(pageable.getPageNumber() < pagesTotal);
     }
 
     public Pageable getPageable() {
