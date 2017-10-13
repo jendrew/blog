@@ -1,7 +1,8 @@
 package to.ogarne.ogarneblog.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 import to.ogarne.ogarneblog.web.Parseable;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Entity
 public class Post implements Parseable {
 
+
     @Id
     @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +34,6 @@ public class Post implements Parseable {
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;
-
 
 
     @Column
@@ -58,14 +59,17 @@ public class Post implements Parseable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @CreationTimestamp
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
     private Date dateCreated;
 
-    @Column
+    @UpdateTimestamp
     private Date dateModified = new Date();
 
     @Column
     private boolean published;
+
+
 
 
     public Post() {

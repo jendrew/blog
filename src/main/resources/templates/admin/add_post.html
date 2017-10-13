@@ -85,6 +85,17 @@
             </select>
         </div>
 
+        <div class="form-group" th:if="*{dateCreated != null}" >
+            <label for="modifyDate">Creation date</label>
+            <input type="datetime-local" class="form-control" id="modifyDate"
+                   th:field="*{dateCreated}"/>
+
+        </div>
+
+        <div><small th:if="*{dateCreated != null}" th:text="'Date created: ' + ${post.dateCreated}"></small><br/>
+        <small th:if="*{dateModified != null}" th:text="'Date modified: ' + ${post.dateModified}"></small>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary pull-right" th:classappend="*{published == true} ? '' : 'disabled'" th:href="@{|/posts/*{slug}|}" role="button">Show</a>
 

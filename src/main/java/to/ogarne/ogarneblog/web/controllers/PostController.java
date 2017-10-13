@@ -20,6 +20,7 @@ import to.ogarne.ogarneblog.web.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,9 +114,13 @@ public class PostController extends RootController {
             return "redirect:/admin/addPost";
         }
 
+        post.setDateCreated(new Date());
+
         if (post.getSlug().length() < 1) {
             post.setSlug(slugify.slugify(post.getTitle()));
         }
+
+
 
         contentUtils.decodeFileIds(post);
 
@@ -127,12 +132,15 @@ public class PostController extends RootController {
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("flash",
                 new FlashMessage("Post successfully added", FlashMessage.Status.SUCCESS));
-        return "redirect:" + request.getServletPath();
+//        return "redirect:" + request.getServletPath();
+        return "redirect:/admin/posts/" + post.getId() + "/edit";
     }
 
     // Edit post
     @RequestMapping("/admin/posts/{id}/edit")
-    public String editPostForm(@PathVariable Long id, Model model) {
+    public String editPostForm(@PathVariable Long id,
+                               Model model) {
+
         if (!model.containsAttribute("post")) {
             Post post = postService.findById(id);
             model.addAttribute("post", post);
@@ -168,7 +176,7 @@ public class PostController extends RootController {
             post.setImagePaths(imagePaths);
         }
 
-        postService.save(post);
+       postService.save(post);
 
         redirectAttributes.addFlashAttribute("flash",
                 new FlashMessage("Post został wyedytowany", FlashMessage.Status.SUCCESS));
