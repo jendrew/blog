@@ -1,5 +1,5 @@
 group 'to.ogarne'
-version '1.0.5-BETA2'
+version '1.0.7-BETA'
 
 // Include the Spring Boot plugin
 buildscript {

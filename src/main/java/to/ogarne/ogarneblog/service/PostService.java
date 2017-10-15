@@ -20,4 +20,5 @@ public interface PostService {
     void save (Post post);
     Long saveWithId(Post post);
     void delete(Post post);
+    Long exists(String slug);
 }

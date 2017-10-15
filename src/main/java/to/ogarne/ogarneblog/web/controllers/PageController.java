@@ -23,7 +23,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class PageController extends RootController{
+public class
+PageController extends RootController{
 
     @Autowired
     PageService pageService;
