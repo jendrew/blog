@@ -106,6 +106,15 @@ public class PostController extends RootController {
                                      RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 
+        String slug = (post.getSlug().length() < 1) ? slugify.slugify(post.getTitle()) : slugify.slugify(post.getSlug());
+        post.setSlug(slug);
+
+        Long slugValidation = postService.exists(slug);
+
+        if (slugValidation > 0) {
+            result.rejectValue("slug", "post.slug", "This slug is already in use");
+        }
+
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", result);
             redirectAttributes.addFlashAttribute("post", post);
@@ -116,9 +125,6 @@ public class PostController extends RootController {
 
         post.setDateCreated(new Date());
 
-        if (post.getSlug().length() < 1) {
-            post.setSlug(slugify.slugify(post.getTitle()));
-        }
 
 
 
@@ -132,7 +138,6 @@ public class PostController extends RootController {
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("flash",
                 new FlashMessage("Post successfully added", FlashMessage.Status.SUCCESS));
-//        return "redirect:" + request.getServletPath();
         return "redirect:/admin/posts/" + post.getId() + "/edit";
     }
 
@@ -141,10 +146,12 @@ public class PostController extends RootController {
     public String editPostForm(@PathVariable Long id,
                                Model model) {
 
+
         if (!model.containsAttribute("post")) {
             Post post = postService.findById(id);
             model.addAttribute("post", post);
         }
+
 
         model.addAttribute("action", "/admin/posts/" + id + "/edit");
         model.addAttribute("users", userService.findAll());
@@ -157,6 +164,19 @@ public class PostController extends RootController {
     public String processEditPostData(@Valid Post post, BindingResult result,
                                       RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
+        String slug = (post.getSlug().length() < 1) ? slugify.slugify(post.getTitle()) : slugify.slugify(post.getSlug());
+        post.setSlug(slug);
+        Long slugValidation = postService.exists(slug);
+
+        if (slugValidation > 0 && !slugValidation.equals(post.getId())) {
+            result.rejectValue("slug", "post.slug", "This slug is already in use");
+        }
+
+
+        if (post.getDateCreated() == null) {
+            result.rejectValue("dateCreated","post.dateCreated", "Data nie może być pusta");
+        }
+
 
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", result);
@@ -165,9 +185,7 @@ public class PostController extends RootController {
             return "redirect:/admin/posts/" + post.getId() + "/edit";
         }
 
-        if (post.getSlug().length() < 1) {
-            post.setSlug(slugify.slugify(post.getTitle()));
-        }
+
 
         contentUtils.decodeFileIds(post);
 
