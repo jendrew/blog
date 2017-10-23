@@ -30,6 +30,11 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
+    public List<Page> getPublishedPages() {
+        return pageDao.getPublishedPages();
+    }
+
+    @Override
     public Page findById(Long id) {
         return pageDao.findById(id);
     }

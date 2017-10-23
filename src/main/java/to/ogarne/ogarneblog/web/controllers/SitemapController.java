@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
+import to.ogarne.ogarneblog.model.Page;
 import to.ogarne.ogarneblog.model.Post;
 import to.ogarne.ogarneblog.model.sitemap.ChangeFrequency;
 import to.ogarne.ogarneblog.model.sitemap.Sitemap;
@@ -61,6 +62,7 @@ public class SitemapController {
 
 
         List<SitemapURL> pageUrls = pageService.findAll().stream()
+                .filter(Page::isPublished)
                 .map(page -> {
                     SitemapURL url = new SitemapURL();
                     if (page.getSlug().equals("home")) {

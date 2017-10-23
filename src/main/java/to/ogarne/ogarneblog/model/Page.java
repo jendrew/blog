@@ -27,7 +27,7 @@ public class Page implements Parseable {
     @Size(min = 3, max = 300, message = "The size should be between 3 and 300")
     private String title;
 
-    @Column (unique = true)
+    @Column(unique = true)
     @NotNull
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;
@@ -40,10 +40,13 @@ public class Page implements Parseable {
     @Column(columnDefinition = "text")
     @NotNull
     @Size(min = 3)
-    private  String body;
+    private String body;
 
     @Column(unique = true)
     private Long menuPosition;
+
+    @Column
+    private boolean published;
 
     @Column
     private Date dateModified = new Date();
@@ -52,8 +55,8 @@ public class Page implements Parseable {
     private Page parent;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="PageImagePaths", joinColumns=@JoinColumn(name="path_id"))
-    @Column(name="images")
+    @CollectionTable(name = "PageImagePaths", joinColumns = @JoinColumn(name = "path_id"))
+    @Column(name = "images")
     private List<String> imagePaths;
 
     @OneToMany(mappedBy = "parent")
@@ -150,7 +153,17 @@ public class Page implements Parseable {
         this.active = active;
     }
 
-    public Page() {}
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public Page() {
+    }
 
 
     public Page(String title, String slug, String description, String body) {

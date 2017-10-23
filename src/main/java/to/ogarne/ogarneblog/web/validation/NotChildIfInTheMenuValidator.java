@@ -15,6 +15,13 @@ public class NotChildIfInTheMenuValidator implements ConstraintValidator<NotChil
     @Override
     public boolean isValid(Page page, ConstraintValidatorContext context) {
 
-        return (page.getParent() == null || page.getParent().getId() == 0) || page.getMenuPosition()  == null;
+        if (page.isPublished()) {
+            return (page.getParent() == null || page.getParent().getId() == 0) || page.getMenuPosition()  == null;
+        } else {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Page unpublished!").addConstraintViolation();
+            return (page.getParent() == null || page.getParent().getId() == 0) && page.getMenuPosition() == null;
+        }
+
     }
 }

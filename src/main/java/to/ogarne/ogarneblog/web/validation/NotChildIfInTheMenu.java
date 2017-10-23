@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {NotChildIfInTheMenuValidator.class})
 public @interface NotChildIfInTheMenu {
 
-    String message() default "This field should be null";
+    String message() default "You can't set the parent and the position in the menu at the same time";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
