@@ -50,6 +50,9 @@
 
         <div class="ob-post-header ob-color-darkgrey mb-0">
 
+            <span class="fa fa-user-o" aria-hidden="true"></span>
+            <span th:text="*{author.fullName}" class="pr-4"></span>
+
             <span class="fa fa-calendar-o" aria-hidden="true"></span>
             <span th:text="*{#dates.format(dateCreated, 'dd MMMM yyyy HH:mm')}" class="pr-4"></span>
 
