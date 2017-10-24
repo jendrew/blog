@@ -192,7 +192,21 @@ PageController extends RootController{
 
 
 
+    // Process data from editing post
+    @RequestMapping(value = "/admin/pages/{id}/delete", method = RequestMethod.POST)
+    public String processDeletePage(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        if (!request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/logout";
+        }
 
+        Page page = pageService.findById(id);
+        pageService.delete(page);
+
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("Strona została usunięta.", FlashMessage.Status.SUCCESS));
+
+        return "redirect:/admin/pages";
+    }
 
 
 }
