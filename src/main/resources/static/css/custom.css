@@ -185,3 +185,6 @@ blockquote {
     padding-right: 1rem;
 }
 
+.figure-caption {
+    font-size: .9rem;
+}
