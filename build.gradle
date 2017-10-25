@@ -1,5 +1,5 @@
 group 'to.ogarne'
-version '1.0.91-BETA'
+version '1.0.92-BETA'
 
 // Include the Spring Boot plugin
 buildscript {
@@ -19,9 +19,6 @@ apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-
-
 
 
 

@@ -35,6 +35,11 @@ public class Post implements Parseable {
     @Pattern(regexp = "^[A-Za-z0-9\\-]*$")
     private String slug;
 
+    @Column
+    private String mainImage;
+
+    @Column
+    private String caption;
 
     @Column
     @NotNull
@@ -46,9 +51,7 @@ public class Post implements Parseable {
     @Size(min = 3)
     private String body;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "ImagePaths", joinColumns = @JoinColumn(name = "path_id"))
-    @Column(name = "images")
+    @Transient
     private List<String> imagePaths;
 
     @NotNull
@@ -170,6 +173,22 @@ public class Post implements Parseable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     @Override

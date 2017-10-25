@@ -81,6 +81,12 @@ public class PostController extends RootController {
         Post post = postService.findBySlug(slug);
         markdownParser.cutHiddenChars(post);
         markdownParser.parse(post);
+
+        List<String> imagePaths = contentUtils.getImagePaths(post);
+        if (imagePaths.size() > 0) {
+            post.setImagePaths(imagePaths);
+        }
+
         model.addAttribute("post", post);
 
         return "post_details";
@@ -130,10 +136,7 @@ public class PostController extends RootController {
 
         contentUtils.decodeFileIds(post);
 
-        List<String> imagePaths = contentUtils.getImagePaths(post);
-        if (imagePaths.size() > 0) {
-            post.setImagePaths(imagePaths);
-        }
+
         postService.save(post);
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("flash",

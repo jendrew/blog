@@ -44,6 +44,29 @@
         </div>
 
         <div class="form-group" >
+            <label for="mainImage">Photo</label>
+            <input type="text" class="form-control" id="mainImage" aria-describedby="emailHelp"
+                   th:field="*{mainImage}"
+                   th:classappend="${#fields.hasErrors('mainImage') ? 'is-invalid' : ''}"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('mainImage')}" th:errors="*{mainImage}">An
+                error
+                occured
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <label for="caption">Caption</label>
+            <input type="text" class="form-control" id="caption" aria-describedby="emailHelp"
+                   th:field="*{caption}"
+                   th:classappend="${#fields.hasErrors('caption') ? 'is-invalid' : ''}"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('caption')}" th:errors="*{caption}">An
+                error
+                occured
+            </div>
+        </div>
+
+
+        <div class="form-group" >
             <label for="inputDesc">Description</label>
             <textarea class="form-control" id="inputDesc" rows="4"
                       th:field="*{description}"
@@ -84,6 +107,9 @@
 
             </select>
         </div>
+
+
+
 
 
         <div class="form-group" >

@@ -33,6 +33,12 @@ public class Page implements Parseable {
     private String slug;
 
     @Column
+    private String mainImage;
+
+    @Column
+    private String caption;
+
+    @Column
     @NotNull
     @Size(min = 3, max = 300)
     private String description;
@@ -54,9 +60,7 @@ public class Page implements Parseable {
     @ManyToOne
     private Page parent;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PageImagePaths", joinColumns = @JoinColumn(name = "path_id"))
-    @Column(name = "images")
+    @Transient
     private List<String> imagePaths;
 
     @OneToMany(mappedBy = "parent")
@@ -160,6 +164,24 @@ public class Page implements Parseable {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    @Override
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    @Override
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public Page() {

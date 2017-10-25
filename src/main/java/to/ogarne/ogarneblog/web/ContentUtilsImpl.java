@@ -21,6 +21,15 @@ public class ContentUtilsImpl implements ContentUtils{
     @Override
     public Parseable decodeFileIds(Parseable parseable) {
 
+        // decode file ID from the mainImage
+        String path = parseable.getMainImage();
+        if (path != null && !path.isEmpty() && path.matches("\\/files\\/\\d*")) {
+            Long id = Long.valueOf(path.substring(7));
+            String filename = fileService.findById(id).getFilename();
+            parseable.setMainImage("/files/" + filename);
+        }
+
+        // decode file ID from the body
         String[] words = parseable.getBody().split("(?=[\\(\\)])");
 
         String body = Stream.of(words)
@@ -33,6 +42,8 @@ public class ContentUtilsImpl implements ContentUtils{
                 }).collect(Collectors.joining());
 
         parseable.setBody(body);
+
+
 
         return parseable;
     }

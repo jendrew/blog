@@ -48,6 +48,9 @@
             </span>
 
         </div>
+            <img class="img-fluid ob-cover mx-auto d-block mb-2"
+                 th:src="@{${post.mainImage}}"
+                 th:if="${post.mainImage != null}"/>
 
         <div th:utext="${post.body}"></div>
     </div>

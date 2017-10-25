@@ -78,6 +78,12 @@ PageController extends RootController{
                     return item;
                 }).collect(Collectors.toList()));
 
+
+        List<String> imagePaths = contentUtils.getImagePaths(page);
+        if (imagePaths.size() > 0) {
+            page.setImagePaths(imagePaths);
+        }
+
         return "page";
     }
 
@@ -119,10 +125,6 @@ PageController extends RootController{
 
         contentUtils.decodeFileIds(page);
 
-        List<String> imagePaths = contentUtils.getImagePaths(page);
-        if (imagePaths.size() > 0) {
-            page.setImagePaths(imagePaths);
-        }
 
         if (page.getParent().getId() < 1) {
             page.setParent(null);
@@ -173,10 +175,6 @@ PageController extends RootController{
 
         contentUtils.decodeFileIds(page);
 
-        List<String> imagePaths = contentUtils.getImagePaths(page);
-        if (imagePaths != null && imagePaths.size() > 0) {
-            page.setImagePaths(imagePaths);
-        }
 
         if (page.getParent().getId() < 1) {
             page.setParent(null);
