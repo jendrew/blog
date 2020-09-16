@@ -16,6 +16,7 @@ public class TemplateConfig {
         final SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setCacheable(false);
         templateResolver.setPrefix("classpath:/templates/");
+        templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setSuffix(".html");
         return templateResolver;
     }

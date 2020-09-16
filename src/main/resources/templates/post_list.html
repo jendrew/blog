@@ -32,7 +32,7 @@
 
     <hr class="ob-border mb-3"/>
 
-    <div th:each="post : ${posts}" class="pb-2 mb-4">
+    <div th:each="post : ${posts}" class="pb-2 mb-4 col-md-10 offset-md-1">
         <a th:href="@{|/posts/${post.slug}|}">
             <h2 th:text="${#strings.toUpperCase(post.title)}"></h2>
         </a>
