@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.3.4.RELEASE'
     }
 }
 
@@ -17,8 +17,9 @@ apply plugin: 'org.springframework.boot'
 
 
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+sourceCompatibility = 11
+targetCompatibility = 11
 
 
 
@@ -30,31 +31,38 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.5.10.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:2.3.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-validation:2.3.4.RELEASE'
 
-    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.4.0'
+    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1'
 
-    compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE'
+    compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 
-    compile 'org.hibernate:hibernate-core:5.2.10.Final'
-    compile 'org.springframework:spring-orm:4.3.14.RELEASE'
-    compile 'org.springframework.data:spring-data-commons'
+    compile 'org.hibernate:hibernate-core:5.2.2.Final'
+    compile 'org.springframework:spring-orm:5.2.9.RELEASE'
+    compile 'org.springframework.data:spring-data-commons:2.3.4.RELEASE'
 
-    compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
+    compile 'org.apache.tomcat:tomcat-dbcp:8.5.59'
+    compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.39'
+
 
 
     // Database connector
-    compile 'com.h2database:h2:1.4.196'
+    compile 'com.h2database:h2:1.4.200'
 
     // Slug generator
-    compile 'com.github.slugify:slugify:2.1.9'
+    compile 'com.github.slugify:slugify:2.4'
 
     // Markdown parser
+    //TODO: Migrate to higher version
     compile 'com.vladsch.flexmark:flexmark-all:0.22.4'
 
     //Sitemap generator
-    compile group: 'com.google.code', name: 'sitemapgen4j', version: '1.0.1'
+    compile group: 'com.github.dfabulich', name: 'sitemapgen4j', version: '1.1.2'
+
+    implementation 'javax.xml:jaxb-api:2.0'
 
 }
 

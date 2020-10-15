@@ -33,6 +33,8 @@ public class DatabaseLoader {
 
     public void run() {
 
+
+
         for (int i = 0; i < 20; i++) {
             postService.save(new Post("Ensem candentia Camenis quos coniunx dolet placidis tumidisque",
                     "pierwszy-post" + i,

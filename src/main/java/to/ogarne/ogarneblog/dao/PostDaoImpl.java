@@ -69,7 +69,7 @@ public class PostDaoImpl implements PostDao {
 
         List<Post> posts = session.createQuery(criteria)
                 // limit number of returned posts to @param numberOfPosts
-                .setFirstResult(pageable.getOffset())
+                .setFirstResult((int)pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
         session.close();
@@ -96,7 +96,7 @@ public class PostDaoImpl implements PostDao {
 
         List<Post> posts = session.createQuery(criteria)
                 // limit number of returned posts to @param numberOfPosts
-                .setFirstResult(pageable.getOffset())
+                .setFirstResult((int)pageable.getOffset())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
         session.close();
