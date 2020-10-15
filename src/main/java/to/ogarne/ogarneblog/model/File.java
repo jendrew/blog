@@ -30,6 +30,9 @@ public class File {
     @Column
     private String contentType;
 
+    @Column
+    private String caption;
+
     @Transient
     private byte[] bytes;
 

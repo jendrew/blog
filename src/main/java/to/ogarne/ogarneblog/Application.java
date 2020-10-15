@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import to.ogarne.ogarneblog.dao.StorageDao;
 
@@ -43,7 +42,6 @@ public class Application {
 
 }
 
-//TODO: Implement SSL
 //TODO: Implement post deletition
 //TODO: Determine if RootController is still needed
 //TODO: Add Page entity. It's an article without some of the elements. It can be accesed directly from menu

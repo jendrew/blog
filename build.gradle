@@ -1,5 +1,5 @@
 group 'to.ogarne'
-version '1.0.93-BETA'
+version '1.0.94'
 
 // Include the Spring Boot plugin
 buildscript {
@@ -56,3 +56,5 @@ dependencies {
     compile group: 'com.google.code', name: 'sitemapgen4j', version: '1.0.1'
 
 }
+
+
