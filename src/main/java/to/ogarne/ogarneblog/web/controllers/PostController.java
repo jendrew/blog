@@ -17,6 +17,8 @@ import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.service.UserService;
 import to.ogarne.ogarneblog.web.*;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.Pagination;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -107,7 +109,6 @@ public class PostController extends RootController {
 
     // Process data from creating new post
     @RequestMapping(value = "/admin/addPost", method = RequestMethod.POST)
-
     public String processNewPostData(@Valid Post post, BindingResult result,
                                      RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
@@ -130,9 +131,6 @@ public class PostController extends RootController {
         }
 
         post.setDateCreated(new Date());
-
-
-
 
         contentUtils.decodeFileIds(post);
 

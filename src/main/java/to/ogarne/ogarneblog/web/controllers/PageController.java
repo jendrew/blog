@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import to.ogarne.ogarneblog.model.Page;
 import to.ogarne.ogarneblog.service.PageService;
-import to.ogarne.ogarneblog.web.CategoryWrapper;
+import to.ogarne.ogarneblog.web.dto.CategoryWrapper;
 import to.ogarne.ogarneblog.web.ContentUtils;
-import to.ogarne.ogarneblog.web.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
 import to.ogarne.ogarneblog.web.MarkdownParser;
 
 import javax.servlet.http.HttpServletRequest;

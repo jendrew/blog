@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import to.ogarne.ogarneblog.service.UserService;
-import to.ogarne.ogarneblog.web.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
 
 @Configuration
 @EnableWebSecurity

@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.web;
+package to.ogarne.ogarneblog.web.dto;
 
 /**
  * Created by jedrz on 29.06.2017.

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import to.ogarne.ogarneblog.model.File;
 import to.ogarne.ogarneblog.model.User;
 import to.ogarne.ogarneblog.service.FileService;
-import to.ogarne.ogarneblog.web.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

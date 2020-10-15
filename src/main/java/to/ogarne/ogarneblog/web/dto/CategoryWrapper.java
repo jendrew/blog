@@ -1,4 +1,4 @@
-package to.ogarne.ogarneblog.web;
+package to.ogarne.ogarneblog.web.dto;
 
 import to.ogarne.ogarneblog.model.Category;
 

@@ -15,9 +15,9 @@ import to.ogarne.ogarneblog.model.Category;
 import to.ogarne.ogarneblog.service.CategoryNotEmptyException;
 import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
-import to.ogarne.ogarneblog.web.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
 import to.ogarne.ogarneblog.web.MarkdownParser;
-import to.ogarne.ogarneblog.web.Pagination;
+import to.ogarne.ogarneblog.web.dto.Pagination;
 import to.ogarne.ogarneblog.web.Parseable;
 
 import javax.servlet.http.HttpServletRequest;

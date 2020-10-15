@@ -12,7 +12,7 @@ import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.FileService;
 import to.ogarne.ogarneblog.service.PostService;
 import to.ogarne.ogarneblog.service.UserService;
-import to.ogarne.ogarneblog.web.CategoryWrapper;
+import to.ogarne.ogarneblog.web.dto.CategoryWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
