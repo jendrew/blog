@@ -69,6 +69,18 @@ public class Page implements Parseable {
     @Transient
     private boolean active;
 
+
+    public Page() {
+    }
+
+
+    public Page(String title, String slug, String description, String body) {
+        this.title = title;
+        this.slug = slug;
+        this.description = description;
+        this.body = body;
+    }
+
     public Long getId() {
         return id;
     }
@@ -184,14 +196,5 @@ public class Page implements Parseable {
         this.caption = caption;
     }
 
-    public Page() {
-    }
 
-
-    public Page(String title, String slug, String description, String body) {
-        this.title = title;
-        this.slug = slug;
-        this.description = description;
-        this.body = body;
-    }
 }
