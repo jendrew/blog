@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import to.ogarne.ogarneblog.mockdata.DatabaseLoader;
+import to.ogarne.ogarneblog.mockdata.DatabaseInitializer;
 
 @Profile("dev")
 @Controller
@@ -13,12 +13,12 @@ public class MockDataController {
 
 
     @Autowired
-    DatabaseLoader databaseLoader;
+    DatabaseInitializer databaseInitializer;
 
 
-    @RequestMapping("/mockdata")
+    @RequestMapping("/init")
     public String getIndex(Model model) {
-        databaseLoader.run();
+        databaseInitializer.run();
 
         return "redirect:/";
     }

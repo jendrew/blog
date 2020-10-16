@@ -80,6 +80,15 @@ public class Page implements Parseable {
         this.description = description;
         this.body = body;
     }
+    public Page(String title, String slug, Long menuPosition, boolean published,  String description, String body) {
+        this.title = title;
+        this.slug = slug;
+        this.menuPosition = menuPosition;
+        this.published = published;
+        this.description = description;
+        this.body = body;
+
+    }
 
     public Long getId() {
         return id;

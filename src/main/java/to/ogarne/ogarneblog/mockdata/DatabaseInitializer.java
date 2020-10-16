@@ -1,14 +1,9 @@
 package to.ogarne.ogarneblog.mockdata;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import to.ogarne.ogarneblog.model.Page;
-import to.ogarne.ogarneblog.model.Post;
-import to.ogarne.ogarneblog.service.CategoryService;
-import to.ogarne.ogarneblog.service.PageService;
-import to.ogarne.ogarneblog.service.PostService;
-import to.ogarne.ogarneblog.service.UserService;
+import to.ogarne.ogarneblog.model.*;
+import to.ogarne.ogarneblog.service.*;
 
 import java.util.Date;
 
@@ -17,23 +12,35 @@ import java.util.Date;
  */
 @Profile("dev")
 @Component
-public class DatabaseLoader {
+public class DatabaseInitializer {
 
-    @Autowired
-    UserService userService;
+    private UserService userService;
+    private CategoryService categoryService;
+    private PostService postService;
+    private PageService pageService;
+    private RoleService roleService;
 
-    @Autowired
-    CategoryService categoryService;
 
-    @Autowired
-    PostService postService;
-
-    @Autowired
-    PageService pageService;
+    public DatabaseInitializer(UserService userService, CategoryService categoryService, PostService postService, PageService pageService, RoleService roleService) {
+        this.userService = userService;
+        this.categoryService = categoryService;
+        this.postService = postService;
+        this.pageService = pageService;
+        this.roleService = roleService;
+    }
 
     public void run() {
 
+        Role role = new Role();
+        role.setName("ROLE_ADMIN");
+        roleService.save(role);
 
+
+        User user = new User("jedrzej","$2a$10$rsTfl7aSS4hWztBcpGBfLu4HJUP5Fb0bQqneXvQntJO6eowlomStu",true, roleService.findByName("ROLE_ADMIN"), "Jędrzej Kołtunowicz");
+        userService.save(user);
+
+        Category category = new Category("przyklad", "przykład");
+        categoryService.save(category);
 
         for (int i = 0; i < 20; i++) {
             postService.save(new Post("Ensem candentia Camenis quos coniunx dolet placidis tumidisque",
@@ -195,9 +202,7 @@ public class DatabaseLoader {
                     true));
         }
 
-
-
-        pageService.save(new Page("Linki", "linki", "description", "Lorem markdownum gestasset et ait egreditur inposuit, conde te mansit capiti\n" +
+        pageService.save(new Page("Home", "home", "description", "Lorem markdownum gestasset et ait egreditur inposuit, conde te mansit capiti\n" +
                 "nullo. Utque umbram, tangeret in curam caelum tibi utque cognoscite et quoque,\n" +
                 "abscessisse. Cum vero concordant, limen [chlamydis\n" +
                 "obscena](http://www.volucres.io/prohibereplura), sparserat et vidit et patulo\n" +
@@ -225,7 +230,35 @@ public class DatabaseLoader {
                 "supernum molibar. Formae Ceyx arte enim *captat*; et concava! **Probant** per\n" +
                 "fera plura luce cervice cineres." ));
 
-        pageService.save(new Page("O mnie", "o-mnie", "description", "\n" +
+        pageService.save(new Page("Linki", "linki", 2L, true, "description", "Lorem markdownum gestasset et ait egreditur inposuit, conde te mansit capiti\n" +
+                "nullo. Utque umbram, tangeret in curam caelum tibi utque cognoscite et quoque,\n" +
+                "abscessisse. Cum vero concordant, limen [chlamydis\n" +
+                "obscena](http://www.volucres.io/prohibereplura), sparserat et vidit et patulo\n" +
+                "resupinus hunc. Facitis vidi humo voti iaculis Hippotaden alma. Eminet imago\n" +
+                "errant obstipuere orta et **credunt altos**.\n" +
+                "\n" +
+                "    wysiwyg_petabyte_minisite = powerpoint;\n" +
+                "    extensionEncodingFinder /= tftpBaudBitmap(partitionPayload /\n" +
+                "            flatbed_raid_regular);\n" +
+                "    if (google(whiteDslam)) {\n" +
+                "        statusXp = cgi_mca_cgi(addErgonomicsFlowchart);\n" +
+                "        lamp(domainMemoryWord, -3 + menu_bloatware_baseband);\n" +
+                "    }\n" +
+                "    ppm += imap;\n" +
+                "\n" +
+                "Morte se mei adflavit ponto est et clausura poenam, isque tenuit dicentem horas,\n" +
+                "[viribus ut](http://vasti.net/). Fabricata [satis Medon\n" +
+                "blanditias](http://litora.net/), altoque ne gestae auro dedisti levia lacrimis\n" +
+                "enim? Indoluit vidistis victor tantus ferrum, quo Latonia terrae nitidum et.\n" +
+                "Cibo tum atque, huc arce *carmina volanti*, iamque planissima gerit ingenti\n" +
+                "propiore locum, ora.\n" +
+                "\n" +
+                "Diebus mollesque collibus virtus. Alterius litoraque inde, arto, est nullique si\n" +
+                "ensis, demens uberibus ut. Puerum mortemque at sed attrahite praecedentem factus\n" +
+                "supernum molibar. Formae Ceyx arte enim *captat*; et concava! **Probant** per\n" +
+                "fera plura luce cervice cineres." ));
+
+        pageService.save(new Page("O mnie", "o-mnie", 3L, true,  "description", "\n" +
                 "Refert gaudetque culpavit, gravitate desunt et a filia est sed turbamve rimas\n" +
                 "occiduo macies. Et forma, monte concussit, fatisque est modo rursus discedunt\n" +
                 "**gavisus more suos**? Auxilium magni.\n" +
