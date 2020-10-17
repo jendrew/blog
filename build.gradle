@@ -48,6 +48,11 @@ dependencies {
     compile 'org.apache.tomcat:tomcat-dbcp:8.5.59'
     compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.39'
 
+    // Logback
+    developmentOnly group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // Lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
 
 
     // Database connector

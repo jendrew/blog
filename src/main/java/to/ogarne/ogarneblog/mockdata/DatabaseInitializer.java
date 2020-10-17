@@ -36,7 +36,7 @@ public class DatabaseInitializer {
         roleService.save(role);
 
 
-        User user = new User("jedrzej","$2a$10$rsTfl7aSS4hWztBcpGBfLu4HJUP5Fb0bQqneXvQntJO6eowlomStu",true, roleService.findByName("ROLE_ADMIN"), "Jędrzej Kołtunowicz");
+        User user = new User("jedrzej","$2y$12$xDi2q6tVSbn5E1KDVkljZu9XbEyPMQ5E48H0e1RQmvIAgSdMt2ob.",true, roleService.findByName("ROLE_ADMIN"), "Jędrzej Kołtunowicz");
         userService.save(user);
 
         Category category = new Category("przyklad", "przykład");
