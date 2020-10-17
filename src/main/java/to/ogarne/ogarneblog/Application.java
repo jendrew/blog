@@ -44,8 +44,6 @@ public class Application {
 
 }
 
-//TODO: Implement post deletition
+//TODO: Post deletition changes creation date. Fix this
 //TODO: Determine if RootController is still needed
-//TODO: Add Page entity. It's an article without some of the elements. It can be accesed directly from menu
-//TODO: Apply the ability to add pages to menu
 

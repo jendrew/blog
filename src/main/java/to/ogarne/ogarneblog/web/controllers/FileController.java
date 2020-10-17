@@ -81,7 +81,10 @@ public class FileController {
         HttpHeaders headers = new HttpHeaders();
         InputStream in = resource.getInputStream();
         byte[] media = IOUtils.toByteArray(in);
-        headers.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic().noTransform().getHeaderValue());
+        headers.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS)
+                .cachePublic()
+                .noTransform()
+                .getHeaderValue());
 
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
         return responseEntity;

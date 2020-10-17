@@ -78,14 +78,10 @@ public class SitemapController {
                 .collect(Collectors.toList());
 
 
-
-
         postUrls.addAll(pageUrls);
         return new Sitemap(postUrls);
 
     }
-
-
 
 }
 

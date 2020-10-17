@@ -1,5 +1,6 @@
 package to.ogarne.ogarneblog.model.sitemap;
 
+
 import javax.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
