@@ -13,6 +13,10 @@ import java.util.List;
 public class PageDaoImpl extends ExperimentDaoImpl<Page, Long> implements PageDao {
 
 
+    public PageDaoImpl() {
+        setClazz(Page.class);
+    }
+
     @Override
     public List<Page> getPagesForMenu() {
         Session session = sessionFactory.openSession();
@@ -36,8 +40,8 @@ public class PageDaoImpl extends ExperimentDaoImpl<Page, Long> implements PageDa
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Page> criteria = builder.createQuery(Page.class);
-        Root<Page> root =  criteria.from(Page.class);
 
+        Root<Page> root =  criteria.from(Page.class);
         criteria.where(builder.isTrue(root.get("published")));
 
         List<Page> pages = session.createQuery(criteria)

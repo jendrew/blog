@@ -15,15 +15,8 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-
-
-
 sourceCompatibility = 11
 targetCompatibility = 11
-
-
-
-
 
 repositories {
     mavenCentral()
@@ -31,32 +24,39 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // Spring
     compile 'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-security:2.3.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-validation:2.3.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-devtools:2.3.4.RELEASE'
 
+    // Additional Thymeleaf dialetcs
     compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1'
-
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 
+    // Database
     compile 'org.hibernate:hibernate-core:5.2.2.Final'
     compile 'org.springframework:spring-orm:5.2.9.RELEASE'
     compile 'org.springframework.data:spring-data-commons:2.3.4.RELEASE'
 
+    // Database connector
+    compile 'com.h2database:h2:1.4.200'
+
+
+    // Tomcat
     compile 'org.apache.tomcat:tomcat-dbcp:8.5.59'
     compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.39'
 
     // Logback
-    developmentOnly group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
     // Lombok
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
 
-    // Database connector
-    compile 'com.h2database:h2:1.4.200'
 
     // Slug generator
     compile 'com.github.slugify:slugify:2.4'
@@ -68,6 +68,7 @@ dependencies {
     //Sitemap generator
     compile group: 'com.github.dfabulich', name: 'sitemapgen4j', version: '1.1.2'
 
+    // XML support
     compile('javax.xml.bind:jaxb-api:2.3.0')
     compile('javax.activation:activation:1.1')
     compile('org.glassfish.jaxb:jaxb-runtime:2.3.0')

@@ -1,5 +1,6 @@
-package to.ogarne.ogarneblog.mockdata;
+package to.ogarne.ogarneblog.initdata;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import to.ogarne.ogarneblog.model.*;
@@ -10,6 +11,8 @@ import java.util.Date;
 /**
  * Created by jedrz on 17.07.2017.
  */
+
+@Slf4j
 @Profile("dev")
 @Component
 public class DatabaseInitializer {
@@ -31,9 +34,18 @@ public class DatabaseInitializer {
 
     public void run() {
 
+        if (roleService.findAll() != null) {
+            log.info("Init data already loaded. Aborting.");
+            return;
+        }
+
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         roleService.save(role);
+
+        Role role2 = new Role();
+        role2.setName("ROLE_SUPERADMIN");
+        roleService.save(role2);
 
 
         User user = new User("jedrzej","$2y$12$xDi2q6tVSbn5E1KDVkljZu9XbEyPMQ5E48H0e1RQmvIAgSdMt2ob.",true, roleService.findByName("ROLE_ADMIN"), "Jędrzej Kołtunowicz");

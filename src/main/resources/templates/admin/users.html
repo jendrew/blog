@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl" layout:decorate="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="robots" content="noindex" />
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="row mt-4">
+        <div class="col">
+            <table class="table table-hover ob-table-posts" th:object="${users}">
+
+                <!--Table header -->
+                <thead class="thead-default">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nazwa użytkownika</th>
+                        <th>Rola</th>
+                        <th>Nazwa wyświetlana</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <!-- ID-->
+                        <td th:text="${user.id}"></td>
+
+                        <!-- Username-->
+                        <td><span th:text="${user.username}">Nazwa użytkownika</span></td>
+
+                        <!--Role-->
+                        <td ><span th:text="${user.role.name}"></span></td>
+
+                        <!--Full name-->
+                        <td th:text="${user.fullName}"></td>
+
+                        <td>
+                            <form th:action="@{|/admin/editusers/${user.id}|}" method="get">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <span class="fa fa-edit"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <!-- User details.-->
+
+            <form   th:if="${userDetails != null}"
+                    th:action="@{/admin/editusers}" th:object="${userDetails}" method="post">
+                <h4>Edytuj dane:</h4>
+                <table class="table table-hover ob-table-posts" >
+
+                    <!--Table header -->
+                    <thead class="thead-default">
+                    <tr>
+                        <th>Nazwa użytkownika</th>
+                        <th>Hasło</th>
+                        <th>Rola</th>
+                        <th>Nazwa wyświetlana</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <!-- Username-->
+                        <td>
+                            <input type="text" class="form-control" id="inputName"  th:field="*{username}" />
+                        </td>
+
+                        <!-- Password -->
+                        <td>
+                            <input type="password" class="form-control" id="inputPass"  th:field="*{password}" />
+                        </td>
+
+                        <!--Role-->
+                        <td>
+                            <select  class="form-control" id="inputRole" th:field="*{role.id}" >
+                                <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.name}"/>
+                            </select>
+                        </td>
+
+                        <!--Full name-->
+                        <td>
+                            <input type="text" class="form-control" id="inputFulName"  th:field="*{fullName}" />
+                        </td>
+
+                        <!--Submit-->
+                        <td>
+                            <input type="hidden" class="form-control" id="inputId"  th:field="*{id}" />
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+
+
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+</body>
+</html>

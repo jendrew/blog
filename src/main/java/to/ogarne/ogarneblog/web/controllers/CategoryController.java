@@ -1,6 +1,5 @@
 package to.ogarne.ogarneblog.web.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -15,28 +14,32 @@ import to.ogarne.ogarneblog.model.Category;
 import to.ogarne.ogarneblog.service.CategoryNotEmptyException;
 import to.ogarne.ogarneblog.service.CategoryService;
 import to.ogarne.ogarneblog.service.PostService;
-import to.ogarne.ogarneblog.web.dto.FlashMessage;
 import to.ogarne.ogarneblog.web.MarkdownParser;
-import to.ogarne.ogarneblog.web.dto.Pagination;
 import to.ogarne.ogarneblog.web.Parseable;
+import to.ogarne.ogarneblog.web.dto.FlashMessage;
+import to.ogarne.ogarneblog.web.dto.Pagination;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//TODO: Implement category removal
 
 @Controller
 public class CategoryController extends  RootController {
 
-    @Autowired
-    CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    @Autowired
-    PostService postService;
+    private final PostService postService;
 
-    @Autowired
-    MarkdownParser markdownParser;
+    private final MarkdownParser markdownParser;
+
+    public CategoryController(CategoryService categoryService, PostService postService, MarkdownParser markdownParser) {
+        this.categoryService = categoryService;
+        this.postService = postService;
+        this.markdownParser = markdownParser;
+    }
 
     @RequestMapping("/categories/{categoryName}")
     public String getPostsFromCategory(@PathVariable String categoryName, Model model,

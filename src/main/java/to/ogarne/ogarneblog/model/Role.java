@@ -8,7 +8,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
 
     public Long getId() {

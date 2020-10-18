@@ -1,7 +1,6 @@
 package to.ogarne.ogarneblog.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import to.ogarne.ogarneblog.model.Role;
 
@@ -12,12 +11,10 @@ import javax.persistence.criteria.Root;
 @Repository
 public class RoleDaoImpl extends ExperimentDaoImpl<Role, Long> implements RoleDao {
 
-    // == fields ==
-    private SessionFactory sessionFactory;
 
     // == constructors ==
-    public RoleDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public RoleDaoImpl() {
+        setClazz(Role.class);
     }
 
     //== methods ==
@@ -34,5 +31,7 @@ public class RoleDaoImpl extends ExperimentDaoImpl<Role, Long> implements RoleDa
         return role;
 
     }
+
+
 
 }

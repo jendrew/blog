@@ -35,7 +35,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findById(Long id) {
-        return null;
+        Session session = sessionFactory.openSession();
+        User user = session.get(User.class,id);
+        session.close();
+        return user;
     }
 
     @Override
