@@ -1,7 +1,6 @@
 package to.ogarne.ogarneblog.initdata;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import to.ogarne.ogarneblog.model.*;
 import to.ogarne.ogarneblog.service.*;
@@ -13,7 +12,6 @@ import java.util.Date;
  */
 
 @Slf4j
-@Profile("dev")
 @Component
 public class DatabaseInitializer {
 

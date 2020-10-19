@@ -1,22 +1,24 @@
 package to.ogarne.ogarneblog.web.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import to.ogarne.ogarneblog.initdata.DatabaseInitializer;
 
-@Profile("dev")
 @Controller
-public class MockDataController {
+public class InitialDataController {
 
 
-    @Autowired
+    Environment environment;
     DatabaseInitializer databaseInitializer;
 
+    public InitialDataController(Environment environment, DatabaseInitializer databaseInitializer) {
+        this.environment = environment;
+        this.databaseInitializer = databaseInitializer;
+    }
 
-    @RequestMapping("/init")
+    @RequestMapping("/install")
     public String getIndex(Model model) {
         databaseInitializer.run();
 
