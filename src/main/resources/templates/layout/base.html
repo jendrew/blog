@@ -13,6 +13,7 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-106552210-2');
+
     </script>
 
     <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">ogarne.to</title>
@@ -22,12 +23,12 @@
     <!--/* Bootstrap CSS */-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous" />
+          crossorigin="anonymous"/>
     <link rel="stylesheet" th:href="@{/css/custom.css}"/>
-    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}"/>
 
     <!--/* Lightbox CSS  */-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.css"/>
 
 </head>
 
@@ -37,56 +38,25 @@
 
 <div class="container" id="top">
     <div class="row justify-content-center">
-        <div class="col-md-10 push-md-2">
-
+        <div class="col-10">
             <!-- NAVIGATION BAR -->
-            <nav th:fragment="nav" class="navbar navbar-expand-md navbar-light pl-0 ob-navbar mb-3 pb-0">
-                <a class="navbar-brand" th:href="@{/}">
-                    <h2>ogarne.to</h2>
-
-                </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-                    <div class="navbar-nav ml-auto">
-                        <a class="nav-item nav-link"
-                           th:each="item : ${menuItems}"
-                           th:text="${#strings.toLowerCase(item.title)}"
-                           th:href="${item.slug == 'home'} ? @{/} : @{|/pages/${item.slug}|}"
-                           th:classappend="${item.isActive()} ? 'active' : ''"></a>
-                        <a class="nav-item nav-link" th:href="@{/posts}" th:classappend="${posts != null || post != null} ? 'active' : ''">blog</a>
-
-                    </div>
-                </div>
-            </nav>
+            <nav th:replace="~{fragments/menu::main}"></nav>
             <!-- /NAVIGATION BAR -->
 
             <!--  FLASH MESSAGE -->
-
             <div th:fragment="flash" th:if="${flash != null}"
                  th:classappend="'alert-' + (${#strings.toLowerCase(flash.status) == 'success'} ? 'success' : 'danger')"
                  class="alert" role="alert">
                 <span th:text="${flash.message}"></span>
-                <form th:if="${#strings.toLowerCase(flash.status) == 'undelete'}" th:action="@{/admin/posts/undelete}" method="post">
+                <form th:if="${#strings.toLowerCase(flash.status) == 'undelete'}" th:action="@{/admin/posts/undelete}"
+                      method="post">
                     <button type="submit" class="btn btn-outline-danger btn-sm pull-right">Cofnij</button>
                 </form>
             </div>
-
             <!--  /FLASH MESSAGE -->
-
-            <!--CONTENT!!!-->
-            <section layout:fragment="content"></section>
-            <!--//CONTENT!!!-->
-
-
         </div>
 
-
+        <!--ADMIN MENU-->
         <div class="col-md-2 push-md-2" sec:authorize="hasRole('ROLE_ADMIN')">
             <!--  This part is seen only if logged user is ADMIN -->
             <div th:fragment="adminnav(active)">
@@ -96,7 +66,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'pages'} ? 'active' : ''" th:href="@{/admin/pages}">Pages</a>
+                        <a class="nav-link" th:classappend="${active == 'pages'} ? 'active' : ''"
+                           th:href="@{/admin/pages}">Pages</a>
                     </li>
 
                     <li class="nav-item">
@@ -113,7 +84,8 @@
                            th:href="@{/admin/categories}">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'users'} ? 'active' : ''" th:href="@{/admin/editusers}">Users</a>
+                        <a class="nav-link" th:classappend="${active == 'users'} ? 'active' : ''"
+                           th:href="@{/admin/editusers}">Users</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -139,20 +111,41 @@
 
             </div>
         </div>
-
+        <!--/ADMIN MENU-->
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8" id="content">
+            <!--CONTENT!!!-->
+            <section layout:fragment="content"></section>
+            <!--//CONTENT!!!-->
+        </div>
+
+        <div class="col-lg-2 " id="right-pane">
+            <img class="image img-fluid" th:src="@{/images/ja.jpg}" />
+            <p class="name">Jędrzej Kołtunowicz</p>
+            <p class="info">JAVA, nowe technologie, dziennikarstwo</p>
+            <p class="social">
+                <a th:href="@{https://github.com/jendrew}"><span class="fa fa-github mr-2"></span></a>
+                <a th:href="@{https://www.linkedin.com/in/jedrzejk/}" target="_blank"><span class="fa fa-linkedin"></span></a>
+            </p>
+            <p class="links">
+                <a th:href="@{/pages/contact}">kontakt</a>
+                |
+                <a th:href="@{/pages/about}">o mnie</a>
+            </p>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <div class="row justify-content-center" sec:authorize="!hasRole('ROLE_ADMIN')">
         <div class="col-md-10 push-md-2 ">
             <footer class="ob-footer py-2">
                 <p class="my-1">
-                    <a href="https://www.facebook.com/ogarneto-122423355140769/" target="_blank"><span class="fa fa-facebook-official mr-2"></span></a>
-                   <!--/*  <span class="fa fa-github mr-2"></span>
-                     <span class="fa fa-instagram mr-2"></span> */-->
                     <a href="#top"><span class="fa fa-chevron-up mr-2 pull-right"></span></a>
                 </p>
 
-                <p class="ob-smaller"><em>© Ogarne.to 2017. Projekt strony mocno zainspirowany motywem <a href="https://themes.gohugo.io/theme/minimo/">Minimo</a> udostępnianym na licencji MIT, Copyright ©  2017 Munif Tanjim </em></p></footer>
+                <p class="ob-smaller">© Jędrzej Kołtunowicz 2020 </p></footer>
         </div>
     </div>
 </div>
@@ -184,8 +177,8 @@
             $(this).ekkoLightbox();
         });
 
-    </script>
 
+    </script>
 
 
 </div>

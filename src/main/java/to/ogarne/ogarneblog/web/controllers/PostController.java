@@ -63,7 +63,7 @@ public class PostController extends RootController {
     * shortening content and parsing markdown. I'm not sure if it is a good practice
     * to do it here rather than in some different class*/
 
-    @RequestMapping("/posts")
+    @RequestMapping("/")
     public String getPosts(Model model, @PageableDefault(value=10, page = 0) Pageable pageable) {
 
         List<Parseable> posts = postService.findLastXPublishedPosts(pageable)

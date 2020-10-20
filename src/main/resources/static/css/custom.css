@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Anton|Oswald:500');
 
 
@@ -79,7 +79,7 @@ a:active {
 body, nav  {
     font-size:16px;
     font-family: 'Poppins',-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", "Siyam Rupali", sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.2em;
 }
 
@@ -87,7 +87,7 @@ body, nav  {
 
 h1, h2, h3, h4, h5, h6{
     font-family: 'Poppins','Roboto Slab', Georgia, "Times New Roman", Times, serif;
-    font-weight: 800;
+    font-weight: 700;
     color: #313131;
     margin-top: 1.2rem
 }
@@ -98,12 +98,12 @@ p {
 
 pre {
     padding:1rem;
-    background-color: #313131;
+    background-color: #DCDCDC;
 }
 
 pre code {
 
-    color: white;
+    color: black;
     font-family: "Ubuntu Mono", Consolas, Monaco, "Andale Mono", monospace;
     font-size: 16px;
 }
@@ -202,3 +202,32 @@ html {
 .figure-caption {
     font-size: .9rem;
 }
+
+
+#right-pane {
+    text-align: center;
+}
+
+#right-pane .image {
+border-radius: 50%;
+}
+
+#right-pane .name {
+    margin-top: 2em;
+    font-weight:300;
+    font-size:1.3rem;
+}
+
+#right-pane .info {
+
+}
+
+#right-pane .social {
+    color: #363636;
+    font-size: 1.5em;
+}
+
+#right-pane .links {
+font-weight: 500;
+}
+

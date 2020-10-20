@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="main" class="navbar navbar-expand-md navbar-light pl-0 ob-navbar mb-3 pb-0">
+    <a class="navbar-brand" th:href="@{/}">
+        <h2>ogarne.to</h2>
+
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" th:href="@{/}"
+               th:classappend="${posts != null || post != null} ? 'active' : ''">blog</a>
+            <a class="nav-item nav-link"
+               th:each="item : ${menuItems}"
+               th:text="${#strings.toLowerCase(item.title)}"
+               th:href="${item.slug == 'home'} ? @{/} : @{|/pages/${item.slug}|}"
+               th:classappend="${item.isActive()} ? 'active' : ''"></a>
+
+
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

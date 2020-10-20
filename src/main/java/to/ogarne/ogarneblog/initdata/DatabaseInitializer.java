@@ -32,7 +32,7 @@ public class DatabaseInitializer {
 
     public void run() {
 
-        if (roleService.findAll() != null) {
+        if (roleService.findAll().size() > 0) {
             log.info("Init data already loaded. Aborting.");
             return;
         }
@@ -52,7 +52,7 @@ public class DatabaseInitializer {
         Category category = new Category("przyklad", "przykład");
         categoryService.save(category);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 2; i++) {
             postService.save(new Post("Ensem candentia Camenis quos coniunx dolet placidis tumidisque",
                     "pierwszy-post" + i,
                     "description",
