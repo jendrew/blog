@@ -96,6 +96,10 @@ p {
     line-height: 1.6rem;
 }
 
+b, strong {
+    font-weight:600;
+}
+
 pre {
     padding:1rem;
     background-color: #DCDCDC;

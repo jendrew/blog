@@ -37,6 +37,17 @@
 
 
 <div class="container" id="top">
+    <!--ADMIN MENU-->
+    <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+        <div class="col-10" th:insert="~{fragments/menu::adminnav}" >
+            <!--  This part is seen only if logged user is ADMIN -->
+
+
+        </div>
+    </div>
+</div>
+<!--/ADMIN MENU-->
+
     <div class="row justify-content-center">
         <div class="col-10">
             <!-- NAVIGATION BAR -->
@@ -56,62 +67,7 @@
             <!--  /FLASH MESSAGE -->
         </div>
 
-        <!--ADMIN MENU-->
-        <div class="col-md-2 push-md-2" sec:authorize="hasRole('ROLE_ADMIN')">
-            <!--  This part is seen only if logged user is ADMIN -->
-            <div th:fragment="adminnav(active)">
-                <ul class="nav flex-column my-4 justify-content-end">
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'posts'} ? 'active' : ''" th:href="@{/admin/}">Posts</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'pages'} ? 'active' : ''"
-                           th:href="@{/admin/pages}">Pages</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'images'} ? 'active' : ''"
-                           th:href="@{/admin/images}">Images</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'menu'} ? 'active' : ''"
-                           th:href="@{/admin/editmenu}">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'menu'} ? 'active' : ''"
-                           th:href="@{/admin/categories}">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${active == 'users'} ? 'active' : ''"
-                           th:href="@{/admin/editusers}">Users</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" th:classappend="${active == 'add'} ? 'active' : ''"
-                           data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                           aria-expanded="false">Add</a>
-                        <div class="dropdown-menu  ">
-                            <a class="dropdown-item" th:href="@{/admin/addPost}">Post</a>
-                            <a class="dropdown-item" th:href="@{/admin/addFile}">Image</a>
-                            <a class="dropdown-item" th:href="@{/admin/addPage}">Page</a>
-                            <a class="dropdown-item" th:href="@{/admin/addCategory}">Category</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item px-3 ">
-                        <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Logout</button>
-                        </form>
-                    </li>
-
-                </ul>
-
-
-            </div>
-        </div>
-        <!--/ADMIN MENU-->
     </div>
 
     <div class="row justify-content-center">

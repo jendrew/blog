@@ -35,3 +35,55 @@
         </div>
     </div>
 </nav>
+
+
+
+<div th:fragment="adminnav">
+    <ul class="nav  my-4 justify-content-end">
+
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'posts'} ? 'active' : ''" th:href="@{/admin/}">Posts</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'pages'} ? 'active' : ''"
+               th:href="@{/admin/pages}">Pages</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'images'} ? 'active' : ''"
+               th:href="@{/admin/images}">Images</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'menu'} ? 'active' : ''"
+               th:href="@{/admin/editmenu}">Menu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'categories'} ? 'active' : ''"
+               th:href="@{/admin/categories}">Categories</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${active == 'users'} ? 'active' : ''"
+               th:href="@{/admin/editusers}">Users</a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" th:classappend="${active == 'add'} ? 'active' : ''"
+               data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">Add</a>
+            <div class="dropdown-menu  ">
+                <a class="dropdown-item" th:href="@{/admin/addPost}">Post</a>
+                <a class="dropdown-item" th:href="@{/admin/addFile}">Image</a>
+                <a class="dropdown-item" th:href="@{/admin/addPage}">Page</a>
+                <a class="dropdown-item" th:href="@{/admin/addCategory}">Category</a>
+
+            </div>
+        </li>
+        <li class="nav-item px-3 ">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-outline-primary btn-sm">Logout</button>
+            </form>
+        </li>
+
+    </ul>

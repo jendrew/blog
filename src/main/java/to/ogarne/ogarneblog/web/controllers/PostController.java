@@ -2,7 +2,6 @@ package to.ogarne.ogarneblog.web.controllers;
 
 
 import com.github.slugify.Slugify;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -30,38 +29,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-/**
- * Created by jedrz on 18.07.2017.
- */
 @Controller
 public class PostController extends RootController {
 
-    @Autowired
     Environment env;
-
-    @Autowired
     PostService postService;
-
-    @Autowired
     UserService userService;
-
-    @Autowired
     ContentUtils contentUtils;
-
-    @Autowired
     MarkdownParser markdownParser;
-
-    @Autowired
     Slugify slugify;
-
-    @Autowired
     CategoryService categoryService;
 
+    public PostController(Environment env, PostService postService, UserService userService,
+                          ContentUtils contentUtils, MarkdownParser markdownParser, Slugify slugify,
+                          CategoryService categoryService) {
+        this.env = env;
+        this.postService = postService;
+        this.userService = userService;
+        this.contentUtils = contentUtils;
+        this.markdownParser = markdownParser;
+        this.slugify = slugify;
+        this.categoryService = categoryService;
+    }
 
 
     /* This method takes  the List of posts form the service and iterates over it
     * shortening content and parsing markdown. I'm not sure if it is a good practice
-    * to do it here rather than in some different class*/
+    * to do it here rather than in some different class */
 
     @RequestMapping("/")
     public String getPosts(Model model, @PageableDefault(value=10, page = 0) Pageable pageable) {
@@ -136,12 +130,12 @@ public class PostController extends RootController {
         post.setDateCreated(new Date());
 
         contentUtils.decodeFileIds(post);
-
-
         postService.save(post);
+
         redirectAttributes.addFlashAttribute("post", post);
         redirectAttributes.addFlashAttribute("flash",
                 new FlashMessage("Post successfully added", FlashMessage.Status.SUCCESS));
+
         return "redirect:/admin/posts/" + post.getId() + "/edit";
     }
 
@@ -160,6 +154,7 @@ public class PostController extends RootController {
         model.addAttribute("action", "/admin/posts/" + id + "/edit");
         model.addAttribute("users", userService.findAll());
         model.addAttribute("categories", categoryService.findAll());
+
         return "admin/add_post";
     }
 
@@ -206,7 +201,7 @@ public class PostController extends RootController {
         return "redirect:" + request.getServletPath();
     }
 
-    // Process data from editing post
+    // Process post removal
     @RequestMapping(value = "/admin/posts/{id}/delete", method = RequestMethod.POST)
     public String processDeletePost(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (!request.isUserInRole("ROLE_ADMIN")) {
